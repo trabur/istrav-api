@@ -48,65 +48,6 @@ function stop () {
   channel.off("room:remove", ref4)
 }
 
-/******
- * trigger actions
- ******/
-function all (callback: any) {
-  let outputRoom1 = uuidv4()
-  channel.on(`room:${outputRoom1}`, callback)
-  channel.push("room:broadcast", {
-    room: 'users',
-    message: {
-      output: outputRoom1
-    }
-  })
-}
-  
-function register (email: any, username: any, password: any, callback: any) {
-  let outputRoom2 = uuidv4()
-  channel.on(`room:${outputRoom2}`, callback)
-  channel.push("room:broadcast", {
-    room: 'register',
-    message: {
-      payload: {
-        email,
-        username,
-        password,
-      },
-      output: outputRoom2
-    }
-  })
-}
-
-function login (email: any, password: any, callback: any) {
-  let outputRoom3 = uuidv4()
-  channel.on(`room:${outputRoom3}`, callback)
-  channel.push("room:broadcast", {
-    room: 'login',
-    message: {
-      payload: {
-        email,
-        password
-      },
-      output: outputRoom3
-    }
-  })
-}
-
-function remove (email: any, password: any, callback: any) {
-  let outputRoom4 = uuidv4()
-  channel.on(`room:${outputRoom4}`, callback)
-  channel.push("room:broadcast", {
-    room: 'remove',
-    message: {
-      payload: {
-        email,
-        password
-      },
-      output: outputRoom4
-    }
-  })
-}
 
 /******
  * trigger library
@@ -114,8 +55,4 @@ function remove (email: any, password: any, callback: any) {
 export {
   stop,
   run,
-  all,
-  register,
-  login,
-  remove
 }
