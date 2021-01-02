@@ -1,0 +1,4 @@
+datamodel: schema.prisma
+generate:
+  - generator: javascript-client
+    output: ./generated/prisma-client/
