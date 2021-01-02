@@ -1,5 +1,5 @@
 {
-  "name": "orm",
+  "name": "listener-functions",
   "version": "1.0.0",
   "scripts": {
     "start": "ts-node src/index.ts",
