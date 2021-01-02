@@ -12,8 +12,8 @@ socket.connect()
 // phoenix channel
 let channel = socket.channel("MAIN", {token: "abc"})
 channel.join()
-  .receive("ok", ({ messages }: any) => console.log("joined MAIN channel", messages))
-  .receive("error", ({ reason }: any) => console.log("failed to join MAIN channel", reason))
+  .receive("ok", ({ messages }: any) => console.log("users: joined MAIN channel", messages))
+  .receive("error", ({ reason }: any) => console.log("users: failed to join MAIN channel", reason))
   .receive("timeout", () => console.log("still waiting..."))
 
 // listener references
