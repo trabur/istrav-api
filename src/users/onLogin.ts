@@ -5,6 +5,9 @@ import sha512 from 'crypto-js/sha512'
 export default function (prisma: any, channel: any) {
   // trigger
   return async function (data: any) {
+    // backup a record
+    console.log('onLogin:', data)
+
     // convert password to hash
     let pw = sha512(data.message.payload.password).toString()
     

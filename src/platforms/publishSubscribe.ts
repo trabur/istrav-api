@@ -11,14 +11,14 @@ import onTrigger from './publishSubscribe/onTrigger'
  ******/
 function run (prisma, channel) { 
   // start listening
-  ref1 = channel.on("room:platforms:publishSubscribe:bind", onBind(prisma, channel))
-  ref2 = channel.on("room:platforms:publishSubscribe:trigger", onTrigger(prisma, channel))
+  ref1 = channel.on("vault:platforms:publishSubscribe:bind", onBind(prisma, channel))
+  ref2 = channel.on("vault:platforms:publishSubscribe:trigger", onTrigger(prisma, channel))
 }
 
 function stop (channel) { 
   // quit listening
-  channel.off("room:platforms:publishSubscribe:bind", ref1)
-  channel.off("room:platforms:publishSubscribe:trigger", ref2)
+  channel.off("vault:platforms:publishSubscribe:bind", ref1)
+  channel.off("vault:platforms:publishSubscribe:trigger", ref2)
 }
 
 /******

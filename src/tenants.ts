@@ -15,18 +15,18 @@ import onRemove from './tenants/onRemove'
  ******/
 function run (prisma, channel) { 
   // start listening
-  ref1 = channel.on("room:tenants:register", onRegister(prisma, channel))
-  ref2 = channel.on("room:tenants:login", onLogin(prisma, channel))
-  ref3 = channel.on("room:tenants:tenants", onTenants(prisma, channel))
-  ref4 = channel.on("room:tenants:remove", onRemove(prisma, channel))
+  ref1 = channel.on("vault:tenants:register", onRegister(prisma, channel))
+  ref2 = channel.on("vault:tenants:login", onLogin(prisma, channel))
+  ref3 = channel.on("vault:tenants:tenants", onTenants(prisma, channel))
+  ref4 = channel.on("vault:tenants:remove", onRemove(prisma, channel))
 }
 
 function stop (channel) { 
   // quit listening
-  channel.off("room:tenants:register", ref1)
-  channel.off("room:tenants:login", ref2)
-  channel.off("room:tenants:tenants", ref3)
-  channel.off("room:tenants:remove", ref4)
+  channel.off("vault:tenants:register", ref1)
+  channel.off("vault:tenants:login", ref2)
+  channel.off("vault:tenants:tenants", ref3)
+  channel.off("vault:tenants:remove", ref4)
 }
 
 /******

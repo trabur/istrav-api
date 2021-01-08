@@ -15,18 +15,18 @@ import onRemove from './users/onRemove'
  ******/
 function run (prisma, channel) { 
   // start listening
-  ref1 = channel.on("room:users:register", onRegister(prisma, channel))
-  ref2 = channel.on("room:users:login", onLogin(prisma, channel))
-  ref3 = channel.on("room:users:users", onUsers(prisma, channel))
-  ref4 = channel.on("room:users:remove", onRemove(prisma, channel))
+  ref1 = channel.on("vault:users:register", onRegister(prisma, channel))
+  ref2 = channel.on("vault:users:login", onLogin(prisma, channel))
+  ref3 = channel.on("vault:users:users", onUsers(prisma, channel))
+  ref4 = channel.on("vault:users:remove", onRemove(prisma, channel))
 }
 
 function stop (channel) { 
   // quit listening
-  channel.off("room:users:register", ref1)
-  channel.off("room:users:login", ref2)
-  channel.off("room:users:users", ref3)
-  channel.off("room:users:remove", ref4)
+  channel.off("vault:users:register", ref1)
+  channel.off("vault:users:login", ref2)
+  channel.off("vault:users:users", ref3)
+  channel.off("vault:users:remove", ref4)
 }
 
 /******
