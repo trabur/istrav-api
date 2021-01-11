@@ -3,8 +3,8 @@
       "lib": [
          "es6"
       ],
-      "target": "ES5",
-      "moduleResolution": "node",
+      "target": "ES6",
+      "module": "commonjs",
       "isolatedModules": true,
       "outDir": "dist",
       "resolveJsonModule": true,
