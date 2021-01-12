@@ -1,0 +1,1 @@
+{"version":3,"file":"VehicleEventModel.js","sourceRoot":"","sources":["../../../src/libs/vehicles/VehicleEventModel.ts"],"names":[],"mappings":";;;;;;;;;;;AAAA,qCAA4E;AAG5E,IAAqB,YAAY,GAAjC,MAAqB,YAAa,SAAQ,oBAAU;CAWnD,CAAA;AARG;IADC,gCAAsB,EAAE;;wCACd;AAGX;IADC,gBAAM,EAAE;;+CACS;AAGlB;IADC,gBAAM,EAAE;8BACE,IAAI;+CAAC;AATC,YAAY;IADhC,gBAAM,EAAE;GACY,YAAY,CAWhC;kBAXoB,YAAY"}

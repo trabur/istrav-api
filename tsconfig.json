@@ -3,7 +3,7 @@
       "lib": [
          "es6"
       ],
-      "target": "ES6",
+      "target": "ES2015",
       "module": "commonjs",
       "isolatedModules": true,
       "outDir": "dist",

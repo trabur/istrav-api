@@ -1,0 +1,1 @@
+{"version":3,"file":"onBind.js","sourceRoot":"","sources":["../../../src/platforms/publishSubscribe/onBind.ts"],"names":[],"mappings":";;;;;;;;;;;AAAA,SAAS;AACT,mBAAyB,MAAW,EAAE,OAAY;IAChD,UAAU;IACV,OAAO,UAAgB,IAAS;;YAC9B,OAAO,CAAC,GAAG,CAAC,mBAAmB,CAAC,CAAA;QAClC,CAAC;KAAA,CAAA;AACH,CAAC;AALD,4BAKC"}
