@@ -21,11 +21,14 @@ app.get("/api/v1/vehicles/:id", (req, res) => __awaiter(void 0, void 0, void 0, 
     const q = new libs_1.GetVehicleQuery(req.params.id);
     console.log("Getting vehicle");
     console.log("--------------------------");
-    const vehicles = yield libs_1.queryService.runQuery(q);
-    res.json(vehicles);
+    const vehicle = yield libs_1.queryService.runQuery(q);
+    res.json(vehicle);
 }));
 app.post("/api/v1/vehicles", (req, res) => {
-    const vehicle = { amount: parseFloat(req.body.number), currency: "SEK" };
+    const vehicle = {
+        lat: parseFloat(req.body.lat),
+        long: parseFloat(req.body.long)
+    };
     const c = new libs_1.CreateVehicleCommand(vehicle);
     // We want to allow maximum throughput so we don't wait for the write to happen before returning a response.
     wait(2000, () => {

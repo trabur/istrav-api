@@ -1,9 +1,10 @@
 {
    "compilerOptions": {
       "lib": [
-         "es6"
+         "es6",
+         "DOM"
       ],
-      "target": "ES2015",
+      "target": "ES6",
       "module": "commonjs",
       "isolatedModules": true,
       "outDir": "dist",

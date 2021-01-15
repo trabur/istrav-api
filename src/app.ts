@@ -1,46 +1,38 @@
+// libraries
 import express from "express"
-const app = express();
-
 import "reflect-metadata";
-import { 
-  GetVehicleQuery, 
-  CreateVehicleCommand, 
-  queryService, 
-  commandService 
-} from "./libs";
+import {createConnection} from "typeorm";
 
-app.use(express.json());
+// endpoints
+import vehicles from "./vehicles/index"
 
-app.get("/api/v1/vehicles/:id", async (req, res) => {
-  const q = new GetVehicleQuery(req.params.id);
-  console.log("Getting vehicle");
-  console.log("--------------------------");
-  const vehicles = await queryService.runQuery(q);
-  res.json(vehicles);
-});
+// entities
+import VehicleModel from './vehicles/VehicleModel'
 
-app.post("/api/v1/vehicles", (req, res) => {
-  const vehicle = { 
-    lat: parseFloat(req.body.lat), 
-    long: parseFloat(req.body.long)
-  };
-  const c = new CreateVehicleCommand(vehicle);
-  // We want to allow maximum throughput so we don't wait for the write to happen before returning a response.
-  wait(2000, () => {
-    console.log("Creating vehicle", vehicle);
-    console.log("--------------------------");
-    commandService.runCommand(c)
-  });
+// init
+const app = express()
+const config: any = {
+  type: "sqljs",
+  location: "demo",
+  autoSave: true,
+  entities: [
+    VehicleModel
+  ],
+  logging: ['query', 'schema'],
+  synchronize: true
+}
 
-  res.json(vehicle);
-});
+// create typeorm connection
+createConnection(config)
+  .then(connection => {
+    // repos
+    const vehicleRepo = connection.getRepository(VehicleModel);
+    
+    // decode
+    app.use(express.json())
 
-export default app;
-
-const wait = (timeout, fn) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(fn());
-    }, timeout);
+    // listener functions
+    vehicles(app, vehicleRepo)
   })
-};
+  
+export default app
