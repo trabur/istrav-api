@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 
-import Vehicles from '../src/vehicles/library'
+import Vehicles from '../src/vehicles/Library'
 
 async function main(host) {
   let vehicles: any = new Vehicles(host)

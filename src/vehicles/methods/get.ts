@@ -1,5 +1,3 @@
-import request from 'request'
-
 import { Request, Response } from "express"
 
 export default function (vehicleRepo) {

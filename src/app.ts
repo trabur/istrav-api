@@ -4,12 +4,12 @@ import "reflect-metadata"
 import { createConnection } from "typeorm"
 
 // endpoints
-import vehicles from "./vehicles/index"
-import users from "./users/index"
+import vehicles from "./vehicles/server"
+// import users from "./users/server"
 
 // entities
-import VehicleModel from './vehicles/VehicleModel'
-import UserModel from './users/UserModel'
+import Vehicle from './vehicles/Model'
+// import UserModel from './users/UserModel'
 
 // init
 const app = express()
@@ -18,8 +18,8 @@ const config: any = {
   location: "demo",
   autoSave: true,
   entities: [
-    VehicleModel,
-    UserModel
+    Vehicle,
+    // UserModel
   ],
   logging: ['query', 'schema'],
   synchronize: true
@@ -29,15 +29,15 @@ const config: any = {
 createConnection(config)
   .then(connection => {
     // repos
-    const vehicleRepo = connection.getRepository(VehicleModel)
-    const userRepo = connection.getRepository(UserModel)
+    const vehicleRepo = connection.getRepository(Vehicle)
+    // const userRepo = connection.getRepository(UserModel)
     
     // decode
     app.use(express.json())
 
     // listener functions
     vehicles(app, vehicleRepo)
-    users(app, userRepo)
+    // users(app, userRepo)
   })
   
 export default app
