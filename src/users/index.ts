@@ -1,16 +1,16 @@
-import vehicleById from './vehicleById'
-import saveVehicle from './saveVehicle'
-import allVehicles from "./allVehicles"
-import updateVehicle from "./updateVehicle"
-import deleteVehicle from "./deleteVehicle"
+import userById from './userById'
+import saveUser from './saveUser'
+import allUsers from "./allUsers"
+import updateUser from "./updateUser"
+import deleteUser from "./deleteUser"
 
 import { checkJwt } from "../middlewares/checkJwt";
 import { checkRole } from "../middlewares/checkRole";
 
-export default function (app, vehicleRepo) {
-  app.get("/api/v1/vehicles", allVehicles(vehicleRepo))
-  app.get("/api/v1/vehicles/:id", vehicleById(vehicleRepo))
-  app.post("/api/v1/vehicles", saveVehicle(vehicleRepo))
-  app.put("/api/v1/vehicles/:id", updateVehicle(vehicleRepo))
-  app.delete("/api/v1/vehicles/:id", [checkJwt, checkRole(["ADMIN"])], deleteVehicle(vehicleRepo))
+export default function (app, userRepo) {
+  app.get("/api/v1/users", allUsers(userRepo))
+  app.get("/api/v1/users/:id", userById(userRepo))
+  app.post("/api/v1/users", saveUser(userRepo))
+  app.put("/api/v1/users/:id", updateUser(userRepo))
+  app.delete("/api/v1/users/:id", [checkJwt, checkRole(["ADMIN"])], deleteUser(userRepo))
 }
