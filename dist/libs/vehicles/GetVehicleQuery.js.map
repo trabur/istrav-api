@@ -1,1 +1,0 @@
-{"version":3,"file":"GetVehicleQuery.js","sourceRoot":"","sources":["../../../src/libs/vehicles/GetVehicleQuery.ts"],"names":[],"mappings":";;;;;;AAAA,qDAAmC;AAEnC,MAAa,eAAe;IAC1B,YAAY,EAAE;QAGd,OAAE,GAAG,IAAI,CAAA;QAFP,IAAI,CAAC,EAAE,GAAG,EAAE,CAAC;IACf,CAAC;IAGD,GAAG;QACD,OAAO,eAAY,CAAC,cAAc,CAAC,IAAI,CAAC,EAAE,CAAC,CAAC;IAC9C,CAAC;CACF;AATD,0CASC"}
