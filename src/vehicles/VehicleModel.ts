@@ -1,7 +1,7 @@
 import {BaseEntity, Entity, PrimaryColumn, Column} from "typeorm";
 
 @Entity()
-export default class VehicleView extends BaseEntity {
+export default class Vehicle extends BaseEntity {
     
     @PrimaryColumn({ type:"uuid" })
     id: string;
@@ -14,12 +14,5 @@ export default class VehicleView extends BaseEntity {
 
     @Column()
     long: string;
-
-    static findByName(firstName: string, lastName: string) {
-        return this.createQueryBuilder("user")
-            .where("user.firstName = :firstName", { firstName })
-            .andWhere("user.lastName = :lastName", { lastName })
-            .getMany();
-    }
 
 }

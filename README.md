@@ -9,11 +9,3 @@ chart:
 - node.js    REST    routes     express.js // request to backend
 - node.js    API     lib        express.js // backend to event source
 
-### begin
-```bash
-$ cd ./prisma
-$ npx prisma generate
-```
-
-### developer documents
-make changes at `schema.prisma` then run `npx prisma migrate dev --preview-feature`

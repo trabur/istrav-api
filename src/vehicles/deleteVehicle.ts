@@ -1,13 +1,11 @@
-import request from 'request'
-
 import { Request, Response } from "express"
 
 export default function (vehicleRepo) {
   return async function (req: Request, res: Response) {
-    // here we will have logic to return vehicle by id
-    console.log("Vehicle by id")
+    // here we will have logic to delete a vehicle by a given vehicle id
+    console.log("Delete vehicle")
     console.log("--------------------------")
-    const results = await vehicleRepo.findOne(req.params.id)
+    const results = await vehicleRepo.delete(req.params.id)
     res.json(results)
   }
 }
