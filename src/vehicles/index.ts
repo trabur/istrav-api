@@ -12,5 +12,6 @@ export default function (app, vehicleRepo) {
   app.get("/api/v1/vehicles/:id", vehicleById(vehicleRepo))
   app.post("/api/v1/vehicles", saveVehicle(vehicleRepo))
   app.put("/api/v1/vehicles/:id", updateVehicle(vehicleRepo))
-  app.delete("/api/v1/vehicles/:id", [checkJwt, checkRole(["ADMIN"])], deleteVehicle(vehicleRepo))
+  app.delete("/api/v1/vehicles/:id", deleteVehicle(vehicleRepo))
+  // app.delete("/api/v1/vehicles/:id", [checkJwt, checkRole(["ADMIN"])], deleteVehicle(vehicleRepo))
 }

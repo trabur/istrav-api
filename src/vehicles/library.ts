@@ -1,12 +1,12 @@
 import axios from 'axios'
 
 export default class Vehicles {
-  constructor(host) {
+  constructor(host: any) {
     this.host = host
   }
-  this.host
+  host = ''
 
-  allVehicles() {
+  all = () => {
     return axios
       .get(`${this.host}/api/v1/vehicles`, {})
       .then(function (response) {
@@ -19,7 +19,7 @@ export default class Vehicles {
       })
   }
   
-  saveVehicle(params) {
+  save = (params: any) => {
     return axios
       .post(`${this.host}/api/v1/vehicles`, {
         params: params
@@ -34,7 +34,7 @@ export default class Vehicles {
       })
   }
   
-  vehicleById(id) {
+  get = (id: string) => {
     return axios
       .post(`${this.host}/api/v1/vehicles`, {
         params: {
@@ -47,6 +47,34 @@ export default class Vehicles {
       })
       .catch(function (error) {
         console.log('vehicleById', error)
+        return error
+      })
+  }
+
+  update = (id: string, params: any) => {
+    return axios
+      .put(`${this.host}/api/v1/vehicles/${id}`, {
+        params: params
+      })
+      .then(function (response) {
+        console.log('updateVehicle', response.data)
+        return response.data
+      })
+      .catch(function (error) {
+        console.log('updateVehicle', error)
+        return error
+      })
+  }
+
+  delete = (id: string) => {
+    return axios
+      .delete(`${this.host}/api/v1/vehicles/${id}`)
+      .then(function (response) {
+        console.log('deleteVehicle', response.data)
+        return response.data
+      })
+      .catch(function (error) {
+        console.log('deleteVehicle', error)
         return error
       })
   }
