@@ -66,7 +66,7 @@ export default class Vehicles {
       })
   }
 
-  delete = (id: string) => {
+  remove = (id: string) => {
     return axios
       .delete(`${this.host}/api/v1/vehicles/${id}`)
       .then(function (response) {

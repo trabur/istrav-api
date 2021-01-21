@@ -28,7 +28,7 @@ async function main(host) {
     console.log('movedVehicle', movedVehicle)
 
     // now remove the vehicle
-    let deletedVehicle = await vehicles.delete(movedVehicle.id)
+    let deletedVehicle = await vehicles.remove(movedVehicle.id)
     console.log('deletedVehicle', deletedVehicle)
 
     // get all vehicles
