@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from 'uuid'
 
-import Vehicles from '../src/vehicles/Library'
+import Vehicles from '../src/v1/vehicles/Library'
 
-async function main(host) {
-  let vehicles: any = new Vehicles(host)
+async function main(config) {
+  let vehicles: any = new Vehicles(config)
   console.log('vehicles', vehicles)
 
   try {
@@ -39,4 +39,6 @@ async function main(host) {
   }
 }
 
-main('http://localhost:3000')
+main({ 
+  host: 'http://localhost:3000'
+})

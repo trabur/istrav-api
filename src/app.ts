@@ -4,11 +4,11 @@ import "reflect-metadata"
 import { createConnection } from "typeorm"
 
 // endpoints
-import vehicles from "./vehicles/server"
+import vehicles from "./v1/vehicles/server"
 // import users from "./users/server"
 
 // entities
-import Vehicle from './vehicles/Model'
+import Vehicle from './v1/vehicles/Model'
 // import UserModel from './users/UserModel'
 
 // init
