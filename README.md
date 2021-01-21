@@ -9,3 +9,7 @@ chart:
 - node.js    REST    routes     express.js // request to backend
 - node.js    API     lib        express.js // backend to event source
 
+### deploy to production
+```bash
+$ git push heroku master
+```

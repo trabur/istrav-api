@@ -6,7 +6,9 @@
     "build": "tsc",
     "test": "ts-node ./test/index.ts"
   },
-  "main": "dist/app.js",
+  "engines": {
+    "node": "14.x"
+  },
   "dependencies": {
     "amqp-ts": "^1.8.0",
     "axios": "^0.21.1",
