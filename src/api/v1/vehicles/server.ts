@@ -6,9 +6,9 @@ import remove from "./methods/remove"
 
 import { checkJwt } from "../../../middlewares/checkJwt";
 import { checkRole } from "../../../middlewares/checkRole";
+import version from '../version.json'
 
 const endpoint = 'vehicles'
-const version = 'v1'
 let config = { endpoint, version }
 
 export default function (app, vehicleRepo) {
