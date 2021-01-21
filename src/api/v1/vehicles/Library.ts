@@ -1,17 +1,17 @@
 import axios from 'axios'
+import version from '../version.json'
 
 export default class Vehicles {
   constructor(config: any) {
     if (config.host) { this.host = config.host }
   }
   endpoint = 'vehicles'
-  version = 'v1'
   host = 'http://localhost:3000'
 
   all = () => {
     let that = this
     return axios
-      .get(`${this.host}/api/${this.version}/${this.endpoint}`, {})
+      .get(`${this.host}/api/${version}/${this.endpoint}`, {})
       .then(function (response) {
         console.log('all', that.endpoint, response.data)
         return response.data
@@ -25,7 +25,7 @@ export default class Vehicles {
   save = (params: any) => {
     let that = this
     return axios
-      .post(`${this.host}/api/${this.version}/${this.endpoint}`, {
+      .post(`${this.host}/api/${version}/${this.endpoint}`, {
         params: params
       })
       .then(function (response) {
@@ -41,7 +41,7 @@ export default class Vehicles {
   get = (id: string) => {
     let that = this
     return axios
-      .post(`${this.host}/api/${this.version}/${this.endpoint}`, {
+      .post(`${this.host}/api/${version}/${this.endpoint}`, {
         params: {
           id: id
         }
@@ -59,7 +59,7 @@ export default class Vehicles {
   update = (id: string, params: any) => {
     let that = this
     return axios
-      .put(`${this.host}/api/${this.version}/${this.endpoint}/${id}`, {
+      .put(`${this.host}/api/${version}/${this.endpoint}/${id}`, {
         params: params
       })
       .then(function (response) {
@@ -75,7 +75,7 @@ export default class Vehicles {
   remove = (id: string) => {
     let that = this
     return axios
-      .delete(`${this.host}/api/${this.version}/${this.endpoint}/${id}`)
+      .delete(`${this.host}/api/${version}/${this.endpoint}/${id}`)
       .then(function (response) {
         console.log('remove', that.endpoint, response.data)
         return response.data

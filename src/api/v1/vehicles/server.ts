@@ -4,8 +4,8 @@ import all from "./methods/all"
 import update from "./methods/update"
 import remove from "./methods/remove"
 
-import { checkJwt } from "../../middlewares/checkJwt";
-import { checkRole } from "../../middlewares/checkRole";
+import { checkJwt } from "../../../middlewares/checkJwt";
+import { checkRole } from "../../../middlewares/checkRole";
 
 const endpoint = 'vehicles'
 const version = 'v1'
