@@ -5,7 +5,7 @@ import { createConnection } from "typeorm"
 
 // endpoints
 import vehicles from "./vehicles/index"
-import users from "./users/index.ts"
+import users from "./users/index"
 
 // entities
 import VehicleModel from './vehicles/VehicleModel'
@@ -18,7 +18,8 @@ const config: any = {
   location: "demo",
   autoSave: true,
   entities: [
-    VehicleModel
+    VehicleModel,
+    UserModel
   ],
   logging: ['query', 'schema'],
   synchronize: true

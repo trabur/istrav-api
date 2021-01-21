@@ -5,7 +5,8 @@ export default function (vehicleRepo) {
     // here we will have logic to save a vehicle
     console.log("Save vehicle")
     console.log("--------------------------")
-    const vehicle = await vehicleRepo.create(req.body)
+    console.log('req.body.params:', req.body.params)
+    const vehicle = await vehicleRepo.create(req.body.params)
     const results = await vehicleRepo.save(vehicle)
     res.json(results)
   }
