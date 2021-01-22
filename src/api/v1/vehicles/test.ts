@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import Vehicles from './Library'
 
 async function main(config) {
-  let vehicles: any = new Vehicles(config)
+  let vehicles = new Vehicles(config)
   console.log('vehicles', vehicles)
 
   try {

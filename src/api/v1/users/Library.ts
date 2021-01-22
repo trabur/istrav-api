@@ -1,11 +1,11 @@
 import axios from 'axios'
 import version from '../version.json'
 
-export default class Vehicles {
+export default class Users {
   constructor(config: any) {
     if (config.host) { this.host = config.host }
   }
-  endpoint = 'vehicles'
+  endpoint = 'users'
   host = 'http://localhost:3000'
 
   all = () => {

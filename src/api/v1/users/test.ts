@@ -3,37 +3,40 @@ import { v4 as uuidv4 } from 'uuid'
 import Users from './Library'
 
 async function main(config) {
-  let users: any = new Users(config)
+  let users = new Users(config)
   console.log('users', users)
 
   try {
     // create a new user
     let user = await users.save({
       id: uuidv4(),
-      name: 'my-user',
-      lat: '30.3074624',
-      long: '-98.0335911'
+      email: 'travis.burandt@gmail.com',
+      username: 'cool-user',
+      password: 'my-password',
+      firstName: 'john',
+      lastName: 'doe',
+      role: 'ADMIN'
     })
     console.log('new user', user)
 
     // get that user by id
-    let myVehicle = await users.get(user.id)
-    console.log('my-user', myVehicle)
+    let myUser = await users.get(user.id)
+    console.log('my-user', myUser)
     
     // change user position
-    let movedVehicle = await users.update(myVehicle.id, { 
-      lat: '30.3074625',
-      long: '-98.0335912'
+    let updatedUser = await users.update(myUser.id, { 
+      firstName: 'someone',
+      lastName: 'else'
     })
-    console.log('movedVehicle', movedVehicle)
+    console.log('updatedUser', updatedUser)
 
-    // now remove the user
-    let deletedVehicle = await users.remove(movedVehicle.id)
-    console.log('deletedVehicle', deletedVehicle)
+    // // now remove the user
+    // let deletedUser = await users.remove(updatedUser.id)
+    // console.log('deletedUser', deletedUser)
 
     // get all users
-    let allVehicles = await users.all()
-    console.log('allVehicles', allVehicles)
+    let allUsers = await users.all()
+    console.log('allUsers', allUsers)
   } catch (error) {
     console.error(error);
   }

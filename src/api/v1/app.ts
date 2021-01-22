@@ -3,12 +3,12 @@ import express from "express"
 import { createConnection } from "typeorm"
 
 // endpoints
+import users from "./users/server"
 import vehicles from "./vehicles/server"
-// import users from "./users/server"
 
 // entities
+import User from './users/Model'
 import Vehicle from './vehicles/Model'
-// import UserModel from './users/UserModel'
 
 // init
 export default function (app) {
@@ -18,7 +18,7 @@ export default function (app) {
     autoSave: true,
     entities: [
       Vehicle,
-      // UserModel
+      User
     ],
     logging: ['query', 'schema'],
     synchronize: true
@@ -28,14 +28,14 @@ export default function (app) {
   createConnection(config)
     .then(connection => {
       // repos
+      const userRepo = connection.getRepository(User)
       const vehicleRepo = connection.getRepository(Vehicle)
-      // const userRepo = connection.getRepository(UserModel)
       
       // decode
       app.use(express.json())
   
       // listener functions
+      users(app, userRepo)
       vehicles(app, vehicleRepo)
-      // users(app, userRepo)
     })
 }

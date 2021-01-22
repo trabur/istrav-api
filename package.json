@@ -4,6 +4,7 @@
   "scripts": {
     "start": "ts-node server.ts",
     "build": "tsc",
+    "test:users": "ts-node ./src/api/v1/users/test.ts",
     "test:vehicles": "ts-node ./src/api/v1/vehicles/test.ts"
   },
   "engines": {
