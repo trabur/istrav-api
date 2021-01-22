@@ -1,5 +1,8 @@
 import sha512 from 'crypto-js/sha512'
+import * as jwt from "jsonwebtoken";
 import { Request, Response } from "express"
+
+import configuration from "../../../../config/config";
 
 export default function (userRepo, config) {
   return async function (req: Request, res: Response) {
@@ -14,16 +17,30 @@ export default function (userRepo, config) {
         email: req.body.params.email
       }
     })
-    console.log('check password against this:', results)
+    console.log('validate against this password:', results)
     
-    let response
-    let up = sha512(req.body.params.password).toString()
-    if (up === results.password) {
-      response = true // user is auth
+    let message
+    let check = sha512(req.body.params.password).toString()
+    if (results.password === check) {
+      const newToken = jwt.sign({ 
+        email: results.email,
+        role: results.role
+      }, configuration.jwtSecret, {
+        expiresIn: "1h"
+      })
+      res.setHeader("token", newToken)
+      message = {
+        token: newToken,
+        success: true // user is auth
+      }
     } else {
-      response = false // user is not auth
+      message = {
+        reason: 'invalid password',
+        success: false // user is not auth
+      }
     }
 
-    res.json(response)
+    console.log('check', message)
+    res.json(message)
   }
 }
