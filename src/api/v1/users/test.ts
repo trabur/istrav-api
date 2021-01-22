@@ -1,6 +1,10 @@
 import Users from './Library'
 
-async function main(config) {
+async function main() {
+  let config = { 
+    host: 'http://localhost:3000'
+  }
+
   let users = new Users(config)
   console.log('users', users)
 
@@ -38,15 +42,13 @@ async function main(config) {
     let allUsers = await users.all()
     console.log('allUsers', allUsers)
     
-    // now remove the user
-    let deletedUser = await users.remove(updatedUser.email)
-    console.log('deletedUser', deletedUser)
+    // // now remove the user
+    // let deletedUser = await users.remove(updatedUser.email)
+    // console.log('deletedUser', deletedUser)
 
   } catch (error) {
     console.error(error);
   }
 }
 
-main({ 
-  host: 'http://localhost:3000'
-})
+main()
