@@ -6,7 +6,7 @@ async function main(config) {
 
   try {
     // create a new user
-    let user = await users.save({
+    let user = await users.register({
       email: 'travis.burandt@gmail.com',
       username: 'cool-user',
       password: 'my-password',
@@ -27,13 +27,14 @@ async function main(config) {
     })
     console.log('updatedUser', updatedUser)
 
+    // get all users
+    let allUsers = await users.all()
+    console.log('allUsers', allUsers)
+    
     // now remove the user
     let deletedUser = await users.remove(updatedUser.email)
     console.log('deletedUser', deletedUser)
 
-    // get all users
-    let allUsers = await users.all()
-    console.log('allUsers', allUsers)
   } catch (error) {
     console.error(error);
   }

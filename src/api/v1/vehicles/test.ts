@@ -24,13 +24,13 @@ async function main(config) {
     })
     console.log('movedVehicle', movedVehicle)
 
-    // now remove the vehicle
-    let deletedVehicle = await vehicles.remove(movedVehicle.id)
-    console.log('deletedVehicle', deletedVehicle)
-
     // get all vehicles
     let allVehicles = await vehicles.all()
     console.log('allVehicles', allVehicles)
+    
+    // now remove the vehicle
+    let deletedVehicle = await vehicles.remove(movedVehicle.id)
+    console.log('deletedVehicle', deletedVehicle)
   } catch (error) {
     console.error(error);
   }

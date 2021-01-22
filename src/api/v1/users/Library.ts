@@ -22,18 +22,18 @@ export default class Users {
       })
   }
   
-  save = (params: any) => {
+  register = (params: any) => {
     let that = this
     return axios
       .post(`${this.host}/api/${version}/${this.endpoint}`, {
         params: params
       })
       .then(function (response) {
-        console.log('save', that.endpoint, response.data)
+        console.log('register', that.endpoint, response.data)
         return response.data
       })
       .catch(function (error) {
-        console.log('save', that.endpoint, error)
+        console.log('register', that.endpoint, error)
         return error
       })
   }

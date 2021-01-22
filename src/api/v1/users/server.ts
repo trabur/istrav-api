@@ -1,5 +1,5 @@
 import get from './methods/get'
-import save from './methods/save'
+import register from './methods/register'
 import all from "./methods/all"
 import update from "./methods/update"
 import remove from "./methods/remove"
@@ -13,7 +13,7 @@ let config = { endpoint, version }
 export default function (app, userRepo) {
   app.get(`/api/${version}/${endpoint}`, all(userRepo, config))
   app.get(`/api/${version}/${endpoint}/:email`, get(userRepo, config))
-  app.post(`/api/${version}/${endpoint}`, save(userRepo, config))
+  app.post(`/api/${version}/${endpoint}`, register(userRepo, config))
   app.put(`/api/${version}/${endpoint}/:email`, update(userRepo, config))
   app.delete(`/api/${version}/${endpoint}/:email`, remove(userRepo, config))
   // app.delete(`/api/v1/users/:id`, [checkJwt, checkRole(["ADMIN"])], deleteVehicle(userRepo))
