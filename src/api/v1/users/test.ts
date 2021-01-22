@@ -42,9 +42,9 @@ async function main() {
     let allUsers = await users.all()
     console.log('allUsers', allUsers)
     
-    // // now remove the user
-    // let deletedUser = await users.remove(updatedUser.email)
-    // console.log('deletedUser', deletedUser)
+    // now remove the user
+    let deletedUser = await users.remove(updatedUser.email)
+    console.log('deletedUser', deletedUser)
 
   } catch (error) {
     console.error(error);

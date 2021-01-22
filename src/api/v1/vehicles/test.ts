@@ -3,7 +3,7 @@ import Vehicles from './Library'
 async function main() {
   let config = { 
     host: 'http://localhost:3000',
-    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRyYXZpcy5idXJhbmR0QGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTYxMTI5NTQ2MSwiZXhwIjoxNjExMjk5MDYxfQ.yaJFndogCYeOx5K8wljDePOiQT8Lud_gK38psryr69Q'
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRyYXZpcy5idXJhbmR0QGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTYxMTMwMDM4NH0.tT73mLHUpiFJ5un1JS0p6P7NmLsFVZkuvVQYn9KoeO8'
   }
 
   let vehicles = new Vehicles(config)

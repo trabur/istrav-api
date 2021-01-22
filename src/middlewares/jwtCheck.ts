@@ -11,10 +11,10 @@ export const jwtCheck = (req: Request, res: Response, next: NextFunction) => {
   let jwtPayload
   
   // Try to validate the token and get data
-  jwt.verify(token, configuration.jwtSecret, function (err, user) {
+  jwt.verify(token, configuration.jwtSecret, function (err, auth) {
     if (err) return res.sendStatus(403)
-    req.user = user
-    console.log('verify', user)
+    req.auth = auth
+    console.log('verify', auth)
     next()
   })
 }
