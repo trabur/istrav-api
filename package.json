@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "ts-node server.ts",
+    "build": "tsc",
     "test:vehicles": "ts-node ./src/api/v1/vehicles/test.ts"
   },
   "engines": {
