@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid'
-
 import Users from './Library'
 
 async function main(config) {
@@ -9,7 +7,6 @@ async function main(config) {
   try {
     // create a new user
     let user = await users.save({
-      id: uuidv4(),
       email: 'travis.burandt@gmail.com',
       username: 'cool-user',
       password: 'my-password',
@@ -20,19 +17,19 @@ async function main(config) {
     console.log('new user', user)
 
     // get that user by id
-    let myUser = await users.get(user.id)
+    let myUser = await users.get(user.email)
     console.log('my-user', myUser)
     
     // change user position
-    let updatedUser = await users.update(myUser.id, { 
+    let updatedUser = await users.update(myUser.email, { 
       firstName: 'someone',
       lastName: 'else'
     })
     console.log('updatedUser', updatedUser)
 
-    // // now remove the user
-    // let deletedUser = await users.remove(updatedUser.id)
-    // console.log('deletedUser', deletedUser)
+    // now remove the user
+    let deletedUser = await users.remove(updatedUser.email)
+    console.log('deletedUser', deletedUser)
 
     // get all users
     let allUsers = await users.all()

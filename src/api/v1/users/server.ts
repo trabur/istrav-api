@@ -12,9 +12,9 @@ let config = { endpoint, version }
 
 export default function (app, userRepo) {
   app.get(`/api/${version}/${endpoint}`, all(userRepo, config))
-  app.get(`/api/${version}/${endpoint}/:id`, get(userRepo, config))
+  app.get(`/api/${version}/${endpoint}/:email`, get(userRepo, config))
   app.post(`/api/${version}/${endpoint}`, save(userRepo, config))
-  app.put(`/api/${version}/${endpoint}/:id`, update(userRepo, config))
-  app.delete(`/api/${version}/${endpoint}/:id`, remove(userRepo, config))
+  app.put(`/api/${version}/${endpoint}/:email`, update(userRepo, config))
+  app.delete(`/api/${version}/${endpoint}/:email`, remove(userRepo, config))
   // app.delete(`/api/v1/users/:id`, [checkJwt, checkRole(["ADMIN"])], deleteVehicle(userRepo))
 }

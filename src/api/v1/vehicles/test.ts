@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid'
-
 import Vehicles from './Library'
 
 async function main(config) {
@@ -9,7 +7,6 @@ async function main(config) {
   try {
     // create a new vehicle
     let vehicle = await vehicles.save({
-      id: uuidv4(),
       name: 'my-vehicle',
       lat: '30.3074624',
       long: '-98.0335911'

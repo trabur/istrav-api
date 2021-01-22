@@ -1,9 +1,16 @@
-import {BaseEntity, Entity, PrimaryColumn, Column} from "typeorm";
+import { 
+    BaseEntity,
+    Entity, 
+    PrimaryGeneratedColumn, 
+    Column,
+    CreateDateColumn,
+    UpdateDateColumn
+} from "typeorm";
 
 @Entity()
 export default class Vehicle extends BaseEntity {
     
-    @PrimaryColumn({ type:"uuid" })
+    @PrimaryGeneratedColumn("uuid")
     id: string;
 
     @Column()
@@ -15,4 +22,12 @@ export default class Vehicle extends BaseEntity {
     @Column()
     long: string;
 
+    @Column()
+    @CreateDateColumn()
+    createdAt: Date;
+
+    @Column()
+    @UpdateDateColumn()
+    updatedAt: Date;
+  
 }

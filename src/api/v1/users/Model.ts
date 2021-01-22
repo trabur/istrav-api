@@ -3,7 +3,8 @@ import {
   Entity,
   PrimaryColumn,
   Column,
-  CreateDateColumn
+  CreateDateColumn,
+  UpdateDateColumn
 } from "typeorm"
 import { Length, IsNotEmpty } from "class-validator"
 import sha512 from 'crypto-js/sha512'
@@ -11,10 +12,7 @@ import sha512 from 'crypto-js/sha512'
 @Entity()
 export default class User extends BaseEntity {
     
-  @PrimaryColumn({ type:"uuid" })
-  id: string;
-  
-  @Column()
+  @PrimaryColumn()
   email: string;
 
   @Column()
@@ -38,6 +36,10 @@ export default class User extends BaseEntity {
   @Column()
   @CreateDateColumn()
   createdAt: Date;
+
+  @Column()
+  @UpdateDateColumn()
+  updatedAt: Date;
 
   static findByName(firstName: string, lastName: string) {
     return this.createQueryBuilder("user")
