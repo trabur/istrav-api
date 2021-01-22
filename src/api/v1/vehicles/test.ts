@@ -7,33 +7,33 @@ async function main(config) {
   console.log('vehicles', vehicles)
 
   try {
-    // // create a new vehicle
-    // let vehicle = await vehicles.save({
-    //   id: uuidv4(),
-    //   name: 'my-vehicle',
-    //   lat: '30.3074624',
-    //   long: '-98.0335911'
-    // })
-    // console.log('new vehicle', vehicle)
+    // create a new vehicle
+    let vehicle = await vehicles.save({
+      id: uuidv4(),
+      name: 'my-vehicle',
+      lat: '30.3074624',
+      long: '-98.0335911'
+    })
+    console.log('new vehicle', vehicle)
 
     // get that vehicle by id
-    let myVehicle = await vehicles.get('9ac6e399-e0ab-4bbd-91b4-e6a636af2716'/*vehicle.id*/)
+    let myVehicle = await vehicles.get(vehicle.id)
     console.log('my-vehicle', myVehicle)
     
-    // // change vehicle position
+    // change vehicle position
     let movedVehicle = await vehicles.update(myVehicle.id, { 
       lat: '30.3074625',
       long: '-98.0335912'
     })
     console.log('movedVehicle', movedVehicle)
 
-    // // now remove the vehicle
-    // let deletedVehicle = await vehicles.remove(movedVehicle.id)
-    // console.log('deletedVehicle', deletedVehicle)
+    // now remove the vehicle
+    let deletedVehicle = await vehicles.remove(movedVehicle.id)
+    console.log('deletedVehicle', deletedVehicle)
 
-    // // get all vehicles
-    // let allVehicles = await vehicles.all()
-    // console.log('allVehicles', allVehicles)
+    // get all vehicles
+    let allVehicles = await vehicles.all()
+    console.log('allVehicles', allVehicles)
   } catch (error) {
     console.error(error);
   }
