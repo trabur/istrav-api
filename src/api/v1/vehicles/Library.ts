@@ -41,11 +41,7 @@ export default class Vehicles {
   get = (id: string) => {
     let that = this
     return axios
-      .post(`${this.host}/api/${version}/${this.endpoint}`, {
-        params: {
-          id: id
-        }
-      })
+      .get(`${this.host}/api/${version}/${this.endpoint}/${id}`)
       .then(function (response) {
         console.log('get', that.endpoint, response.data)
         return response.data
