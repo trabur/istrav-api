@@ -8,6 +8,9 @@ const port = process.env.PORT || 3000
 // init api
 v1(app)
 
+// welcome screen
+app.get('/*', express.static('public'))
+
 // run
 app.listen(port, () => {
   console.log("Running server on port:", port)
