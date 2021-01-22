@@ -3,15 +3,19 @@ import version from '../version.json'
 
 export default class Vehicles {
   constructor(config: any) {
+    if (config.token) { this.token = config.token }
     if (config.host) { this.host = config.host }
   }
   endpoint = 'vehicles'
   host = 'http://localhost:3000'
+  token = ''
 
   all = () => {
     let that = this
     return axios
-      .get(`${this.host}/api/${version}/${this.endpoint}`, {})
+      .get(`${this.host}/api/${version}/${this.endpoint}`, {
+        headers: {'authorization': `Bearer ${this.token}`}
+      })
       .then(function (response) {
         console.log('all', that.endpoint, response.data)
         return response.data

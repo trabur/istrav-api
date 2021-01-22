@@ -25,10 +25,7 @@ export default function (userRepo, config) {
       const newToken = jwt.sign({ 
         email: results.email,
         role: results.role
-      }, configuration.jwtSecret, {
-        expiresIn: "1h"
-      })
-      res.setHeader("token", newToken)
+      }, configuration.jwtSecret)
       message = {
         token: newToken,
         success: true // user is auth

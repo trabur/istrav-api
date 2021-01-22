@@ -1,6 +1,11 @@
 import Vehicles from './Library'
 
-async function main(config) {
+async function main() {
+  let config = { 
+    host: 'http://localhost:3000',
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRyYXZpcy5idXJhbmR0QGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTYxMTI5NTQ2MSwiZXhwIjoxNjExMjk5MDYxfQ.yaJFndogCYeOx5K8wljDePOiQT8Lud_gK38psryr69Q'
+  }
+
   let vehicles = new Vehicles(config)
   console.log('vehicles', vehicles)
 
@@ -36,6 +41,4 @@ async function main(config) {
   }
 }
 
-main({ 
-  host: 'http://localhost:3000'
-})
+main()

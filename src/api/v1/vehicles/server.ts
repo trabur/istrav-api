@@ -11,7 +11,7 @@ const endpoint = 'vehicles'
 let config = { endpoint, version }
 
 export default function (app, vehicleRepo) {
-  app.get(`/api/${version}/${endpoint}`, all(vehicleRepo, config))
+  app.get(`/api/${version}/${endpoint}`, jwtCheck, all(vehicleRepo, config))
   app.get(`/api/${version}/${endpoint}/:id`, get(vehicleRepo, config))
   app.post(`/api/${version}/${endpoint}`, save(vehicleRepo, config))
   app.put(`/api/${version}/${endpoint}/:id`, update(vehicleRepo, config))
