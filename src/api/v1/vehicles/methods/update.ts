@@ -7,7 +7,7 @@ export default function (vehicleRepo, config) {
     console.log("--------------------------")
     console.log('req.body.params:', req.body.params)
     const vehicle = await vehicleRepo.findOne(req.params.id)
-    vehicleRepo.merge(vehicle, req.body)
+    vehicleRepo.merge(vehicle, req.body.params)
     const results = await vehicleRepo.save(vehicle)
     res.json(results)
   }
