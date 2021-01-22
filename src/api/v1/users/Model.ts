@@ -7,7 +7,6 @@ import {
   UpdateDateColumn
 } from "typeorm"
 import { Length, IsNotEmpty } from "class-validator"
-import sha512 from 'crypto-js/sha512'
 
 @Entity()
 export default class User extends BaseEntity {
@@ -46,19 +45,5 @@ export default class User extends BaseEntity {
       .where("user.firstName = :firstName", { firstName })
       .andWhere("user.lastName = :lastName", { lastName })
       .getMany();
-  }
-
-  hashPassword() {
-    // convert password to hash
-    this.password = sha512(this.password).toString()
-  }
-
-  checkIfUnencryptedPasswordIsValid(unencryptedPassword: string) {
-    let up = sha512(unencryptedPassword).toString()
-    if (up === this.password) {
-      return true
-    } else {
-      return false
-    }
   }
 }

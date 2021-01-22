@@ -38,6 +38,22 @@ export default class Users {
       })
   }
   
+  login = (params: any) => {
+    let that = this
+    return axios
+      .post(`${this.host}/api/${version}/${this.endpoint}/login`, {
+        params: params
+      })
+      .then(function (response) {
+        console.log('login', that.endpoint, response.data)
+        return response.data
+      })
+      .catch(function (error) {
+        console.log('login', that.endpoint, error)
+        return error
+      })
+  }
+
   get = (id: string) => {
     let that = this
     return axios

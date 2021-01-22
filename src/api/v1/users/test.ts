@@ -16,6 +16,13 @@ async function main(config) {
     })
     console.log('new user', user)
 
+    // check to see that login works
+    let auth = await users.login({
+      email: 'travis.burandt@gmail.com',
+      password: 'my-password',
+    })
+    console.log('authenticated', auth)
+
     // get that user by id
     let myUser = await users.get(user.email)
     console.log('my-user', myUser)
