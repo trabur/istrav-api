@@ -2,7 +2,7 @@ import sha512 from 'crypto-js/sha512'
 import * as jwt from "jsonwebtoken";
 import { Request, Response } from "express"
 
-import configuration from "../../../../config/config";
+import configuration from "../../../config/config";
 
 export default function (userRepo, config) {
   return async function (req: Request, res: Response) {
