@@ -6,9 +6,9 @@ var open = require('amqplib').connect('amqps://eogqfdef:Z7sQOuxd2cRIogSBgD0TZtMX
 export default function (userRepo, config) {
   return async function (req: Request, res: Response) {
     // here we will have logic to update a user by a given user id
-    console.log(`UPDATE: /${config.version}/${config.endpoint}/publish`)
+    console.log(`UPDATE: /${config.version}/${config.endpoint}/publish/:queue`)
     console.log("--------------------------")
-    console.log('req.body.params:', req.body.params)
+    // console.log('req.body.params:', req.body.params)
     // userRepo.merge(user, req.body.params)
     // const results = await userRepo.save(user)
     
