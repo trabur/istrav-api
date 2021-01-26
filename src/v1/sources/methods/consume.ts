@@ -7,6 +7,8 @@ export default function (channel, config) {
   return async function (req: Request, res: Response) {
     console.log(`REST: /${config.version}/${config.endpoint}/consume/:queue`)
     
+    console.log('req.body.params:', req.body.params)
+
     // params
     let name = req.params.queue
     let options = JSON.stringify(req.body.params)
@@ -16,8 +18,8 @@ export default function (channel, config) {
       .assertQueue(name)
       .then(function(ok) {
         return channel.consume(name, function(msg) {
-          if (msg !== null) {
-            return channel.ack(msg, options)
+          if (msg !== null && req.body.params.ack) {
+            channel.ack(msg, options)
           }
           res.json({
             status: ok,
@@ -25,6 +27,5 @@ export default function (channel, config) {
           })
         })
       })
-
   }
 }
