@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
-import { amqplib } from "amqplib"
 
+// rabbitmq
+var open = require('amqplib').connect('amqps://eogqfdef:Z7sQOuxd2cRIogSBgD0TZtMXfMjUY5og@owl.rmq.cloudamqp.com/eogqfdef');
 var q = 'tasks';
 
 export default function (userRepo, config) {
@@ -13,8 +14,6 @@ export default function (userRepo, config) {
     // userRepo.merge(user, req.body.params)
     // const results = await userRepo.save(user)
 
-    var open = amqplib.connect('amqps://eogqfdef:Z7sQOuxd2cRIogSBgD0TZtMXfMjUY5og@owl.rmq.cloudamqp.com/eogqfdef');
- 
     // Publisher
     let results = open.then(function(conn) {
       return conn.createChannel();
