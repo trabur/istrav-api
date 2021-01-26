@@ -21,10 +21,14 @@ export default function (channel, config) {
           let msg
           if (msgOrFalse) {
             msg = JSON.parse(msgOrFalse.content.toString())
+          } else {
+            msg = false
           }
-          if (msgOrFalse && req.body.params.ack) {
+
+          if (msg && req.body.params.noAck === false) {
             channel.ack(msgOrFalse, options)
           }
+
           res.json({
             status: ok,
             results: msg
