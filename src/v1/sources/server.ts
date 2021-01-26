@@ -1,11 +1,11 @@
-// import publish from './methods/publish'
+import publish from './methods/publish'
 
 import { jwtCheck } from "../../middlewares/jwtCheck"
 import version from '../version.json'
 
-const endpoint = 'logging'
+const endpoint = 'sources'
 let config = { endpoint, version }
 
 export default function (app, userRepo) {
-  // app.post(`/${version}/${endpoint}/publish/:queue`, publish(userRepo, config))
+  app.post(`/${version}/${endpoint}/publish/:queue`, publish(userRepo, config))
 }
