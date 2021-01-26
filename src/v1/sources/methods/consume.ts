@@ -17,7 +17,7 @@ export default function (channel, config) {
     channel
       .assertQueue(name)
       .then(function(ok) {
-        return channel.consume(name, function(msg) {
+        channel.consume(name, function(msg) {
           if (msg !== null && req.body.params.ack) {
             channel.ack(msg, options)
           }

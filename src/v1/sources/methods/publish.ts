@@ -9,7 +9,7 @@ export default function (channel, config) {
     let data = JSON.stringify(req.body.params)
 
     // amqp
-    let results = channel
+    channel
       .assertQueue(name)
       .then(function(ok) {
         res.json({
