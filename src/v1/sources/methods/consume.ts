@@ -10,27 +10,21 @@ export default function (channel, config) {
     // params
     let name = req.params.queue
     let options = JSON.stringify(req.body.params)
-    
-    // return ok
-    let status = null
 
     // amqp
-    let results = channel
+    channel
       .assertQueue(name)
       .then(function(ok) {
-        status = ok
         return channel.consume(name, function(msg) {
           if (msg !== null) {
             return channel.ack(msg, options)
-          } else {
-            return null
           }
+          res.json({
+            status: ok,
+            results: msg
+          })
         })
       })
 
-    res.json({
-      status,
-      results
-    })
   }
 }

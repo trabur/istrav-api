@@ -11,9 +11,7 @@ export default function (channel, config) {
     channel
       .assertQueue(name)
       .then(function(ok) {
-        res.json({
-          status: ok
-        })
+        res.json(ok)
       })
   }
 }

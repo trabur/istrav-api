@@ -8,20 +8,14 @@ export default function (channel, config) {
     let name = req.params.queue
     let data = JSON.stringify(req.body.params)
 
-    // return ok
-    let status
-
     // amqp
     let results = channel
       .assertQueue(name)
       .then(function(ok) {
-        status = ok
-        return channel.sendToQueue(name, Buffer.from(data))
+        res.json({
+          status: ok,
+          results: channel.sendToQueue(name, Buffer.from(data))
+        })
       })
-
-    res.json({
-      status,
-      results
-    })
   }
 }
