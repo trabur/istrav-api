@@ -23,7 +23,7 @@ export default function (channel, config) {
           }
           res.json({
             status: ok,
-            results: msg
+            results: msg.content.toString()
           })
         })
       })
