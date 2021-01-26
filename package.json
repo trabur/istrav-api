@@ -1,5 +1,5 @@
 {
-  "name": "listener-functions",
+  "name": "istrav-api",
   "version": "1.0.0",
   "scripts": {
     "start": "ts-node server.ts",

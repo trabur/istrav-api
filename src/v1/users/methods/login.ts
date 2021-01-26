@@ -7,7 +7,7 @@ import configuration from "../../../config/config";
 export default function (userRepo, config) {
   return async function (req: Request, res: Response) {
     // here we will have logic to save a user
-    console.log(`LOGIN: /api/${config.version}/${config.endpoint}/login`)
+    console.log(`LOGIN: /${config.version}/${config.endpoint}/login`)
     console.log("--------------------------")
     console.log('req.body.params:', req.body.params)
 

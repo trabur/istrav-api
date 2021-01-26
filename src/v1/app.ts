@@ -3,6 +3,7 @@ import express from "express"
 import { createConnection } from "typeorm"
 
 // endpoints
+import logging from "./logging/server"
 import users from "./users/server"
 import vehicles from "./vehicles/server"
 
@@ -35,6 +36,7 @@ export default function (app) {
       app.use(express.json())
   
       // listener functions
+      logging(app, userRepo)
       users(app, userRepo)
       vehicles(app, vehicleRepo)
     })

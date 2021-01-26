@@ -1,0 +1,11 @@
+import publish from './methods/publish'
+
+import { jwtCheck } from "../../middlewares/jwtCheck"
+import version from '../version.json'
+
+const endpoint = 'users'
+let config = { endpoint, version }
+
+export default function (app, userRepo) {
+  app.post(`/${version}/${endpoint}/publish`, publish(userRepo, config))
+}
