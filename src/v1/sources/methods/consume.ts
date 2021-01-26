@@ -17,13 +17,17 @@ export default function (channel, config) {
     channel
       .assertQueue(name)
       .then(function(ok) {
-        channel.consume(name, function(msg) {
-          if (msg !== null && req.body.params.ack) {
-            channel.ack(msg, options)
+        channel.get(name, function(msgOrFalse) {
+          let msg
+          if (msgOrFalse) {
+            msg = JSON.parse(msgOrFalse.content.toString())
+          }
+          if (msgOrFalse && req.body.params.ack) {
+            channel.ack(msgOrFalse, options)
           }
           res.json({
             status: ok,
-            results: JSON.parse(msg.content.toString())
+            results: msg
           })
         })
       })
