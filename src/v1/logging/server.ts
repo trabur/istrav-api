@@ -7,5 +7,5 @@ const endpoint = 'logging'
 let config = { endpoint, version }
 
 export default function (app, userRepo) {
-  app.post(`/${version}/${endpoint}/publish`, publish(userRepo, config))
+  app.post(`/${version}/${endpoint}/publish/:queue`, publish(userRepo, config))
 }
