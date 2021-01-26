@@ -1,5 +1,5 @@
 import check from './methods/check'
-import cosume from './methods/publish'
+import consume from './methods/consume'
 import publish from './methods/publish'
 
 import { jwtCheck } from "../../middlewares/jwtCheck"
