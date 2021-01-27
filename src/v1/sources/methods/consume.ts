@@ -24,7 +24,7 @@ export default function (channel, config) {
           .then(function(msg) {
             res.json({
               status: ok,
-              results: msg
+              results: JSON.parse(msg.content.toString())
             })
           })
 
