@@ -11,8 +11,7 @@ export default function (channel, config) {
 
     // params
     let name = req.params.queue
-    let options = JSON.stringify(req.body.params)
-    console.log('options', options)
+    let options = req.body.params
 
     // amqp
     channel
