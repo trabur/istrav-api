@@ -5,15 +5,14 @@ export default function (channel, config) {
     // params
     let id = req.params.id
     let es = req.body.params // event source
-    console.log(`req.body ${JSON.stringify(req.body, null, 2)}`)
-
+    let data = JSON.stringify(es.arguements.body)
 
     // amqp
     channel
       .assertQueue(id)
       .then(function(ok) {
         // add to event source
-        es.payload = channel.sendToQueue(id, Buffer.from(es.arguements.body))
+        es.payload = channel.sendToQueue(id, Buffer.from(data))
 
         // log event source
         console.log(`API ${es.arguements.url} ::: ${es}`)
