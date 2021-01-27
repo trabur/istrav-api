@@ -1,21 +1,23 @@
 import { Request, Response } from "express"
 
 export default function (channel, config) {
-  return async function (req: Request, res: Response) {
-    console.log(`REST: /${config.version}/${config.endpoint}/publish/:queue`)
-    
+  return async function (req: Request, res: Response) {    
     // params
-    let name = req.params.queue
-    let data = JSON.stringify(req.body.params)
+    let id = req.params.id
+    let es = req.body.params // event source
 
     // amqp
     channel
-      .assertQueue(name)
+      .assertQueue(id)
       .then(function(ok) {
-        res.json({
-          status: ok,
-          results: channel.sendToQueue(name, Buffer.from(data))
-        })
+        // add to event source
+        es.payload = channel.sendToQueue(id, Buffer.from(es.arguements.body))
+
+        // log event source
+        console.log(`API ${es.arguements.url} ::: ${es}`)
+
+        // finish
+        res.json(es)
       })
   }
 }

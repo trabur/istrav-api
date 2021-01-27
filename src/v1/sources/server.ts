@@ -9,7 +9,7 @@ const endpoint = 'sources'
 let config = { endpoint, version }
 
 export default function (app, channel) {
-  app.get(`/${version}/${endpoint}/check/:queue`, check(channel, config))
-  app.post(`/${version}/${endpoint}/consume/:queue`, consume(channel, config))
-  app.post(`/${version}/${endpoint}/publish/:queue`, publish(channel, config))
+  app.post(`/${version}/${endpoint}/check/:id`, check(channel, config))
+  app.post(`/${version}/${endpoint}/consume/:id`, consume(channel, config))
+  app.post(`/${version}/${endpoint}/publish/:id`, publish(channel, config))
 }

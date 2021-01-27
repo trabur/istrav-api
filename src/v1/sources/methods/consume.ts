@@ -5,27 +5,30 @@ var open = require('amqplib').connect('amqps://eogqfdef:Z7sQOuxd2cRIogSBgD0TZtMX
 
 export default function (channel, config) {
   return async function (req: Request, res: Response) {
-    console.log(`REST: /${config.version}/${config.endpoint}/consume/:queue`)
-    
-    console.log('req.body.params:', req.body.params)
-
     // params
-    let name = req.params.queue
-    let options = req.body.params
+    let id = req.params.id
+    let es = req.body.params // event source
+    let options = {
+      noAck: es.arguements.noAck
+    }
 
     // access queue
     channel
-      .assertQueue(name)
+      .assertQueue(id)
       .then(function(ok) {
         
         // pull message
         channel
-          .get(name, options)
+          .get(id, options)
           .then(function(msg) {
-            res.json({
-              status: ok,
-              results: JSON.parse(msg.content)
-            })
+            // add to event source
+            es.payload = JSON.parse(msg.content)
+
+            // log event source
+            console.log(`API ${es.arguements.url} ::: ${es}`)
+
+            // finish
+            res.json(es)
           })
 
       })
