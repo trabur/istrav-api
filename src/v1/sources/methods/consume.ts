@@ -13,16 +13,21 @@ export default function (channel, config) {
     let name = req.params.queue
     let options = req.body.params
 
-    // amqp
+    // access queue
     channel
       .assertQueue(name)
       .then(function(ok) {
-        let msg = channel.get(name, options)
+        
+        // pull message
+        channel
+          .get(name, options)
+          .then(function(msg) {
+            res.json({
+              status: ok,
+              results: msg
+            })
+          })
 
-        res.json({
-          status: ok,
-          results: msg
-        })
       })
   }
 }
