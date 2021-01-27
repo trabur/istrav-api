@@ -17,7 +17,7 @@ export default function (channel, config) {
     channel
       .assertQueue(name)
       .then(function(ok) {
-        channel.get(name, options, function(error, msgOrFalse) {
+        channel.get(name, function(error, msgOrFalse) {
           let msg
           if (msgOrFalse) {
             msg = JSON.parse(msgOrFalse.content.toString())
