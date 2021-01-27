@@ -5,6 +5,8 @@ export default function (channel, config) {
     // params
     let id = req.params.id
     let es = req.body.params // event source
+    console.log(`req.body ${req.body}`)
+
 
     // amqp
     channel
