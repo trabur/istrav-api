@@ -25,10 +25,6 @@ export default function (channel, config) {
             msg = false
           }
 
-          if (msg && options.noAck === false) {
-            channel.ack(msgOrFalse)
-          }
-
           res.json({
             status: ok,
             results: msg
