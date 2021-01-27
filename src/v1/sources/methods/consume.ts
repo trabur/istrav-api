@@ -17,7 +17,7 @@ export default function (channel, config) {
     channel
       .assertQueue(name)
       .then(function(ok) {
-        return channel.get(name, function(msgOrFalse) {
+        channel.get(name, function(msgOrFalse) {
           let msg
           if (msgOrFalse) {
             msg = JSON.parse(msgOrFalse.content.toString())
@@ -26,7 +26,7 @@ export default function (channel, config) {
           }
 
           if (msg && req.body.params.noAck === false) {
-            channel.ack(msgOrFalse, options)
+            channel.ack(msgOrFalse)
           }
 
           res.json({
