@@ -25,9 +25,9 @@ export default function (channel, config) {
             msg = false
           }
 
-          if (msg && req.body.params.noAck === false) {
-            channel.ack(msgOrFalse)
-          }
+          // if (msg && req.body.params.noAck === false) {
+          //   channel.ack(msgOrFalse) // broken
+          // }
 
           res.json({
             status: ok,
