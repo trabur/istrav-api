@@ -23,6 +23,7 @@ export default function (channel, config) {
           .then(function(msg) {
             // add to event source
             es.payload = JSON.parse(msg.content)
+            es.serverAt = Date.now()
 
             // log event source
             console.log(`API ${es.arguements.url} ::: ${es}`)

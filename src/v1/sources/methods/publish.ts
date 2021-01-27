@@ -13,6 +13,7 @@ export default function (channel, config) {
       .then(function(ok) {
         // add to event source
         es.payload = channel.sendToQueue(id, Buffer.from(data))
+        es.serverAt = Date.now()
 
         // log event source
         console.log(`API ${es.arguements.url} ::: ${es}`)
