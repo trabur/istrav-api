@@ -25,7 +25,7 @@ export default function (amqp, mongodb, config) {
     let from = es.arguements.from  // from: 'my-source',  // rabbitmq queue
     let to = es.arguements.to      // to: 'my-storage',   // mongodb collection
     let options = {
-      noAck: es.arguements.noAck || false // by default messages are removed from the queue
+      noAck: es.arguements.noAck || false // false = by default messages are removed from the queue
     }
 
     // mongodb
