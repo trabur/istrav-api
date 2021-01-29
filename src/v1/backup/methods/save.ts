@@ -7,7 +7,7 @@ const insertDocument = async function (db, toCollectionName, event, callback) {
 
   let update = await dbCollection.updateOne(
     { id: event.id },       // filter
-    { $set: event },        // update
+    { $set: event },        // update todo: save
     { upsert: true }        // options
   )
 
@@ -36,10 +36,11 @@ export default function (amqp, mongodb, config) {
     // load data from rabbitmq
     es.payload = await amqp.consume(from, function (msg) {
       if (msg !== null) {
+        let event = JSON.parse(msg.content)
         console.log('loaded event from rabbitmq:', msg.content.toString())
 
         // save data to mongodb
-        insertDocument(db, to, msg.content, function (result) {
+        insertDocument(db, to, event, function (result) {
           // do not close connection in express
           // client.close(); 
           console.log('saved event to mongodb:', result)
