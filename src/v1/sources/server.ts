@@ -8,8 +8,8 @@ import version from '../version.json'
 const endpoint = 'sources'
 let config = { endpoint, version }
 
-export default function (app, channel) {
-  app.post(`/${version}/${endpoint}/check/:id`, check(channel, config))
-  app.post(`/${version}/${endpoint}/consume/:id`, consume(channel, config))
-  app.post(`/${version}/${endpoint}/publish/:id`, publish(channel, config))
+export default function (app, amqp) {
+  app.post(`/${version}/${endpoint}/check/:id`, check(amqp, config))
+  app.post(`/${version}/${endpoint}/consume/:id`, consume(amqp, config))
+  app.post(`/${version}/${endpoint}/publish/:id`, publish(amqp, config))
 }

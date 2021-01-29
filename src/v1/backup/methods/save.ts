@@ -1,13 +1,13 @@
 import { Request, Response } from "express"
 
-export default function (channel, mongodb, config) {
+export default function (amqp, mongodb, config) {
   return async function (req: Request, res: Response) {    
     // params
     let id = req.params.id
     let es = req.body.params // event source
 
-    // amqp
-    channel
+    // rabbitmq
+    amqp
       .assertQueue(id)
       .then(function(ok) {
         // add to event source

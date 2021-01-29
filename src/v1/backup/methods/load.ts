@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 
-export default function (channel, mongodb, config) {
+export default function (amqp, mongodb, config) {
   return async function (req: Request, res: Response) {    
     // params
     let id = req.params.id
@@ -10,8 +10,8 @@ export default function (channel, mongodb, config) {
     let from = es.arguements.from  // from: 'my-source',  // rabbitmq queue
     let to = es.arguements.to      // to: 'my-storage',   // mongodb collection
 
-    // amqp
-    channel
+    // rabbitmq
+    amqp
       .assertQueue(id)
       .then(function(ok) {
         // add to event source

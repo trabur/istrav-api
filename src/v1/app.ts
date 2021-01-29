@@ -30,6 +30,7 @@ const assert = require('assert');
 function typeormRepo (app, connection) {
   // create mongodb connection
   MongoClient.connect(function(err, mongodb) {
+    // make sure there is a mongodb client
     assert.equal(null, err);
     console.log("Connected successfully to mongodb");
   
@@ -46,9 +47,9 @@ function typeormRepo (app, connection) {
         // amqp
         return conn.createChannel()
       })
-      .then(function(channel) {
-        sources(app, channel)
-        backup(app, channel, mongodb)
+      .then(function(amqp) {
+        sources(app, amqp)
+        backup(app, amqp, mongodb)
       }).catch(console.warn)
     logging(app, userRepo)
     users(app, userRepo)

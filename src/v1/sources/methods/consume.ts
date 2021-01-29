@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 
-export default function (channel, config) {
+export default function (amqp, config) {
   return async function (req: Request, res: Response) {
     // params
     let id = req.params.id
@@ -9,13 +9,13 @@ export default function (channel, config) {
       noAck: es.arguements.noAck
     }
 
-    // access queue
-    channel
+    // rabbitmq
+    amqp
       .assertQueue(id)
       .then(function(ok) {
         
         // pull message
-        channel
+        amqp
           .get(id, options)
           .then(function(msg) {
             // add to event source
