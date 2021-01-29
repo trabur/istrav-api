@@ -24,30 +24,43 @@ export default function (amqp, mongodb, config) {
     // arguements
     let from = es.arguements.from  // from: 'my-source',  // rabbitmq queue
     let to = es.arguements.to      // to: 'my-storage',   // mongodb collection
+    let options = {
+      noAck: es.arguements.noAck || false // by default messages are removed from the queue
+    }
 
     // mongodb
     const db = mongodb.db('istrav')
 
-    // // data
-    // let events = [
-    //   {a : 1}, {a : 2}, {a : 3}
-    // ]
+    function insert (msg) {
+      // add to event source
+      // es.payload.push(JSON.parse(msg.content))
 
-    // load data from rabbitmq
-    es.payload = await amqp.consume(from, function (msg) {
-      if (msg !== null) {
-        let event = JSON.parse(msg.content)
-        console.log('loaded event from rabbitmq:', msg.content.toString())
+      let event = JSON.parse(msg.content)
+      console.log('pulled event from rabbitmq:', msg.content.toString())
 
-        // save data to mongodb
-        insertDocument(db, to, event, function (result) {
-          // do not close connection in express
-          // client.close(); 
-          console.log('saved event to mongodb:', result)
-          amqp.ack(msg)
-        })
+      // save data to mongodb
+      insertDocument(db, to, event, function (result) {
+        // do not close connection in express
+        // client.close(); 
+        console.log('save event to mongodb:', result)
+        amqp.ack(msg)
+      })
+    }
+
+    function loopPullThenInsert (ok) {
+      // run loop for message count total
+      for (let i = 0; i < ok.messageCount; i++) {
+        // pull rabbitmq message
+        amqp
+          .get(id, options)
+          .then(insert)
       }
-    })
+    }
+
+    // find number of rabbitmq messages in queue
+    amqp
+      .assertQueue(id)
+      .then(loopPullThenInsert)
 
     // finish
     res.json(es)
