@@ -1,8 +1,5 @@
 import { Request, Response } from "express"
 
-// rabbitmq
-var open = require('amqplib').connect('amqps://eogqfdef:Z7sQOuxd2cRIogSBgD0TZtMXfMjUY5og@owl.rmq.cloudamqp.com/eogqfdef');
-
 export default function (channel, config) {
   return async function (req: Request, res: Response) {
     // params
