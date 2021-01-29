@@ -1,20 +1,18 @@
 import { Request, Response } from "express"
 const assert = require('assert')
 
-const insertDocument = function(db, toCollectionName, event, callback) {
+const insertDocument = async function (db, toCollectionName, event, callback) {
   // Get the documents collection
   const dbCollection = db.collection(toCollectionName)
 
-  dbCollection.updateOne(
-    { $set: { id: event.id } },        // filter
-    event,                             // update
-    { upsert: true },                  // options
-    function (err, result) {           // callback
-      assert.equal(err, null)
-      assert.equal(1, result.result.n)
-      console.log(`collection: ${toCollectionName} --> id: ${event.id}`)
-      callback(result)
-    })
+  let update = await dbCollection.updateOne(
+    { id: event.id },       // filter
+    { $set: event },        // update
+    { upsert: true }        // options
+  )
+
+  console.log(`collection: ${toCollectionName} --> id: ${event.id}`)
+  callback(update)
 }
 
 export default function (amqp, mongodb, config) {
