@@ -13,15 +13,15 @@ import vehicles from "./vehicles/server"
 import User from './users/Model'
 import Vehicle from './vehicles/Model'
 
-// rabbitmq
-var open = require('amqplib').connect('amqps://eogqfdef:Z7sQOuxd2cRIogSBgD0TZtMXfMjUY5og@owl.rmq.cloudamqp.com/eogqfdef')
+// load "process.env" params from a .env file
+const dotenv = require('dotenv')
+dotenv.config()
 
-// Connection URL
-const url = 'mongodb+srv://istrav-db-user:vTT8ZKjPJHszMEd7@istrav.gnchl.mongodb.net/istrav?retryWrites=true&w=majority';
-// const url = 'mongodb+srv://istrav-db-user:<password>@istrav.gnchl.mongodb.net/<dbname>?retryWrites=true&w=majority';
+// rabbitmq
+var open = require('amqplib').connect(process.env.AMQP_URI)
 
 // mongodb
-const MongoClient = require('mongodb').MongoClient(url, { 
+const MongoClient = require('mongodb').MongoClient(process.env.MONGODB_URI, { 
   useUnifiedTopology: true
 });
 const assert = require('assert');
