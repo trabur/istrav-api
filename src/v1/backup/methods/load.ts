@@ -7,8 +7,8 @@ export default function (amqp, mongodb, config) {
     let es = req.body.params // event source
 
     // arguements
-    let from = es.arguements.from  // from: 'my-source',  // rabbitmq queue
-    let to = es.arguements.to      // to: 'my-storage',   // mongodb collection
+    let from = es.arguements.from      // from: 'my-storage',   // mongodb collection
+    let to = es.arguements.to          // to: 'my-source',      // rabbitmq queue
 
     // rabbitmq
     amqp
