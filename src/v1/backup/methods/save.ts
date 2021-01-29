@@ -36,7 +36,7 @@ export default function (amqp, mongodb, config) {
     // ]
 
     // load data from rabbitmq
-    amqp.consume(from, function (msg) {
+    es.payload = await amqp.consume(from, function (msg) {
       if (msg !== null) {
         console.log('loaded event from rabbitmq:', msg.content.toString())
 
@@ -49,5 +49,8 @@ export default function (amqp, mongodb, config) {
         })
       }
     })
+
+    // finish
+    res.json(es)
   }
 }
