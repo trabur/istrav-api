@@ -18,7 +18,6 @@ const insertDocument = async function (db, toCollectionName, event, callback) {
 export default function (amqp, mongodb, config) {
   return async function (req: Request, res: Response) {    
     // params
-    let id = req.params.id
     let es = req.body.params // event source
 
     // arguements
@@ -32,34 +31,35 @@ export default function (amqp, mongodb, config) {
     const db = mongodb.db('istrav')
 
     function insert (msg) {
-      // add to event source
-      // es.payload.push(JSON.parse(msg.content))
-
       let event = JSON.parse(msg.content)
       console.log('pulled event from rabbitmq:', msg.content.toString())
+      
+      // add to event source
+      es.payload.push({ id: event.id })
 
       // save data to mongodb
       insertDocument(db, to, event, async function (result) {
         // do not close connection in express
         // client.close(); 
-        console.log('save event to mongodb:', result)
+        console.log('saved event to mongodb:', result)
         await amqp.ack(msg)
       })
     }
 
     async function loopPullThenInsert (ok) {
+      console.log('loopPullThenInsert:', ok)
       // run loop for message count total
       for (let i = 0; i < ok.messageCount; i++) {
         // pull rabbitmq message
         await amqp
-          .get(id, options)
+          .get(from, options)
           .then(insert)
       }
     }
 
     // find number of rabbitmq messages in queue
     await amqp
-      .assertQueue(id)
+      .assertQueue(from)
       .then(loopPullThenInsert)
 
     // finish
