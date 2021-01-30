@@ -43,14 +43,13 @@ export default function (amqp, mongodb, config) {
 
       // save data to mongodb
       insert(db, to, event, async function (result) {
-        console.log('saved event to mongodb:', result)
+        console.log('saved event to mongodb:', result.result)
         await amqp.ack(msg)
       })
     }
 
     async function loopPullThenInsert (ok) {
-      console.log('loopPullThenInsert:', ok)
-      // run loop for message count total
+      console.log('run loop for message count total:', ok)
       for (let i = 0; i < ok.messageCount; i++) {
         // pull rabbitmq message
         await amqp
