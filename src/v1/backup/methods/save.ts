@@ -63,6 +63,9 @@ export default function (amqp, mongodb, config) {
       .assertQueue(from)
       .then(loopPullThenInsert)
 
+    // note time
+    es.serverAt = Date.now()
+
     // finish
     res.json(es)
   }
