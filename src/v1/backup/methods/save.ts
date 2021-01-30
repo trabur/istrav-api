@@ -39,26 +39,26 @@ export default function (amqp, mongodb, config) {
       console.log('pulled event from rabbitmq:', msg.content.toString())
 
       // save data to mongodb
-      insertDocument(db, to, event, function (result) {
+      insertDocument(db, to, event, async function (result) {
         // do not close connection in express
         // client.close(); 
         console.log('save event to mongodb:', result)
-        amqp.ack(msg)
+        await amqp.ack(msg)
       })
     }
 
-    function loopPullThenInsert (ok) {
+    async function loopPullThenInsert (ok) {
       // run loop for message count total
       for (let i = 0; i < ok.messageCount; i++) {
         // pull rabbitmq message
-        amqp
+        await amqp
           .get(id, options)
           .then(insert)
       }
     }
 
     // find number of rabbitmq messages in queue
-    amqp
+    await amqp
       .assertQueue(id)
       .then(loopPullThenInsert)
 
