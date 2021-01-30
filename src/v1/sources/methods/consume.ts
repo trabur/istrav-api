@@ -9,16 +9,13 @@ export default function (amqp, config) {
       noAck: es.arguements.noAck
     }
 
-    // rabbitmq
-    amqp
-      .assertQueue(id)
-      .then(function(ok) {
-        
-        // pull message
+    function pull (ok) {
+      if (ok.messageCount > 0) {
+        // yes event source
         amqp
           .get(id, options)
-          .then(function(msg) {
-            // add to event source
+          .then(function (msg) {
+            // return event source
             es.payload = JSON.parse(msg.content)
             es.serverAt = Date.now()
 
@@ -28,7 +25,22 @@ export default function (amqp, config) {
             // finish
             res.json(es)
           })
+      } else {
+        // return no event source
+        es.payload = null
+        es.serverAt = Date.now()
 
-      })
+        // log event source
+        console.log(`API ${es.arguements.url} ::: ${es}`)
+
+        // finish
+        res.json(es)
+      }
+    }
+
+    // rabbitmq
+    amqp
+      .assertQueue(id)
+      .then(pull)
   }
 }
