@@ -1,13 +1,13 @@
 import { Request, Response } from "express"
 const assert = require('assert')
 
-const insertDocument = async function (db, toCollectionName, event, callback) {
+const insert = async function (db, toCollectionName, event, callback) {
   // Get the documents collection
   const dbCollection = db.collection(toCollectionName)
 
   let update = await dbCollection.updateOne(
     { id: event.id },       // filter
-    { $set: event },        // update todo: save
+    { $set: event },        // update
     { upsert: true }        // options
   )
 
@@ -30,17 +30,19 @@ export default function (amqp, mongodb, config) {
     // mongodb
     const db = mongodb.db('istrav')
 
-    function insert (msg) {
+    // keep a record of ids for each saved event
+    es.record = []
+
+    function record (msg) {
+      // process event source object
       let event = JSON.parse(msg.content)
       console.log('pulled event from rabbitmq:', msg.content.toString())
       
       // add to event source
-      es.payload.push({ id: event.id })
+      es.record.push(event.id)
 
       // save data to mongodb
-      insertDocument(db, to, event, async function (result) {
-        // do not close connection in express
-        // client.close(); 
+      insert(db, to, event, async function (result) {
         console.log('saved event to mongodb:', result)
         await amqp.ack(msg)
       })
@@ -53,7 +55,7 @@ export default function (amqp, mongodb, config) {
         // pull rabbitmq message
         await amqp
           .get(from, options)
-          .then(insert)
+          .then(record)
       }
     }
 
