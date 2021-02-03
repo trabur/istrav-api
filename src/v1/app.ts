@@ -11,6 +11,8 @@ import vehicles from "./vehicles/server"
 
 // entities
 import User from './users/Model'
+import App from './apps/Model'
+import Member from './members/Model'
 import Vehicle from './vehicles/Model'
 
 // load "process.env" params from a .env file
@@ -63,12 +65,13 @@ function typeormRepo (app, connection) {
 // init
 export default function (app) {
   const config: any = {
-    type: "sqljs",
-    location: "demo",
-    autoSave: true,
+    type: "postgres",
+    url: process.env.POSTGRESQL_URI,
     entities: [
       User,
-      Vehicle
+      Vehicle,
+      App,
+      Member
     ],
     logging: ['query', 'schema'],
     synchronize: true

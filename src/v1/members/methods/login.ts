@@ -23,7 +23,7 @@ export default function (userRepo, config) {
     let check = sha512(req.body.params.password).toString()
     if (results.password === check) {
       const newToken = jwt.sign({ 
-        email: results.email
+        email: results.email,
       }, configuration.jwtSecret)
       message = {
         token: newToken,

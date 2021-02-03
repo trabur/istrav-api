@@ -15,8 +15,7 @@ async function main() {
       username: 'cool-user',
       password: 'my-password',
       firstName: 'john',
-      lastName: 'doe',
-      role: 'ADMIN'
+      lastName: 'doe'
     })
     console.log('new user', user)
 

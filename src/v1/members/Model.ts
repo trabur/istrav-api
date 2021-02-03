@@ -1,14 +1,14 @@
 import {
   BaseEntity,
   Entity,
-  PrimaryColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
+  OneToMany,
   DeleteDateColumn,
   VersionColumn,
-  ManyToOne,
+  Index,
   Unique
 } from "typeorm"
 import { Length, IsNotEmpty } from "class-validator"
@@ -16,22 +16,19 @@ import { Length, IsNotEmpty } from "class-validator"
 import App from '../apps/Model'
 
 @Entity()
-@Unique(["app", "email"])
-@Unique(["app", "username"])
-@Unique(["app", "firstName", "lastName"])
-export default class User extends BaseEntity {
+@Unique(["firstName", "lastName"])
+export default class Member extends BaseEntity {
     
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @ManyToOne(() => App, app => app.users)
-  app: App;
-
   @Column()
+  @Index({ unique: true })
   email: string;
 
   @Column()
   @Length(4, 20)
+  @Index({ unique: true })
   username: string;
 
   @Column()
@@ -43,6 +40,9 @@ export default class User extends BaseEntity {
 
   @Column()
   lastName: string;
+
+  @OneToMany(() => App, app => app.owner)
+  apps: App[];
 
   @Column()
   @CreateDateColumn()
@@ -60,10 +60,4 @@ export default class User extends BaseEntity {
   @VersionColumn()
   version: number;
   
-  static findByName(firstName: string, lastName: string) {
-    return this.createQueryBuilder("user")
-      .where("user.firstName = :firstName", { firstName })
-      .andWhere("user.lastName = :lastName", { lastName })
-      .getMany();
-  }
 }

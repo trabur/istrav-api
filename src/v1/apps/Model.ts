@@ -5,32 +5,38 @@ import {
     Column,
     CreateDateColumn,
     UpdateDateColumn,
+    ManyToOne,
     DeleteDateColumn,
     VersionColumn,
-    Unique,
-    ManyToOne
+    OneToMany,
+    Unique
 } from "typeorm";
 
-import App from '../apps/Model'
+import Member from '../members/Model'
+import User from '../users/Model'
+import Vehicle from '../vehicles/Model'
 
 @Entity()
-@Unique(["app", "name"])
-export default class Vehicle extends BaseEntity {
+@Unique(["domain", "state"])
+export default class App extends BaseEntity {
     
     @PrimaryGeneratedColumn("uuid")
     id: string;
 
-    @ManyToOne(() => App, app => app.users)
-    app: App;
+    @ManyToOne(() => Member, member => member.apps)
+    owner: Member;
+
+    @OneToMany(() => User, user => user.app)
+    users: User[];
+
+    @OneToMany(() => Vehicle, vehicle => vehicle.app)
+    vehicles: Vehicle[];
 
     @Column()
-    name: string;
+    domain: string;
 
     @Column()
-    lat: string;
-
-    @Column()
-    long: string;
+    state: string;
 
     @Column()
     @CreateDateColumn()
@@ -39,7 +45,7 @@ export default class Vehicle extends BaseEntity {
     @Column()
     @UpdateDateColumn()
     updatedAt: Date;
-  
+
     @Column()
     @DeleteDateColumn()
     deletedAt: Date;
