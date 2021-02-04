@@ -25,6 +25,9 @@ export default class User extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  @Column({ type: "uuid", nullable: false })
+  appId: string;
+
   @ManyToOne(() => App, app => app.users)
   @JoinColumn({ name: "appId" })
   app: App;

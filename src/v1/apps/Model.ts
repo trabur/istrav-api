@@ -24,6 +24,9 @@ export default class App extends BaseEntity {
     @PrimaryGeneratedColumn("uuid")
     id: string;
 
+    @Column({ type: "uuid", nullable: false })
+    ownerId: string;
+
     @ManyToOne(() => Member, member => member.apps)
     @JoinColumn({ name: "ownerId" })
     owner: Member;
