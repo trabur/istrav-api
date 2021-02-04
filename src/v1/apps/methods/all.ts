@@ -13,7 +13,7 @@ export default function (appRepo, config) {
     // perform
     const objects = await appRepo.find({
       where: {
-        ownerId: decoded.memberId
+        owner: decoded.memberId
       }
     })
 
