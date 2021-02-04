@@ -14,10 +14,11 @@ export default function (appRepo, config) {
     const dupKey = await appRepo.findOne({
       select: ["id", "domain", "state"],
       where: {
-        domain: es.arguements.domain,
-        state: es.arguements.state
+        domain: es.arguements.change.domain,
+        state: es.arguements.change.state
       }
     })
+    console.log('dupKey:', dupKey)
 
     // respond
     let result
