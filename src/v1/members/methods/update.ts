@@ -2,13 +2,23 @@ import { Request, Response } from "express"
 
 export default function (memberRepo, config) {
   return async function (req: Request, res: Response) {
-    // here we will have logic to update a user by a given user id
-    console.log(`UPDATE: /${config.version}/${config.endpoint}/${req.params.id}`)
-    console.log("--------------------------")
-    console.log('req.body.params:', req.body.params)
-    const user = await memberRepo.findOne(req.params.id)
-    memberRepo.merge(user, req.body.params)
-    const results = await memberRepo.save(user)
-    res.json(results)
+    // params
+    let id = req.params.id
+    let es = req.body.params // event source
+
+    // perform
+    const object = await memberRepo.findOne(id)
+    memberRepo.merge(object, es)
+    const result = await memberRepo.save(object)
+
+    // add to event source
+    es.payload = result
+    es.serverAt = Date.now()
+
+    // log event source
+    console.log(`API ${es.arguements.url} ::: ${es}`)
+
+    // finish
+    res.json(es)
   }
 }
