@@ -15,7 +15,7 @@ export default function (appRepo, config) {
       where: {
         domain: es.arguements.domain,
         state: es.arguements.state,
-        ownerId: decoded.memberId
+        owner: decoded.memberId
       }
     })
 
