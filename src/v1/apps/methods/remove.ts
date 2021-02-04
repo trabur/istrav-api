@@ -11,13 +11,16 @@ export default function (appRepo, config) {
     console.log('decoded:', decoded)
 
     // perform
-    const result = await appRepo.delete({
+    const object = await appRepo.findOne({
+      select: ["id"],
+      // relations: ['owner'],
       where: {
         domain: es.arguements.domain,
         state: es.arguements.state,
         ownerId: decoded.memberId
       }
     })
+    const result = await appRepo.delete(object.id)
 
     // add to event source
     es.payload = result
