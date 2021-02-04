@@ -7,7 +7,7 @@ import remove from "./methods/remove"
 import { jwtCheck } from "../../middlewares/jwtCheck"
 import version from '../version.json'
 
-const endpoint = 'vehicles'
+const endpoint = 'apps'
 let config = { endpoint, version }
 
 export default function (app, vehicleRepo) {
