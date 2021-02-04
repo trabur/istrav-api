@@ -24,6 +24,7 @@ export default class App extends BaseEntity {
     id: string;
 
     @ManyToOne(() => Member, member => member.apps)
+    @JoinColumn({ name: "ownerId" })
     owner: Member;
 
     @OneToMany(() => User, user => user.app)

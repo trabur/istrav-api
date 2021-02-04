@@ -15,7 +15,7 @@ export default function (appRepo, config) {
       where: {
         domain: es.arguements.domain,
         state: es.arguements.state,
-        owner: decoded.memberId
+        ownerId: decoded.memberId
       }
     })
     appRepo.merge(object, es.arguements.change)

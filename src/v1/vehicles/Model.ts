@@ -21,6 +21,7 @@ export default class Vehicle extends BaseEntity {
     id: string;
 
     @ManyToOne(() => App, app => app.users)
+    @JoinColumn({ name: "appId" })
     app: App;
 
     @Column()
