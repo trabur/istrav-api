@@ -3,16 +3,26 @@ import { Request, Response } from "express"
 
 export default function (memberRepo, config) {
   return async function (req: Request, res: Response) {
-    // here we will have logic to save a user
-    console.log(`REGISTER: /${config.version}/${config.endpoint}`)
-    console.log("--------------------------")
-    console.log('req.body.params:', req.body.params)
+    // params
+    let id = req.params.id
+    let es = req.body.params // event source
 
     // convert password to hash
-    req.body.params.password = sha512(req.body.params.password).toString()
+    es.arguements.password = sha512(es.arguements.password).toString()
 
-    const user = await memberRepo.create(req.body.params)
-    const results = await memberRepo.save(user)
-    res.json(results)
+    // perform
+    const user = await memberRepo.create(es.arguements)
+    const result = await memberRepo.save(user)
+    
+    // add to event source
+    es.payload = result
+    es.serverAt = Date.now()
+
+    // log event source
+    console.log(`API ${es.arguements.url} ::: ${es}`)
+
+    // finish
+    res.json(es)
+
   }
 }

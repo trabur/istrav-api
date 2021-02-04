@@ -10,4 +10,5 @@ $ git push heroku master
 export AMQP_URI=""
 export MONGODB_URI=""
 export POSTGRESQL_URI=""
+export SECRET=""
 ```
