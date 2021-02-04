@@ -11,13 +11,13 @@ export default function (appRepo, config) {
     console.log('decoded:', decoded)
 
     // perform
-    const object = await appRepo.findOne(
+    const object = await appRepo.findOne({
       where: {
         domain: es.arguements.domain,
         state: es.arguements.state,
         ownerId: decoded.memberId
       }
-    )
+    })
     appRepo.merge(object, es.change)
     const result = await appRepo.save(object)
 
