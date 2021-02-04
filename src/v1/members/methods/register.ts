@@ -21,7 +21,10 @@ export default function (memberRepo, config) {
     let result
     if (!existingUser) {
       const user = await memberRepo.create(es.arguements)
-      result = await memberRepo.save(user)
+      result = {
+        success: true,
+        data: await memberRepo.save(user)
+      }
     } else {
       result = {
         success: false,
