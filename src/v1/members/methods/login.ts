@@ -7,7 +7,6 @@ import configuration from "../../../config/config";
 export default function (memberRepo, config) {
   return async function (req: Request, res: Response) {
     // params
-    let id = req.params.id
     let es = req.body.params // event source
 
     // perform
@@ -22,6 +21,7 @@ export default function (memberRepo, config) {
     let check = sha512(es.arguements.password).toString()
     if (results.password === check) {
       const newToken = jwt.sign({ 
+        memberId: results.id,
         email: results.email,
       }, configuration.jwtSecret)
       result = {

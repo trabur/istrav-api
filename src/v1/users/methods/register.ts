@@ -1,18 +1,46 @@
 import sha512 from 'crypto-js/sha512'
 import { Request, Response } from "express"
 
-export default function (userRepo, config) {
+export default function (memberRepo, config) {
   return async function (req: Request, res: Response) {
-    // here we will have logic to save a user
-    console.log(`REGISTER: /${config.version}/${config.endpoint}`)
-    console.log("--------------------------")
-    console.log('req.body.params:', req.body.params)
+    // params
+    let es = req.body.params // event source
 
     // convert password to hash
-    req.body.params.password = sha512(req.body.params.password).toString()
+    es.arguements.password = sha512(es.arguements.password).toString()
 
-    const user = await userRepo.create(req.body.params)
-    const results = await userRepo.save(user)
-    res.json(results)
+    // perform
+    const existingUser = await memberRepo.findOne({
+      select: ["email"],
+      where: {
+        appId: es.arguements.appId,
+        email: es.arguements.email
+      }
+    })
+
+    let result
+    if (!existingUser) {
+      const user = await memberRepo.create(es.arguements)
+      result = {
+        success: true,
+        data: await memberRepo.save(user)
+      }
+    } else {
+      result = {
+        success: false,
+        reason: 'an account with that email already exists'
+      }
+    }
+    
+    // add to event source
+    es.payload = result
+    es.serverAt = Date.now()
+
+    // log event source
+    console.log(`API ${es.arguements.url} ::: ${es}`)
+
+    // finish
+    res.json(es)
+
   }
 }

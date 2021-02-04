@@ -7,7 +7,7 @@ export default function (appRepo, config) {
     let es = req.body.params // event source
 
     // perform
-    const object = await appRepo.create(es)
+    const object = await appRepo.create(es.change)
     const result = await appRepo.save(object)
 
     // add to event source

@@ -1,13 +1,26 @@
 import { Request, Response } from "express"
 
-export default function (userRepo, config) {
+export default function (memberRepo, config) {
   return async function (req: Request, res: Response) {
-    // here we will have logic to return all users
-    console.log(`ALL: /${config.version}/${config.endpoint}`)
-    console.log("--------------------------")
-    const users = await userRepo.find({
-      select: ["email", "username", "firstName", "lastName", "createdAt"]
+    // params
+    // let id = req.params.id
+    let es = req.body.params // event source
+
+    // perform
+    const objects = await memberRepo.find({
+      where: {
+        appId: es.arguements.appId
+      }
     })
-    res.json(users)
+
+    // add to event source
+    es.payload = objects
+    es.serverAt = Date.now()
+
+    // log event source
+    console.log(`API ${es.arguements.url} ::: ${es}`)
+
+    // finish
+    res.json(es)
   }
 }

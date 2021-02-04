@@ -13,7 +13,7 @@ let config = { endpoint, version }
 export default function (app, vehicleRepo) {
   app.post(`/${version}/${endpoint}/all`, all(vehicleRepo, config))
   app.post(`/${version}/${endpoint}/save`, save(vehicleRepo, config))
-  app.post(`/${version}/${endpoint}/get/:id`, get(vehicleRepo, config))
-  app.post(`/${version}/${endpoint}/update/:id`, update(vehicleRepo, config))
-  app.post(`/${version}/${endpoint}/remove/:id`, remove(vehicleRepo, config))
+  app.post(`/${version}/${endpoint}/get`, get(vehicleRepo, config))
+  app.post(`/${version}/${endpoint}/update`, update(vehicleRepo, config))
+  app.post(`/${version}/${endpoint}/remove`, remove(vehicleRepo, config))
 }

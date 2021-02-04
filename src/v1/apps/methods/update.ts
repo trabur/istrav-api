@@ -8,7 +8,7 @@ export default function (appRepo, config) {
 
     // perform
     const object = await appRepo.findOne(id)
-    appRepo.merge(object, es)
+    appRepo.merge(object, es.change)
     const result = await appRepo.save(object)
 
     // add to event source

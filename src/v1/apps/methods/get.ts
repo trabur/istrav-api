@@ -10,7 +10,8 @@ export default function (appRepo, config) {
     const object = await appRepo.findOne({
       select: ["id", "domain", "state"],
       where: {
-        id
+        domain: es.arguements.domain,
+        state: es.arguements.state
       }
     })
 

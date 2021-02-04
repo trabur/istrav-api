@@ -4,39 +4,46 @@ import { Request, Response } from "express"
 
 import configuration from "../../../config/config";
 
-export default function (userRepo, config) {
+export default function (memberRepo, config) {
   return async function (req: Request, res: Response) {
-    // here we will have logic to save a user
-    console.log(`LOGIN: /${config.version}/${config.endpoint}/login`)
-    console.log("--------------------------")
-    console.log('req.body.params:', req.body.params)
+    // params
+    let es = req.body.params // event source
 
-    const results = await userRepo.findOne({
+    // perform
+    const results = await memberRepo.findOne({
       select: ["email", "password"],
       where: {
-        email: req.body.params.email
+        appId: es.arguements.appId,
+        email: es.arguements.email
       }
     })
-    console.log('validate against this password:', results)
     
-    let message
-    let check = sha512(req.body.params.password).toString()
+    let result
+    let check = sha512(es.arguements.password).toString()
     if (results.password === check) {
       const newToken = jwt.sign({ 
-        email: results.email
+        userId: results.id,
+        email: results.email,
       }, configuration.jwtSecret)
-      message = {
+      result = {
         token: newToken,
         success: true // user is auth
       }
     } else {
-      message = {
+      result = {
         reason: 'invalid password',
         success: false // user is not auth
       }
     }
 
-    console.log('check', message)
-    res.json(message)
+    // add to event source
+    es.payload = result
+    es.serverAt = Date.now()
+
+    // log event source
+    console.log(`API ${es.arguements.url} ::: ${es}`)
+
+    // finish
+    res.json(es)
   }
 }

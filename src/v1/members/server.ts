@@ -15,7 +15,7 @@ export default function (app, userRepo) {
   app.post(`/${version}/${endpoint}/all`, all(userRepo, config))
   app.post(`/${version}/${endpoint}/register`, register(userRepo, config))
   app.post(`/${version}/${endpoint}/login`, login(userRepo, config))
-  app.post(`/${version}/${endpoint}/get/:id`, get(userRepo, config))
-  app.post(`/${version}/${endpoint}/update/:id`, update(userRepo, config))
-  app.post(`/${version}/${endpoint}/remove/:id`, remove(userRepo, config))
+  app.post(`/${version}/${endpoint}/get`, get(userRepo, config))
+  app.post(`/${version}/${endpoint}/update`, update(userRepo, config))
+  app.post(`/${version}/${endpoint}/remove`, remove(userRepo, config))
 }
