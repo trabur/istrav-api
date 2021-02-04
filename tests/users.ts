@@ -27,11 +27,11 @@ async function main() {
     console.log('authenticated', auth)
 
     // get that user by id
-    let myUser = await users.get(user.email)
+    let myUser = await users.get(user.id)
     console.log('my-user', myUser)
     
     // change user position
-    let updatedUser = await users.update(myUser.email, { 
+    let updatedUser = await users.update(myUser.id, { 
       firstName: 'someone',
       lastName: 'else'
     })
@@ -42,7 +42,7 @@ async function main() {
     console.log('allUsers', allUsers)
     
     // now remove the user
-    let deletedUser = await users.remove(updatedUser.email)
+    let deletedUser = await users.remove(updatedUser.id)
     console.log('deletedUser', deletedUser)
 
   } catch (error) {

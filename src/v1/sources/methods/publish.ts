@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 
 export default function (amqp, config) {
-  return async function (req: Request, res: Response) {    
+  return async function (req: Request, res: Response) {
     // params
     let id = req.params.id
     let es = req.body.params // event source

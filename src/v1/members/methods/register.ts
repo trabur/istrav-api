@@ -1,7 +1,7 @@
 import sha512 from 'crypto-js/sha512'
 import { Request, Response } from "express"
 
-export default function (userRepo, config) {
+export default function (memberRepo, config) {
   return async function (req: Request, res: Response) {
     // here we will have logic to save a user
     console.log(`REGISTER: /${config.version}/${config.endpoint}`)
@@ -11,8 +11,8 @@ export default function (userRepo, config) {
     // convert password to hash
     req.body.params.password = sha512(req.body.params.password).toString()
 
-    const user = await userRepo.create(req.body.params)
-    const results = await userRepo.save(user)
+    const user = await memberRepo.create(req.body.params)
+    const results = await memberRepo.save(user)
     res.json(results)
   }
 }

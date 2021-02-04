@@ -8,12 +8,14 @@ import backup from "./backup/server"
 import logging from "./logging/server"
 import users from "./users/server"
 import vehicles from "./vehicles/server"
+import apps from "./apps/server"
+import members from "./members/server"
 
 // entities
 import User from './users/Model'
+import Vehicle from './vehicles/Model'
 import App from './apps/Model'
 import Member from './members/Model'
-import Vehicle from './vehicles/Model'
 
 // load "process.env" params from a .env file
 const dotenv = require('dotenv')
@@ -38,6 +40,8 @@ function typeormRepo (app, connection) {
   
     // repos
     const userRepo = connection.getRepository(User)
+    const memberRepo = connection.getRepository(Member)
+    const appRepo = connection.getRepository(App)
     const vehicleRepo = connection.getRepository(Vehicle)
     
     // decode
@@ -56,6 +60,8 @@ function typeormRepo (app, connection) {
     logging(app, userRepo)
     users(app, userRepo)
     vehicles(app, vehicleRepo)
+    apps(app, appRepo)
+    members(app, memberRepo)
 
     // mongo connection stays open with express:
     // mongoClient.close()

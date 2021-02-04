@@ -4,14 +4,14 @@ import { Request, Response } from "express"
 
 import configuration from "../../../config/config";
 
-export default function (userRepo, config) {
+export default function (memberRepo, config) {
   return async function (req: Request, res: Response) {
     // here we will have logic to save a user
     console.log(`LOGIN: /${config.version}/${config.endpoint}/login`)
     console.log("--------------------------")
     console.log('req.body.params:', req.body.params)
 
-    const results = await userRepo.findOne({
+    const results = await memberRepo.findOne({
       select: ["email", "password"],
       where: {
         email: req.body.params.email
