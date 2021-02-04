@@ -18,7 +18,7 @@ export default function (appRepo, config) {
         ownerId: decoded.memberId
       }
     })
-    appRepo.merge(object, es.change)
+    appRepo.merge(object, es.arguements.change)
     const result = await appRepo.save(object)
 
     // add to event source

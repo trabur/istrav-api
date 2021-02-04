@@ -11,7 +11,7 @@ export default function (memberRepo, config) {
         email: es.arguements.email
       }
     })
-    memberRepo.merge(object, es.change)
+    memberRepo.merge(object, es.arguements.change)
     const result = await memberRepo.save(object)
 
     // add to event source

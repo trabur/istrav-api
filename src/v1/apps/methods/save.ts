@@ -11,10 +11,10 @@ export default function (appRepo, config) {
     console.log('decoded:', decoded)
 
     // app owner is user id from token
-    es.change.ownerId = decoded.memberId
+    es.arguements.change.ownerId = decoded.memberId
 
     // perform
-    const object = await appRepo.create(es.change)
+    const object = await appRepo.create(es.arguements.change)
     const result = await appRepo.save(object)
 
     // add to event source
