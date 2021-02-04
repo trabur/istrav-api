@@ -30,7 +30,7 @@ export default function (appRepo, config) {
         result: 'a member with that domain & state already exists'
       }
     } else {
-      // app owner is user id from token
+      // app owner is member id from token
       es.arguements.change.ownerId = decoded.memberId
   
       // perform

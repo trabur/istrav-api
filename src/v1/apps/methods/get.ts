@@ -10,13 +10,20 @@ export default function (appRepo, config) {
     let decoded = jwt.verify(es.arguements.token, process.env.SECRET)
     console.log('decoded:', decoded)
 
+
+    // relations: ['model','model.location'],
+    // where: {
+    //     'model.location': { id: 2},
+    // },
+
     // perform
     const object = await appRepo.findOne({
       select: ["id", "domain", "state"],
+      relations: ['owner','owner.id'],
       where: {
         domain: es.arguements.domain,
         state: es.arguements.state,
-        owner: decoded.memberId
+        'owner.id': { id: decoded.memberId }
       }
     })
 
