@@ -8,7 +8,8 @@ import {
     DeleteDateColumn,
     VersionColumn,
     Unique,
-    ManyToOne
+    ManyToOne,
+    JoinColumn
 } from "typeorm";
 
 import App from '../apps/Model'

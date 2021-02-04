@@ -9,7 +9,8 @@ import {
   DeleteDateColumn,
   VersionColumn,
   ManyToOne,
-  Unique
+  Unique,
+  JoinColumn
 } from "typeorm"
 import { Length, IsNotEmpty } from "class-validator"
 

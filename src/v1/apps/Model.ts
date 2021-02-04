@@ -9,7 +9,8 @@ import {
     DeleteDateColumn,
     VersionColumn,
     OneToMany,
-    Unique
+    Unique,
+    JoinColumn
 } from "typeorm";
 
 import Member from '../members/Model'
