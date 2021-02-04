@@ -23,7 +23,7 @@ export default function (memberRepo, config) {
       const newToken = jwt.sign({ 
         memberId: results.id,
         email: results.email,
-      }, configuration.jwtSecret)
+      }, process.env.SECRET)
       result = {
         token: newToken,
         success: true // user is auth

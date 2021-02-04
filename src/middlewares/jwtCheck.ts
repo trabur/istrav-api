@@ -11,7 +11,7 @@ export const jwtCheck = (req: Request, res: Response, next: NextFunction) => {
   let jwtPayload
   
   // Try to validate the token and get data
-  jwt.verify(token, configuration.jwtSecret, function (err, auth) {
+  jwt.verify(token, process.env.SECRET, function (err, auth) {
     if (err) return res.sendStatus(403)
     req.auth = auth
     console.log('verify', auth)
