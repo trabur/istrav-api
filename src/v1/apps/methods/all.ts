@@ -4,7 +4,6 @@ import * as jwt from "jsonwebtoken"
 export default function (appRepo, config) {
   return async function (req: Request, res: Response) {
     // params
-    // let id = req.params.id
     let es = req.body.params // event source
 
     // authentication

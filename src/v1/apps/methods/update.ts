@@ -3,11 +3,15 @@ import { Request, Response } from "express"
 export default function (appRepo, config) {
   return async function (req: Request, res: Response) {
     // params
-    let id = req.params.id
     let es = req.body.params // event source
 
     // perform
-    const object = await appRepo.findOne(id)
+    const object = await appRepo.findOne(
+      where: {
+        domain: es.arguements.domain,
+        state: es.arguements.state
+      }
+    )
     appRepo.merge(object, es.change)
     const result = await appRepo.save(object)
 
