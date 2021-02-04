@@ -11,8 +11,23 @@ export default function (memberRepo, config) {
     es.arguements.password = sha512(es.arguements.password).toString()
 
     // perform
-    const user = await memberRepo.create(es.arguements)
-    const result = await memberRepo.save(user)
+    const existingUser = await memberRepo.findOne({
+      select: ["email"],
+      where: {
+        email: es.arguements.email
+      }
+    })
+
+    let result
+    if (!existingUser) {
+      const user = await memberRepo.create(es.arguements)
+      result = await memberRepo.save(user)
+    } else {
+      result = {
+        success: false,
+        reason: 'an account with that email already exists'
+      }
+    }
     
     // add to event source
     es.payload = result
