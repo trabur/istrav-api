@@ -10,12 +10,36 @@ export default function (appRepo, config) {
     let decoded = jwt.verify(es.arguements.token, process.env.SECRET)
     console.log('decoded:', decoded)
 
-    // app owner is user id from token
-    es.arguements.change.ownerId = decoded.memberId
+    // check for duplicate key
+    const dupKey = await appRepo.findOne({
+      select: ["id", "domain", "state"],
+      where: {
+        domain: es.arguements.domain,
+        state: es.arguements.state
+      }
+    })
 
-    // perform
-    const object = await appRepo.create(es.arguements.change)
-    const result = await appRepo.save(object)
+    // respond
+    let result
+
+    // check
+    if (dupKey) {
+      result = {
+        success: false,
+        result: 'a member with that domain & state already exists'
+      }
+    } else {
+      // app owner is user id from token
+      es.arguements.change.ownerId = decoded.memberId
+  
+      // perform
+      const object = await appRepo.create(es.arguements.change)
+      result = {
+        success: true,
+        result: await appRepo.save(object)
+      }
+    }
+
 
     // add to event source
     es.payload = result
