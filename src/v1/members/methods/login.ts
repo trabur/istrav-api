@@ -11,7 +11,7 @@ export default function (memberRepo, config) {
 
     // perform
     const results = await memberRepo.findOne({
-      select: ["email", "password"],
+      select: ["id", "email", "password"],
       where: {
         email: es.arguements.email
       }
