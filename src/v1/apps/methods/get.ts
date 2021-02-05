@@ -7,17 +7,17 @@ export default function (appRepo, config) {
     let es = req.body.params // event source
 
     // authentication
-    let decoded = jwt.verify(es.arguements.token, process.env.SECRET)
-    console.log('decoded:', decoded)
+    // let decoded = jwt.verify(es.arguements.token, process.env.SECRET)
+    // console.log('decoded:', decoded)
 
     // perform
     const object = await appRepo.findOne({
-      select: ["id", "domain", "state"],
+      select: ["id", "domain", "state", "ownerId"],
       // relations: ['owner'],
       where: {
         domain: es.arguements.domain,
         state: es.arguements.state,
-        ownerId: decoded.memberId
+        // ownerId: decoded.memberId
       }
     })
 
