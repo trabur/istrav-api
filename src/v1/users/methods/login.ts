@@ -27,7 +27,7 @@ export default function (memberRepo, config) {
           email: results.email,
         }, process.env.SECRET)
         result = {
-          token: newToken,
+          data: { token: newToken },
           success: true // user is auth
         }
       } else {

@@ -27,7 +27,7 @@ export default function (appRepo, config) {
     if (dupKey) {
       result = {
         success: false,
-        result: 'a member with that domain & state already exists'
+        reason: 'a member with that domain & state already exists'
       }
     } else {
       // app owner is member id from token
@@ -37,7 +37,7 @@ export default function (appRepo, config) {
       const object = await appRepo.create(es.arguements.change)
       result = {
         success: true,
-        result: await appRepo.save(object)
+        data: await appRepo.save(object)
       }
     }
 

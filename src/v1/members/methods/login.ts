@@ -26,7 +26,7 @@ export default function (memberRepo, config) {
           email: results.email,
         }, process.env.SECRET)
         result = {
-          token: newToken,
+          data: { token: newToken },
           success: true // user is auth
         }
       } else {
@@ -37,7 +37,7 @@ export default function (memberRepo, config) {
       }
     } else {
       result = {
-        reason: 'user not found',
+        reason: 'member not found',
         success: false // user is not auth
       }
     }
