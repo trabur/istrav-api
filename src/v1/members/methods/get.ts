@@ -13,8 +13,21 @@ export default function (memberRepo, config) {
       }
     })
 
+    let result
+    if (object) {
+      result = {
+        data: object,
+        success: true
+      }
+    } else {
+      result = {
+        reason: 'id not found',
+        success: false
+      }
+    }
+
     // add to event source
-    es.payload = object
+    es.payload = result
     es.serverAt = Date.now()
 
     // log event source
