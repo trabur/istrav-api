@@ -19,18 +19,25 @@ export default function (memberRepo, config) {
     
     let result
     let check = sha512(es.arguements.password).toString()
-    if (results.password === check) {
-      const newToken = jwt.sign({ 
-        memberId: results.id,
-        email: results.email,
-      }, process.env.SECRET)
-      result = {
-        token: newToken,
-        success: true // user is auth
+    if (results) {
+      if (results.passw ord === check) {
+        const newToken = jwt.sign({ 
+          memberId: results.id,
+          email: results.email,
+        }, process.env.SECRET)
+        result = {
+          token: newToken,
+          success: true // user is auth
+        }
+      } else {
+        result = {
+          reason: 'invalid password',
+          success: false // user is not auth
+        }
       }
     } else {
       result = {
-        reason: 'invalid password',
+        reason: 'user not found',
         success: false // user is not auth
       }
     }

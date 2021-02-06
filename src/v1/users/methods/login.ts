@@ -17,21 +17,28 @@ export default function (memberRepo, config) {
         email: es.arguements.email
       }
     })
-    
+
     let result
     let check = sha512(es.arguements.password).toString()
-    if (results.password === check) {
-      const newToken = jwt.sign({ 
-        userId: results.id,
-        email: results.email,
-      }, process.env.SECRET)
-      result = {
-        token: newToken,
-        success: true // user is auth
+    if (results) {
+      if (results.password === check) {
+        const newToken = jwt.sign({ 
+          userId: results.id,
+          email: results.email,
+        }, process.env.SECRET)
+        result = {
+          token: newToken,
+          success: true // user is auth
+        }
+      } else {
+        result = {
+          reason: 'invalid password',
+          success: false // user is not auth
+        }
       }
     } else {
       result = {
-        reason: 'invalid password',
+        reason: 'user not found',
         success: false // user is not auth
       }
     }
