@@ -29,7 +29,7 @@ export default function (appRepo, config) {
       }
     } else {
       result = {
-        reason: 'id not found',
+        reason: 'app id not found',
         success: false
       }
     }

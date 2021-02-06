@@ -21,7 +21,7 @@ export default function (memberRepo, config) {
       }
     } else {
       result = {
-        reason: 'id not found',
+        reason: 'member id not found',
         success: false
       }
     }
