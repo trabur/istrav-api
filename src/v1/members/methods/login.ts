@@ -20,7 +20,7 @@ export default function (memberRepo, config) {
     let result
     let check = sha512(es.arguements.password).toString()
     if (results) {
-      if (results.passw ord === check) {
+      if (results.password === check) {
         const newToken = jwt.sign({ 
           memberId: results.id,
           email: results.email,
