@@ -13,7 +13,10 @@ export default function (memberRepo, config) {
     })
 
     // add to event source
-    es.payload = result
+    es.payload = {
+      success: true,
+      data: result
+    }
     es.serverAt = Date.now()
 
     // log event source
