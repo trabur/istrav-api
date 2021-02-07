@@ -9,7 +9,10 @@ export default function (memberRepo, config) {
     const objects = await memberRepo.find()
 
     // add to event source
-    es.payload = objects
+    es.payload = {
+      success: true,
+      data: objects
+    }
     es.serverAt = Date.now()
 
     // log event source
