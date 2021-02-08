@@ -6,18 +6,30 @@ export default function (memberRepo, config) {
     let es = req.body.params // event source
 
     // perform
-    const result = await memberRepo.delete({
+    let result
+    await memberRepo.delete({
       where: {
         appId: es.arguements.appId,
         email: es.arguements.email
       }
     })
+      .then((data) => {
+        console.log('deleted: ', data)
+        result = {
+          success: true,
+          data: data
+        }
+      })
+      .catch((err) => {
+        console.log('delete err:', err)
+        result = {
+          success: false,
+          reason: err.message
+        }
+      })
 
     // add to event source
-    es.payload = {
-      success: true,
-      data: result
-    }
+    es.payload = result
     es.serverAt = Date.now()
 
     // log event source

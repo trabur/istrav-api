@@ -20,13 +20,26 @@ export default function (appRepo, config) {
         ownerId: decoded.memberId
       }
     })
-    const result = await appRepo.delete(object.id)
+
+    let result
+    await appRepo.delete(object.id)
+      .then((data) => {
+        console.log('deleted: ', data)
+        result = {
+          success: true,
+          data: data
+        }
+      })
+      .catch((err) => {
+        console.log('delete err:', err)
+        result = {
+          success: false,
+          reason: err.message
+        }
+      })
 
     // add to event source
-    es.payload = {
-      success: true,
-      data: result
-    }
+    es.payload = result
     es.serverAt = Date.now()
 
     // log event source
