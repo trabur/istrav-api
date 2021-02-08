@@ -9,23 +9,16 @@ export default function (memberRepo, config) {
     let result
 
     // perform
-    try {
-      const object = await memberRepo.findOne({
-        where: {
-          appId: es.arguements.appId,
-          email: es.arguements.email
-        }
-      })
-      memberRepo.merge(object, es)
-      result = {
-        success: true,
-        data: await memberRepo.save(object)
+    const object = await memberRepo.findOne({
+      where: {
+        appId: es.arguements.appId,
+        email: es.arguements.email
       }
-    } catch (e) {
-      result = {
-        success: false,
-        reason: e
-      }
+    })
+    memberRepo.merge(object, es)
+    result = {
+      success: true,
+      data: await memberRepo.save(object)
     }
 
     // add to event source

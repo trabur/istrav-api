@@ -14,24 +14,17 @@ export default function (appRepo, config) {
     let result
 
     // perform
-    try {
-      const object = await appRepo.findOne({
-        where: {
-          domain: es.arguements.domain,
-          state: es.arguements.state,
-          ownerId: decoded.memberId
-        }
-      })
-      appRepo.merge(object, es.arguements.change)
-      result = {
-        success: true,
-        data: await appRepo.save(object)
+    const object = await appRepo.findOne({
+      where: {
+        domain: es.arguements.domain,
+        state: es.arguements.state,
+        ownerId: decoded.memberId
       }
-    } catch (e) {
-      result = {
-        success: false,
-        reason: e
-      }
+    })
+    appRepo.merge(object, es.arguements.change)
+    result = {
+      success: true,
+      data: await appRepo.save(object)
     }
 
     // add to event source
