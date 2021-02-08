@@ -24,14 +24,14 @@ export default function (appRepo, config) {
     appRepo.merge(object, es.arguements.change)
     await appRepo.save(object)
       .then((data) => {
-        console.log('save', data)
+        console.log('saved: ', data)
         result = {
           success: true,
           data: data
         }
       })
       .catch((err) => {
-        console.log('save', err)
+        console.log('save err:', err)
         result = {
           success: false,
           reason: err.message
