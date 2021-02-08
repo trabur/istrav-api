@@ -22,10 +22,20 @@ export default function (appRepo, config) {
       }
     })
     appRepo.merge(object, es.arguements.change)
-    result = {
-      success: true,
-      data: await appRepo.save(object)
-    }
+    await appRepo.save(object)
+      .then((data) => {
+        result = {
+          success: true,
+          data: data
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+        result = {
+          success: false,
+          reason: err.message
+        }
+      })
 
     // add to event source
     es.payload = result
