@@ -5,15 +5,28 @@ export default function (memberRepo, config) {
     // params
     let es = req.body.params // event source
 
+    // respond
+    let result
+
     // perform
-    const object = await memberRepo.findOne({
-      where: {
-        appId: es.arguements.appId,
-        email: es.arguements.email
+    try {
+      const object = await memberRepo.findOne({
+        where: {
+          appId: es.arguements.appId,
+          email: es.arguements.email
+        }
+      })
+      memberRepo.merge(object, es)
+      result = {
+        success: true,
+        data: await memberRepo.save(object)
       }
-    })
-    memberRepo.merge(object, es)
-    const result = await memberRepo.save(object)
+    } catch (e) {
+      result = {
+        success: false,
+        reason: e
+      }
+    }
 
     // add to event source
     es.payload = result

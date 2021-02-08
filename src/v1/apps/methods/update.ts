@@ -10,16 +10,29 @@ export default function (appRepo, config) {
     let decoded = jwt.verify(es.arguements.token, process.env.SECRET)
     console.log('decoded:', decoded)
 
+    // respond
+    let result
+
     // perform
-    const object = await appRepo.findOne({
-      where: {
-        domain: es.arguements.domain,
-        state: es.arguements.state,
-        ownerId: decoded.memberId
+    try {
+      const object = await appRepo.findOne({
+        where: {
+          domain: es.arguements.domain,
+          state: es.arguements.state,
+          ownerId: decoded.memberId
+        }
+      })
+      appRepo.merge(object, es.arguements.change)
+      result = {
+        success: true,
+        data: await appRepo.save(object)
       }
-    })
-    appRepo.merge(object, es.arguements.change)
-    const result = await appRepo.save(object)
+    } catch (e) {
+      result = {
+        success: false,
+        reason: e
+      }
+    }
 
     // add to event source
     es.payload = result
