@@ -20,27 +20,39 @@ export default function (appRepo, config) {
     })
     console.log('dupKey:', dupKey)
 
+    // check for valid domain name
+    function CheckIsValidDomain(domain) { 
+      var re = new RegExp(/^((?:(?:(?:\w[\.\-\+]?)*)\w)+)((?:(?:(?:\w[\.\-\+]?){0,62})\w)+)\.(\w{2,6})$/); 
+      return domain.match(re);
+    }
+
     // respond
     let result
 
     // check
-    if (dupKey) {
-      result = {
-        success: false,
-        reason: 'a member with that domain & state already exists'
+    if (CheckIsValidDomain(es.arguements.change.domain)) {
+      if (dupKey) {
+        result = {
+          success: false,
+          reason: 'a member with that domain & state already exists'
+        }
+      } else {
+        // app owner is member id from token
+        es.arguements.change.ownerId = decoded.memberId
+    
+        // perform
+        const object = await appRepo.create(es.arguements.change)
+        result = {
+          success: true,
+          data: await appRepo.save(object)
+        }
       }
     } else {
-      // app owner is member id from token
-      es.arguements.change.ownerId = decoded.memberId
-  
-      // perform
-      const object = await appRepo.create(es.arguements.change)
       result = {
-        success: true,
-        data: await appRepo.save(object)
+        success: false,
+        reason: 'Domain Name must be valid; for example: "istrav.com"'
       }
     }
-
 
     // add to event source
     es.payload = result
