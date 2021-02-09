@@ -53,10 +53,21 @@ export default function (userRepo, config) {
       }
     } else {
       const user = await userRepo.create(es.arguements)
-      result = {
-        success: true,
-        data: await userRepo.save(user)
-      }
+      await userRepo.save(user)
+        .then((data) => {
+          console.log('saved: ', data)
+          result = {
+            success: true,
+            data: data
+          }
+        })
+        .catch((err) => {
+          console.log('save err:', err)
+          result = {
+            success: false,
+            reason: err.message
+          }
+        })
     }
     
     // add to event source

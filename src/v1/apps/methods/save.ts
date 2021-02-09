@@ -42,10 +42,21 @@ export default function (appRepo, config) {
     
         // perform
         const object = await appRepo.create(es.arguements.change)
-        result = {
-          success: true,
-          data: await appRepo.save(object)
-        }
+        await appRepo.save(object)
+          .then((data) => {
+            console.log('saved: ', data)
+            result = {
+              success: true,
+              data: data
+            }
+          })
+          .catch((err) => {
+            console.log('save err:', err)
+            result = {
+              success: false,
+              reason: err.message
+            }
+          })
       }
     } else {
       result = {
