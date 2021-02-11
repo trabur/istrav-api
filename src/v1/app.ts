@@ -10,12 +10,18 @@ import users from "./users/server"
 import vehicles from "./vehicles/server"
 import apps from "./apps/server"
 import members from "./members/server"
+import products from "./products/server"
+import categories from "./categories/server"
+import collections from "./collections/server"
 
 // entities
 import User from './users/Model'
 import Vehicle from './vehicles/Model'
 import App from './apps/Model'
 import Member from './members/Model'
+import Product from './products/Model'
+import Category from './categories/Model'
+import Collection from './collections/Model'
 
 // load "process.env" params from a .env file
 const dotenv = require('dotenv')
@@ -43,6 +49,9 @@ function typeormRepo (app, connection) {
     const memberRepo = connection.getRepository(Member)
     const appRepo = connection.getRepository(App)
     const vehicleRepo = connection.getRepository(Vehicle)
+    const categoryRepo = connection.getRepository(Category)
+    const collectionRepo = connection.getRepository(Collection)
+    const productRepo = connection.getRepository(Product)
     
     // decode
     app.use(express.json())
@@ -62,6 +71,9 @@ function typeormRepo (app, connection) {
     vehicles(app, vehicleRepo)
     apps(app, appRepo)
     members(app, memberRepo)
+    categories(app, categoryRepo)
+    collections(app, collectionRepo)
+    products(app, productRepo)
 
     // mongo connection stays open with express:
     // mongoClient.close()
@@ -77,7 +89,10 @@ export default function (app) {
       User,
       Vehicle,
       App,
-      Member
+      Member,
+      Product,
+      Category,
+      Collection
     ],
     logging: ['query', 'schema'],
     synchronize: true

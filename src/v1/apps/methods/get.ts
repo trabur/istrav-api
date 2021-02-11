@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import * as jwt from "jsonwebtoken"
 
-export default function (appRepo, config) {
+export default function (appRepo: any, config: any) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source

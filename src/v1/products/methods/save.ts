@@ -1,28 +1,15 @@
+import sha512 from 'crypto-js/sha512'
 import { Request, Response } from "express"
-import * as jwt from "jsonwebtoken"
 
-export default function (appRepo: any, config: any) {
+export default function (productRepo: any, config: any) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
 
-    // authentication
-    let decoded = jwt.verify(es.arguements.token, process.env.SECRET)
-    console.log('decoded:', decoded)
-
-    // respond
-    let result
-
     // perform
-    const object = await appRepo.findOne({
-      where: {
-        domain: es.arguements.domain,
-        state: es.arguements.state,
-        ownerId: decoded.memberId
-      }
-    })
-    appRepo.merge(object, es.arguements.change)
-    await appRepo.save(object)
+    let result
+    const user = await productRepo.create(es.arguements.change)
+    await productRepo.save(user)
       .then((data: any) => {
         console.log('saved: ', data)
         result = {
@@ -37,7 +24,7 @@ export default function (appRepo: any, config: any) {
           reason: err.message
         }
       })
-
+    
     // add to event source
     es.payload = result
     es.serverAt = Date.now()
@@ -47,5 +34,6 @@ export default function (appRepo: any, config: any) {
 
     // finish
     res.json(es)
+
   }
 }

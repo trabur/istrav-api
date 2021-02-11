@@ -51,7 +51,7 @@ export default function (memberRepo, config) {
     } else {
       const user = await memberRepo.create(es.arguements)
       await memberRepo.save(user)
-        .then((data) => {
+        .then((data: any) => {
           console.log('saved: ', data)
           result = {
             success: true,

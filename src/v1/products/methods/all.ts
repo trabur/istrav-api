@@ -1,19 +1,14 @@
 import { Request, Response } from "express"
-import * as jwt from "jsonwebtoken"
 
-export default function (appRepo: any, config: any) {
+export default function (productRepo: any, config: any) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
 
-    // authentication
-    let decoded = jwt.verify(es.arguements.token, process.env.SECRET)
-    console.log('decoded:', decoded)
-
     // perform
-    const objects = await appRepo.find({
+    const objects = await productRepo.find({
       where: {
-        ownerId: decoded.memberId
+        appId: es.arguements.appId
       }
     })
 

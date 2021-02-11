@@ -17,6 +17,9 @@ import {
 import Member from '../members/Model'
 import User from '../users/Model'
 import Vehicle from '../vehicles/Model'
+import Category from '../categories/Model'
+import Collection from '../collections/Model'
+import Product from '../products/Model'
 
 import { Length, IsNotEmpty } from "class-validator"
 
@@ -44,6 +47,15 @@ export default class App extends BaseEntity {
 
     @OneToMany(() => Vehicle, vehicle => vehicle.app)
     vehicles: Vehicle[];
+
+    @OneToMany(() => Category, category => category.app)
+    categories: Category[];
+
+    @OneToMany(() => Collection, collection => collection.app)
+    collections: Collection[];
+
+    @OneToMany(() => Product, product => product.app)
+    products: Product[];
 
     @Column()
     domain: string;

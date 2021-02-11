@@ -1,21 +1,16 @@
 import { Request, Response } from "express"
-import * as jwt from "jsonwebtoken"
 
-export default function (appRepo: any, config: any) {
+export default function (collectionRepo: any, config: any) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
 
-    // authentication
-    // let decoded = jwt.verify(es.arguements.token, process.env.SECRET)
-    // console.log('decoded:', decoded)
-
     // perform
-    const object = await appRepo.findOne({
-      select: ["id", "domain", "state", "ownerId", "demo"],
-      // relations: ['owner'],
+    const object = await collectionRepo.findOne({
+      select: ["id", "username", "firstname", "lastname"],
       where: {
-        demo: es.arguements.demo
+        appId: es.arguements.appId,
+        slug: es.arguements.slug
       }
     })
 
@@ -27,7 +22,7 @@ export default function (appRepo: any, config: any) {
       }
     } else {
       result = {
-        reason: 'app id not found',
+        reason: 'user id not found',
         success: false
       }
     }

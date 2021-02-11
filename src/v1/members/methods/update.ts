@@ -22,7 +22,7 @@ export default function (memberRepo, config) {
       })
       memberRepo.merge(object, es.arguements.change)
       await memberRepo.save(object)
-        .then((data) => {
+        .then((data: any) => {
           console.log('saved: ', data)
           result = {
             success: true,

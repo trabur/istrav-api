@@ -1,37 +1,27 @@
 import { Request, Response } from "express"
-import * as jwt from "jsonwebtoken"
 
-export default function (appRepo: any, config: any) {
+export default function (collectionRepo: any, config: any) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
 
-    // authentication
-    let decoded = jwt.verify(es.arguements.token, process.env.SECRET)
-    console.log('decoded:', decoded)
-
-    // respond
-    let result
-
     // perform
-    const object = await appRepo.findOne({
+    let result
+    await collectionRepo.delete({
       where: {
-        domain: es.arguements.domain,
-        state: es.arguements.state,
-        ownerId: decoded.memberId
+        appId: es.arguements.appId,
+        slug: es.arguements.slug
       }
     })
-    appRepo.merge(object, es.arguements.change)
-    await appRepo.save(object)
       .then((data: any) => {
-        console.log('saved: ', data)
+        console.log('deleted: ', data)
         result = {
           success: true,
           data: data
         }
       })
       .catch((err) => {
-        console.log('save err:', err)
+        console.log('delete err:', err)
         result = {
           success: false,
           reason: err.message

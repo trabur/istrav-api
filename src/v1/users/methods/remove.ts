@@ -13,7 +13,7 @@ export default function (memberRepo, config) {
         email: es.arguements.email
       }
     })
-      .then((data) => {
+      .then((data: any) => {
         console.log('deleted: ', data)
         result = {
           success: true,
