@@ -6,7 +6,12 @@ export default function (memberRepo, config) {
     let es = req.body.params // event source
 
     // perform
-    const objects = await memberRepo.find()
+    const objects = await memberRepo.find({
+      select: ["id", "username", "firstName", "lastName"],
+      // where: {
+      //   email: es.arguements.email
+      // }
+    })
 
     // add to event source
     es.payload = {
