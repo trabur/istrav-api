@@ -37,6 +37,9 @@ export default class Collection extends BaseEntity {
 
   @Column()
   slug: string;
+  
+  @Column({ nullable: true })
+  image: string;
 
   @ManyToMany(() => Product, product => product.collections)
   products: Product[];

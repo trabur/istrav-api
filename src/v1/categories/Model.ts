@@ -41,6 +41,9 @@ export default class Category extends BaseEntity {
   @Column()
   slug: string;
 
+  @Column({ nullable: true })
+  image: string;
+
   @Column()
   @CreateDateColumn()
   createdAt: Date;
