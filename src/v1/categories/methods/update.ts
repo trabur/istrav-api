@@ -14,7 +14,7 @@ export default function (categoryRepo: any, appRepo: any, config: any) {
     const app = await appRepo.findOne({
       select: ["id"],
       where: {
-        appId: es.arguements.appId,
+        id: es.arguements.appId,
         ownerId: decoded.memberId
       }
     })
