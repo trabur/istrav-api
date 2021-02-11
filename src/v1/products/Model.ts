@@ -40,7 +40,7 @@ export default class Product extends BaseEntity {
   @Column()
   slug: string;
 
-  @Column({ type: "uuid", nullable: false })
+  @Column({ type: "uuid", nullable: true })
   categoryId: string;
 
   @ManyToOne(() => Category, category => category.products)
