@@ -1,13 +1,13 @@
 import { Request, Response } from "express"
 
-export default function (productRepo: any, config: any) {
+export default function (categoryRepo: any, config: any) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
 
     // perform
     let result
-    await productRepo.delete({
+    await categoryRepo.delete({
       where: {
         appId: es.arguements.appId,
         slug: es.arguements.slug

@@ -1,15 +1,15 @@
 import sha512 from 'crypto-js/sha512'
 import { Request, Response } from "express"
 
-export default function (productRepo: any, config: any) {
+export default function (categoryRepo: any, config: any) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
 
     // perform
     let result
-    const user = await productRepo.create(es.arguements.change)
-    await productRepo.save(user)
+    const user = await categoryRepo.create(es.arguements.change)
+    await categoryRepo.save(user)
       .then((data: any) => {
         console.log('saved: ', data)
         result = {

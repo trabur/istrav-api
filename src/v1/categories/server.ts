@@ -10,10 +10,10 @@ import version from '../version.json'
 const endpoint = 'categories'
 let config = { endpoint, version }
 
-export default function (app, productRepo) {
-  app.post(`/${version}/${endpoint}/all`, all(productRepo, config))
-  app.post(`/${version}/${endpoint}/save`, save(productRepo, config))
-  app.post(`/${version}/${endpoint}/get`, get(productRepo, config))
-  app.post(`/${version}/${endpoint}/update`, update(productRepo, config))
-  app.post(`/${version}/${endpoint}/remove`, remove(productRepo, config))
+export default function (app, categoryRepo) {
+  app.post(`/${version}/${endpoint}/all`, all(categoryRepo, config))
+  app.post(`/${version}/${endpoint}/save`, save(categoryRepo, config))
+  app.post(`/${version}/${endpoint}/get`, get(categoryRepo, config))
+  app.post(`/${version}/${endpoint}/update`, update(categoryRepo, config))
+  app.post(`/${version}/${endpoint}/remove`, remove(categoryRepo, config))
 }
