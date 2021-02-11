@@ -29,6 +29,7 @@ export default function (collectionRepo: any, appRepo: any, config: any) {
       console.log(`API ${es.arguements.url} ::: ${es}`)
       res.json(es)
     }
+    es.arguements.change.appId = app.id
 
     // perform
     let result
