@@ -72,8 +72,8 @@ function typeormRepo (app, connection) {
     apps(app, appRepo)
     members(app, memberRepo)
     categories(app, categoryRepo, appRepo)
-    collections(app, collectionRepo)
-    products(app, productRepo)
+    collections(app, collectionRepo, appRepo)
+    products(app, productRepo, appRepo)
 
     // mongo connection stays open with express:
     // mongoClient.close()
