@@ -69,7 +69,7 @@ function typeormRepo (app, connection) {
     logging(app, userRepo)
     users(app, userRepo)
     vehicles(app, vehicleRepo)
-    apps(app, appRepo)
+    apps(app, appRepo, categoryRepo, collectionRepo, productRepo)
     members(app, memberRepo)
     categories(app, categoryRepo, appRepo)
     collections(app, collectionRepo, appRepo)
