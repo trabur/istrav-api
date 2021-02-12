@@ -7,7 +7,7 @@ export default function (collectionRepo: any, config: any) {
 
     // perform
     const object = await collectionRepo.findOne({
-      select: ["id", "username", "firstname", "lastname"],
+      select: ["id", "name", "slug", "image"],
       where: {
         appId: es.arguements.appId,
         slug: es.arguements.slug
