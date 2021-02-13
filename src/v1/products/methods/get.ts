@@ -7,7 +7,7 @@ export default function (productRepo: any, config: any) {
 
     // perform
     const object = await productRepo.findOne({
-      select: ["id", "name", "slug", "image"],
+      select: ["id", "name", "slug", "categoryId", "image"],
       where: {
         appId: es.arguements.appId,
         slug: es.arguements.slug
