@@ -13,6 +13,8 @@ import members from "./members/server"
 import products from "./products/server"
 import categories from "./categories/server"
 import collections from "./collections/server"
+import menus from "./menus/server"
+import pages from "./pages/server"
 
 // entities
 import User from './users/Model'
@@ -22,6 +24,8 @@ import Member from './members/Model'
 import Product from './products/Model'
 import Category from './categories/Model'
 import Collection from './collections/Model'
+import Menu from './menus/Model'
+import Page from './pages/Model'
 
 // load "process.env" params from a .env file
 const dotenv = require('dotenv')
@@ -48,6 +52,8 @@ function typeormRepo (app, connection) {
     const userRepo = connection.getRepository(User)
     const memberRepo = connection.getRepository(Member)
     const appRepo = connection.getRepository(App)
+    const menuRepo = connection.getRepository(Menu)
+    const pageRepo = connection.getRepository(Page)
     const vehicleRepo = connection.getRepository(Vehicle)
     const categoryRepo = connection.getRepository(Category)
     const collectionRepo = connection.getRepository(Collection)
@@ -70,6 +76,8 @@ function typeormRepo (app, connection) {
     users(app, userRepo)
     vehicles(app, vehicleRepo)
     apps(app, appRepo, categoryRepo, collectionRepo, productRepo)
+    menus(app, menuRepo, appRepo)
+    pages(app, pageRepo, appRepo)
     members(app, memberRepo)
     categories(app, categoryRepo, appRepo)
     collections(app, collectionRepo, appRepo)
@@ -89,6 +97,8 @@ export default function (app) {
       User,
       Vehicle,
       App,
+      Menu,
+      Page,
       Member,
       Product,
       Category,

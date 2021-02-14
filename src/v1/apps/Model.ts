@@ -57,6 +57,9 @@ export default class App extends BaseEntity {
     @OneToMany(() => Product, product => product.app)
     products: Product[];
 
+    @Column({ type: "json", nullable: true })
+    raw: string;
+
     @Column()
     domain: string;
 
