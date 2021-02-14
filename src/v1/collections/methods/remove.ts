@@ -30,13 +30,16 @@ export default function (collectionRepo: any, appRepo: any, config: any) {
     }
 
     // perform
-    let result
-    await collectionRepo.delete({
+    const object = await collectionRepo.findOne({
+      select: ["id"],
       where: {
-        appId: es.arguements.appId,
+        appId: app.id,
         slug: es.arguements.slug
       }
     })
+    
+    let result
+    await collectionRepo.delete(object.id)
       .then((data: any) => {
         console.log('deleted: ', data)
         result = {
