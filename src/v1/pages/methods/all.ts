@@ -1,12 +1,12 @@
 import { Request, Response } from "express"
 
-export default function (productRepo: any, config: any) {
+export default function (pageRepo: any, config: any) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
 
     // perform
-    const objects = await productRepo.find({
+    const objects = await pageRepo.find({
       where: {
         appId: es.arguements.appId
       }

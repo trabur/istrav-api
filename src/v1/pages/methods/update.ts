@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import * as jwt from "jsonwebtoken"
 
-export default function (productRepo: any, appRepo: any, config: any) {
+export default function (pageRepo: any, appRepo: any, config: any) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
@@ -33,14 +33,14 @@ export default function (productRepo: any, appRepo: any, config: any) {
     let result
 
     // perform
-    const object = await productRepo.findOne({
+    const object = await pageRepo.findOne({
       where: {
         appId: es.arguements.appId,
         slug: es.arguements.slug
       }
     })
-    productRepo.merge(object, es.arguements.change)
-    await productRepo.save(object)
+    pageRepo.merge(object, es.arguements.change)
+    await pageRepo.save(object)
       .then((data: any) => {
         console.log('saved: ', data)
         result = {

@@ -1,13 +1,13 @@
 import { Request, Response } from "express"
 
-export default function (productRepo: any, config: any) {
+export default function (menuRepo: any, config: any) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
 
     // perform
-    const object = await productRepo.findOne({
-      select: ["id", "name", "slug", "categoryId", "image"],
+    const object = await menuRepo.findOne({
+      select: ["id", "name", "slug", "raw"],
       where: {
         appId: es.arguements.appId,
         slug: es.arguements.slug

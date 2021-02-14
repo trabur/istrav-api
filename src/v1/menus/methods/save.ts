@@ -2,7 +2,7 @@ import sha512 from 'crypto-js/sha512'
 import { Request, Response } from "express"
 import * as jwt from "jsonwebtoken"
 
-export default function (productRepo: any, appRepo: any, config: any) {
+export default function (menuRepo: any, appRepo: any, config: any) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
@@ -33,8 +33,8 @@ export default function (productRepo: any, appRepo: any, config: any) {
 
     // perform
     let result
-    const user = await productRepo.create(es.arguements.change)
-    await productRepo.save(user)
+    const user = await menuRepo.create(es.arguements.change)
+    await menuRepo.save(user)
       .then((data: any) => {
         console.log('saved: ', data)
         result = {

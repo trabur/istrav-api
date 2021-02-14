@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import * as jwt from "jsonwebtoken"
 
-export default function (productRepo: any, appRepo: any, config: any) {
+export default function (pageRepo: any, appRepo: any, config: any) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
@@ -30,7 +30,7 @@ export default function (productRepo: any, appRepo: any, config: any) {
     }
 
     // perform
-    const object = await productRepo.findOne({
+    const object = await pageRepo.findOne({
       select: ["id"],
       where: {
         appId: app.id,
@@ -39,7 +39,7 @@ export default function (productRepo: any, appRepo: any, config: any) {
     })
     
     let result
-    await productRepo.delete(object.id)
+    await pageRepo.delete(object.id)
       .then((data: any) => {
         console.log('deleted: ', data)
         result = {
