@@ -22,7 +22,7 @@ export default function (menuRepo: any, config: any) {
       }
     } else {
       result = {
-        reason: 'user id not found',
+        reason: 'menu id not found',
         success: false
       }
     }

@@ -22,7 +22,7 @@ export default function (productRepo: any, config: any) {
       }
     } else {
       result = {
-        reason: 'user id not found',
+        reason: 'product id not found',
         success: false
       }
     }

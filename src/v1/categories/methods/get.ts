@@ -22,7 +22,7 @@ export default function (categoryRepo: any, config: any) {
       }
     } else {
       result = {
-        reason: 'user id not found',
+        reason: 'category id not found',
         success: false
       }
     }

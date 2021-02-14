@@ -22,7 +22,7 @@ import Collection from '../collections/Model'
 
 @Entity()
 @Unique(["app", "slug"])
-export default class Product extends BaseEntity {
+export default class Page extends BaseEntity {
     
   @PrimaryGeneratedColumn("uuid")
   id: string;

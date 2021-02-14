@@ -22,7 +22,7 @@ export default function (pageRepo: any, config: any) {
       }
     } else {
       result = {
-        reason: 'user id not found',
+        reason: 'page id not found',
         success: false
       }
     }

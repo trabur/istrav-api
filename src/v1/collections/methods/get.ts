@@ -22,7 +22,7 @@ export default function (collectionRepo: any, config: any) {
       }
     } else {
       result = {
-        reason: 'user id not found',
+        reason: 'collection id not found',
         success: false
       }
     }
