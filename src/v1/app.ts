@@ -75,7 +75,7 @@ function typeormRepo (app, connection) {
     logging(app, userRepo)
     users(app, userRepo)
     vehicles(app, vehicleRepo)
-    apps(app, appRepo, categoryRepo, collectionRepo, productRepo)
+    apps(app, appRepo, categoryRepo, collectionRepo, productRepo, menuRepo, pageRepo, userRepo)
     menus(app, menuRepo, appRepo)
     pages(app, pageRepo, appRepo)
     members(app, memberRepo)
