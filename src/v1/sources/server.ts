@@ -5,11 +5,11 @@ import publish from './methods/publish'
 import { jwtCheck } from "../../middlewares/jwtCheck"
 import version from '../version.json'
 
-const endpoint = 'sources'
-let config = { endpoint, version }
+const component = 'sources'
+let config = { component, version }
 
 export default function (app, amqp) {
-  app.post(`/${version}/${endpoint}/check/:id`, check(amqp, config))
-  app.post(`/${version}/${endpoint}/consume/:id`, consume(amqp, config))
-  app.post(`/${version}/${endpoint}/publish/:id`, publish(amqp, config))
+  app.post(`/${version}/${component}/check/:id`, check(amqp, config))
+  app.post(`/${version}/${component}/consume/:id`, consume(amqp, config))
+  app.post(`/${version}/${component}/publish/:id`, publish(amqp, config))
 }

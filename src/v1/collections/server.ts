@@ -7,13 +7,13 @@ import remove from "./methods/remove"
 import { jwtCheck } from "../../middlewares/jwtCheck"
 import version from '../version.json'
 
-const endpoint = 'collections'
-let config = { endpoint, version }
+const component = 'collections'
+let config = { component, version }
 
 export default function (app, collectionRepo, appRepo) {
-  app.post(`/${version}/${endpoint}/all`, all(collectionRepo, config))
-  app.post(`/${version}/${endpoint}/save`, save(collectionRepo, appRepo, config))
-  app.post(`/${version}/${endpoint}/get`, get(collectionRepo, config))
-  app.post(`/${version}/${endpoint}/update`, update(collectionRepo, appRepo, config))
-  app.post(`/${version}/${endpoint}/remove`, remove(collectionRepo, appRepo, config))
+  app.post(`/${version}/${component}/all`, all(collectionRepo, config))
+  app.post(`/${version}/${component}/save`, save(collectionRepo, appRepo, config))
+  app.post(`/${version}/${component}/get`, get(collectionRepo, config))
+  app.post(`/${version}/${component}/update`, update(collectionRepo, appRepo, config))
+  app.post(`/${version}/${component}/remove`, remove(collectionRepo, appRepo, config))
 }

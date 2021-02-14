@@ -3,9 +3,9 @@
 import { jwtCheck } from "../../middlewares/jwtCheck"
 import version from '../version.json'
 
-const endpoint = 'logging'
-let config = { endpoint, version }
+const component = 'logging'
+let config = { component, version }
 
 export default function (app, userRepo) {
-  // app.post(`/${version}/${endpoint}/publish/:queue`, publish(userRepo, config))
+  // app.post(`/${version}/${component}/publish/:queue`, publish(userRepo, config))
 }

@@ -33,7 +33,7 @@ export default class App extends BaseEntity {
     @Column()
     @Length(4, 20)
     @Index({ unique: true })
-    demo: string;
+    endpoint: string;
 
     @Column({ type: "uuid", nullable: false })
     ownerId: string;
