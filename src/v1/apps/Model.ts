@@ -74,6 +74,9 @@ export default class App extends BaseEntity {
     @Column()
     state: string;
 
+    @Column({ nullable: true })
+    uploads: string;
+
     @Column()
     @CreateDateColumn()
     createdAt: Date;
