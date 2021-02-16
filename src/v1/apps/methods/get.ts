@@ -12,7 +12,7 @@ export default function (appRepo: any, config: any) {
 
     // perform
     const object = await appRepo.findOne({
-      select: ["id", "domain", "state", "ownerId", "endpoint", "raw", "uploads"],
+      select: ["id", "domain", "state", "ownerId", "endpoint", "raw", "uploads", "image", "line1", "line2", "buttonName", "buttonUrl"],
       // relations: ['owner'],
       where: {
         domain: es.arguements.domain,

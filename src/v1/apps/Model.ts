@@ -77,6 +77,18 @@ export default class App extends BaseEntity {
     @Column({ nullable: true })
     uploads: string;
 
+    // intro
+    @Column({ nullable: true })
+    image: string;
+    @Column({ nullable: true })
+    line1: string;
+    @Column({ nullable: true })
+    line2: string;
+    @Column({ nullable: true })
+    buttonName: string;
+    @Column({ nullable: true })
+    buttonUrl: string;
+
     @Column()
     @CreateDateColumn()
     createdAt: Date;
