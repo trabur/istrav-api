@@ -16,4 +16,5 @@ export default function (app, categoryRepo, appRepo) {
   app.post(`/${version}/${component}/get`, get(categoryRepo, config))
   app.post(`/${version}/${component}/update`, update(categoryRepo, appRepo, config))
   app.post(`/${version}/${component}/remove`, remove(categoryRepo, appRepo, config))
+  app.post(`/${version}/${component}/products`, remove(categoryRepo, appRepo, config))
 }
