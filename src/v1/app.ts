@@ -15,6 +15,8 @@ import categories from "./categories/server"
 import collections from "./collections/server"
 import menus from "./menus/server"
 import pages from "./pages/server"
+import carts from "./carts/server"
+import orders from "./orders/server"
 
 // entities
 import User from './users/Model'
@@ -26,6 +28,8 @@ import Category from './categories/Model'
 import Collection from './collections/Model'
 import Menu from './menus/Model'
 import Page from './pages/Model'
+import Cart from './carts/Model'
+import Order from './orders/Model'
 
 // load "process.env" params from a .env file
 const dotenv = require('dotenv')
@@ -58,6 +62,8 @@ function typeormRepo (app, connection) {
     const categoryRepo = connection.getRepository(Category)
     const collectionRepo = connection.getRepository(Collection)
     const productRepo = connection.getRepository(Product)
+    const cartRepo = connection.getRepository(Cart)
+    const orderRepo = connection.getRepository(Order)
     
     // decode
     app.use(express.json())
@@ -82,6 +88,8 @@ function typeormRepo (app, connection) {
     categories(app, categoryRepo, appRepo)
     collections(app, collectionRepo, appRepo)
     products(app, productRepo, appRepo)
+    carts(app, cartRepo, appRepo)
+    orders(app, orderRepo, appRepo)
 
     // mongo connection stays open with express:
     // mongoClient.close()
@@ -102,7 +110,9 @@ export default function (app) {
       Member,
       Product,
       Category,
-      Collection
+      Collection,
+      Cart,
+      Order
     ],
     logging: ['query', 'schema'],
     synchronize: true

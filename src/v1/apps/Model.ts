@@ -22,6 +22,8 @@ import Collection from '../collections/Model'
 import Product from '../products/Model'
 import Menu from '../menus/Model'
 import Page from '../pages/Model'
+import Cart from '../carts/Model'
+import Order from '../orders/Model'
 
 import { Length, IsNotEmpty } from "class-validator"
 
@@ -64,6 +66,12 @@ export default class App extends BaseEntity {
 
     @OneToMany(() => Page, page => page.app)
     pages: Page[];
+
+    @OneToMany(() => Cart, cart => cart.app)
+    carts: Cart[];
+
+    @OneToMany(() => Order, order => order.app)
+    orders: Order[];
 
     @Column({ type: "json", nullable: true })
     raw: string;

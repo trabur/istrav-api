@@ -19,6 +19,8 @@ import { Length, IsNotEmpty } from "class-validator"
 import App from '../apps/Model'
 import Category from '../categories/Model'
 import Collection from '../collections/Model'
+import Cart from '../carts/Model'
+import Order from '../orders/Model'
 
 @Entity()
 @Unique(["app", "slug"])
@@ -48,8 +50,13 @@ export default class Product extends BaseEntity {
   category: Category;
 
   @ManyToMany(() => Collection, collection => collection.products)
-  @JoinTable()
   collections: Collection[];
+
+  @ManyToMany(() => Cart, cart => cart.products)
+  carts: Cart[];
+
+  @ManyToMany(() => Order, order => order.products)
+  orders: Order[];
 
   @Column({ nullable: true })
   image: string;

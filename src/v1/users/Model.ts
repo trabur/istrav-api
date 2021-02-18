@@ -10,11 +10,15 @@ import {
   VersionColumn,
   ManyToOne,
   Unique,
-  JoinColumn
+  JoinColumn,
+  OneToMany,
+  OneToOne
 } from "typeorm"
 import { Length, IsNotEmpty } from "class-validator"
 
 import App from '../apps/Model'
+import Cart from '../carts/Model'
+import Order from '../orders/Model'
 
 @Entity()
 @Unique(["app", "email"])
@@ -31,6 +35,16 @@ export default class User extends BaseEntity {
   @ManyToOne(() => App, app => app.users)
   @JoinColumn({ name: "appId" })
   app: App;
+
+  @Column({ type: "uuid", nullable: true })
+  cartId: string;
+
+  @OneToOne(() => Cart)
+  @JoinColumn({ name: "cartId" })
+  cart: Cart;
+
+  @OneToMany(() => Order, order => order.user)
+  orders: Order[];
 
   @Column()
   email: string;
