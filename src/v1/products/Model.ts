@@ -63,6 +63,18 @@ export default class Product extends BaseEntity {
   @Column({ nullable: true })
   description: string;
 
+  @Column({ default: false })
+  isPublished: boolean;
+
+  @Column({ default: false })
+  isNotForSale: boolean;
+
+  @Column({ default: 1 })
+  inStockCount: number;
+
+  @Column({ type: 'json', nullable: true })
+  gallery: string;
+
   @Column()
   @CreateDateColumn()
   createdAt: Date;
