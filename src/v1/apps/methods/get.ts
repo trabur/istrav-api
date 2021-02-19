@@ -25,8 +25,8 @@ export default function (appRepo: any, config: any) {
 
     // if memberId from token matches ownerId from object then return secret keys
     if (!es.arguements.token || object.ownerId !== decoded.memberId) {
-      object.stripeSecretKeyTest = undefined
-      object.stripeSecretKeyLive = undefined
+      object.stripeSecretKeyTest = null
+      object.stripeSecretKeyLive = null
     }
 
     let result
