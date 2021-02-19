@@ -1,16 +1,22 @@
 import { Request, Response } from "express"
+import * as jwt from "jsonwebtoken"
 
-export default function (cartRep: any, config: any) {
+export default function (cartRepo: any, config: any) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
 
+    // authentication
+    let decoded = jwt.verify(es.arguements.token, process.env.SECRET)
+    console.log('decoded:', decoded)
+
     // perform
-    const object = await cartRep.findOne({
-      select: ["id", "name", "slug", "categoryId", "image", "price", "details", "description"],
+    const object = await cartRepo.findOne({
+      select: ["id", "appId", "userId"],
       where: {
+        id: es.arguements.id,
         appId: es.arguements.appId,
-        slug: es.arguements.slug
+        userId: decoded.userId
       }
     })
 
@@ -22,7 +28,7 @@ export default function (cartRep: any, config: any) {
       }
     } else {
       result = {
-        reason: 'product id not found',
+        reason: 'cart id not found',
         success: false
       }
     }

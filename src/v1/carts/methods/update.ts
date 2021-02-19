@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import * as jwt from "jsonwebtoken"
 
-export default function (cartRep: any, appRepo: any, config: any) {
+export default function (cartRepo: any, appRepo: any, config: any) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
@@ -10,37 +10,41 @@ export default function (cartRep: any, appRepo: any, config: any) {
     let decoded = jwt.verify(es.arguements.token, process.env.SECRET)
     console.log('decoded:', decoded)
     
-    // check if memberId from token is the owner to provided appId
-    const app = await appRepo.findOne({
+    // check if userId from token is the owner to provided cart id
+    const cart = await cartRepo.findOne({
       select: ["id"],
       where: {
-        id: es.arguements.appId,
-        ownerId: decoded.memberId
+        id: es.arguements.id,
+        appId: es.arguements.appId,
+        userId: decoded.userId
       }
     })
-    if (!app) {
+    if (!cart) {
       // end
       es.payload = {
         success: false,
-        reason: 'memberId from token is not the owner to provided appId or app does not exist'
+        reason: 'userId from token is not the owner to provided cart id or cart does not exist'
       }
       es.serverAt = Date.now()
       console.log(`API ${es.arguements.url} ::: ${es}`)
       res.json(es)
     }
 
+    // make sure hackers don't override these values
+    es.arguements.change.appId = cart.appId
+    es.arguements.change.userId = cart.userId
+
     // respond
     let result
 
     // perform
-    const object = await cartRep.findOne({
+    const object = await cartRepo.findOne({
       where: {
-        appId: es.arguements.appId,
-        slug: es.arguements.slug
+        id: cart.id
       }
     })
-    cartRep.merge(object, es.arguements.change)
-    await cartRep.save(object)
+    cartRepo.merge(object, es.arguements.change)
+    await cartRepo.save(object)
       .then((data: any) => {
         console.log('saved: ', data)
         result = {

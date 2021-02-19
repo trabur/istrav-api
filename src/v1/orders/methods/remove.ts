@@ -10,19 +10,20 @@ export default function (orderRep: any, appRepo: any, config: any) {
     let decoded = jwt.verify(es.arguements.token, process.env.SECRET)
     console.log('decoded:', decoded)
     
-    // check if memberId from token is the owner to provided appId
-    const app = await appRepo.findOne({
+    // check if userId from token is the owner to provided order id
+    const order = await orderRep.findOne({
       select: ["id"],
       where: {
-        id: es.arguements.appId,
-        ownerId: decoded.memberId
+        id: es.arguements.id,
+        appId: es.arguements.appId,
+        userId: decoded.userId
       }
     })
-    if (!app) {
+    if (!order) {
       // end
       es.payload = {
         success: false,
-        reason: 'memberId from token is not the owner to provided appId or app does not exist'
+        reason: 'userId from token is not the owner to provided order id or order does not exist'
       }
       es.serverAt = Date.now()
       console.log(`API ${es.arguements.url} ::: ${es}`)
@@ -30,16 +31,8 @@ export default function (orderRep: any, appRepo: any, config: any) {
     }
 
     // perform
-    const object = await orderRep.findOne({
-      select: ["id"],
-      where: {
-        appId: app.id,
-        slug: es.arguements.slug
-      }
-    })
-    
     let result
-    await orderRep.delete(object.id)
+    await orderRep.delete(order.id)
       .then((data: any) => {
         console.log('deleted: ', data)
         result = {

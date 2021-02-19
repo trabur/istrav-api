@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import * as jwt from "jsonwebtoken"
 
-export default function (cartRep: any, appRepo: any, config: any) {
+export default function (cartRepo: any, appRepo: any, config: any) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
@@ -10,36 +10,29 @@ export default function (cartRep: any, appRepo: any, config: any) {
     let decoded = jwt.verify(es.arguements.token, process.env.SECRET)
     console.log('decoded:', decoded)
     
-    // check if memberId from token is the owner to provided appId
-    const app = await appRepo.findOne({
+    // check if userId from token is the owner to provided cart id
+    const cart = await cartRepo.findOne({
       select: ["id"],
       where: {
-        id: es.arguements.appId,
-        ownerId: decoded.memberId
+        id: es.arguements.id,
+        appId: es.arguements.appId,
+        userId: decoded.userId
       }
     })
-    if (!app) {
+    if (!cart) {
       // end
       es.payload = {
         success: false,
-        reason: 'memberId from token is not the owner to provided appId or app does not exist'
+        reason: 'userId from token is not the owner to provided cart id or cart does not exist'
       }
       es.serverAt = Date.now()
       console.log(`API ${es.arguements.url} ::: ${es}`)
       res.json(es)
     }
-
-    // perform
-    const object = await cartRep.findOne({
-      select: ["id"],
-      where: {
-        appId: app.id,
-        slug: es.arguements.slug
-      }
-    })
     
+    // perform
     let result
-    await cartRep.delete(object.id)
+    await cartRepo.delete(cart.id)
       .then((data: any) => {
         console.log('deleted: ', data)
         result = {

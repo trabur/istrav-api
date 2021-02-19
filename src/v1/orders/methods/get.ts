@@ -1,16 +1,23 @@
 import { Request, Response } from "express"
+import * as jwt from "jsonwebtoken"
 
 export default function (orderRep: any, config: any) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
 
+    // authentication
+    let decoded = jwt.verify(es.arguements.token, process.env.SECRET)
+    console.log('decoded:', decoded)
+
     // perform
     const object = await orderRep.findOne({
-      select: ["id", "name", "slug", "categoryId", "image", "price", "details", "description"],
+      relations: ['products'],
+      select: ["id", "appId", "userId", "placedAt"],
       where: {
+        id: es.arguements.id,
         appId: es.arguements.appId,
-        slug: es.arguements.slug
+        userId: decoded.userId
       }
     })
 
