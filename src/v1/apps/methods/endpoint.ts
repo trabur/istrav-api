@@ -6,18 +6,27 @@ export default function (appRepo: any, config: any) {
     // params
     let es = req.body.params // event source
 
-    // authentication
-    // let decoded = jwt.verify(es.arguements.token, process.env.SECRET)
-    // console.log('decoded:', decoded)
+    let decoded
+    if (es.arguements.token) {
+      // authentication
+      decoded = jwt.verify(es.arguements.token, process.env.SECRET)
+      console.log('decoded:', decoded)
+    }
 
     // perform
     const object = await appRepo.findOne({
-      select: ["id", "domain", "state", "ownerId", "endpoint", "raw", "uploads", "image", "line1", "line2", "buttonName", "buttonUrl"],
+      select: ["id", "domain", "state", "ownerId", "endpoint", "raw", "uploads", "image", "line1", "line2", "buttonName", "buttonUrl", "isStripeTestData", "stripePublishableKeyTest", "stripeSecretKeyTest", "stripePublishableKeyLive", "stripeSecretKeyLive"],
       // relations: ['owner'],
       where: {
         endpoint: es.arguements.endpoint
       }
     })
+
+    // if memberId from token matches ownerId from object then return secret keys
+    if (!es.arguements.token && object.ownerId !== decoded.memberId) {
+      object.stripeSecretKeyTest = undefined
+      object.stripeSecretKeyLive = undefined
+    }
 
     let result
     if (object) {

@@ -97,6 +97,18 @@ export default class App extends BaseEntity {
     @Column({ nullable: true })
     buttonUrl: string;
 
+    // strip
+    @Column({ default: false })
+    isStripeTestData: boolean
+    @Column({ nullable: true })
+    stripePublishableKeyTest: string;
+    @Column({ nullable: true })
+    stripeSecretKeyTest: string;
+    @Column({ nullable: true })
+    stripePublishableKeyLive: string;
+    @Column({ nullable: true })
+    stripeSecretKeyLive: string;
+
     @Column()
     @CreateDateColumn()
     createdAt: Date;

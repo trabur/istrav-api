@@ -12,6 +12,7 @@ export default function (appRepo: any, config: any) {
 
     // perform
     const objects = await appRepo.find({
+      select: ["id", "domain", "state", "ownerId", "endpoint", "raw", "uploads", "image", "line1", "line2", "buttonName", "buttonUrl", "isStripeTestData", "stripePublishableKeyTest", "stripePublishableKeyLive"],
       where: {
         ownerId: decoded.memberId
       }
