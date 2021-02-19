@@ -43,7 +43,6 @@ export default class Cart extends BaseEntity {
   user: User;
 
   @ManyToMany(() => Product, product => product.carts)
-  @JoinTable()
   products: Product[];
 
   @Column()

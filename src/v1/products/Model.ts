@@ -50,12 +50,15 @@ export default class Product extends BaseEntity {
   category: Category;
 
   @ManyToMany(() => Collection, collection => collection.products)
+  @JoinTable()
   collections: Collection[];
 
   @ManyToMany(() => Cart, cart => cart.products)
+  @JoinTable()
   carts: Cart[];
 
   @ManyToMany(() => Order, order => order.products)
+  @JoinTable()
   orders: Order[];
 
   @Column({ nullable: true })

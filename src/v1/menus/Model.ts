@@ -10,9 +10,7 @@ import {
   VersionColumn,
   ManyToOne,
   Unique,
-  JoinColumn,
-  ManyToMany,
-  JoinTable
+  JoinColumn
 } from "typeorm"
 import { Length, IsNotEmpty } from "class-validator"
 

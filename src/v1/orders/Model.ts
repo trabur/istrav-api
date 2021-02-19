@@ -42,7 +42,6 @@ export default class Order extends BaseEntity {
   user: User;
 
   @ManyToMany(() => Product, product => product.orders)
-  @JoinTable()
   products: Product[];
 
   @Column()
