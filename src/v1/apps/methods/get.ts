@@ -7,7 +7,7 @@ export default function (appRepo: any, config: any) {
     let es = req.body.params // event source
 
     let decoded
-    if (es.arguements.token) {
+    if (es.arguements.token !== null) {
       // authentication
       decoded = jwt.verify(es.arguements.token, process.env.SECRET)
       console.log('decoded:', decoded)
@@ -24,7 +24,7 @@ export default function (appRepo: any, config: any) {
     })
 
     // if memberId from token matches ownerId from object then return secret keys
-    if (!es.arguements.token || object.ownerId !== decoded.memberId) {
+    if (es.arguements.token === null || object.ownerId !== decoded.memberId) {
       object.stripeSecretKeyTest = null
       object.stripeSecretKeyLive = null
     }
