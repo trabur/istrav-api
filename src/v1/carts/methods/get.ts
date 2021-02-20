@@ -12,7 +12,8 @@ export default function (cartRepo: any, config: any) {
 
     // perform
     const object = await cartRepo.findOne({
-      select: ["id", "appId", "userId"],
+      relations: ['products'],
+      select: ["id", "appId", "userId", "raw"],
       where: {
         id: es.arguements.id,
         appId: es.arguements.appId,

@@ -45,6 +45,9 @@ export default class Cart extends BaseEntity {
   @ManyToMany(() => Product, product => product.carts)
   products: Product[];
 
+  @Column({ type: "json", nullable: true })
+  raw: string;
+  
   @Column()
   @CreateDateColumn()
   createdAt: Date;

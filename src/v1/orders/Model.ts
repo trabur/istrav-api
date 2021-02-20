@@ -44,6 +44,9 @@ export default class Order extends BaseEntity {
   @ManyToMany(() => Product, product => product.orders)
   products: Product[];
 
+  @Column({ type: "json", nullable: true })
+  raw: string;
+  
   @Column()
   @CreateDateColumn()
   placedAt: Date;

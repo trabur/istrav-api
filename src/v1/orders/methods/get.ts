@@ -13,7 +13,7 @@ export default function (orderRep: any, config: any) {
     // perform
     const object = await orderRep.findOne({
       relations: ['products'],
-      select: ["id", "appId", "userId", "placedAt"],
+      select: ["id", "appId", "userId", "placedAt", "raw"],
       where: {
         id: es.arguements.id,
         appId: es.arguements.appId,
@@ -29,7 +29,7 @@ export default function (orderRep: any, config: any) {
       }
     } else {
       result = {
-        reason: 'product id not found',
+        reason: 'order id not found',
         success: false
       }
     }
