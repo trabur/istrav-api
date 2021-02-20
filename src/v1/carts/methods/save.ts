@@ -12,6 +12,9 @@ export default function (cartRepo: any, appRepo: any, config: any) {
     
     // make sure hackers don't override these values
     es.arguements.change.userId = decoded.userId
+    
+    // allow carts to be added to any app by any user
+    es.arguements.change.appId = es.arguements.appId 
 
     // perform
     let result
