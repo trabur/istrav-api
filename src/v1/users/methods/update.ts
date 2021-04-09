@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 
-export default function (memberRepo, config) {
+export default function (userRepo, config) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
@@ -9,14 +9,14 @@ export default function (memberRepo, config) {
     let result
 
     // perform
-    const object = await memberRepo.findOne({
+    const object = await userRepo.findOne({
       where: {
         appId: es.arguements.appId,
         email: es.arguements.email
       }
     })
-    memberRepo.merge(object, es.arguements.change)
-    await memberRepo.save(object)
+    userRepo.merge(object, es.arguements.change)
+    await userRepo.save(object)
       .then((data: any) => {
         console.log('saved: ', data)
         result = {

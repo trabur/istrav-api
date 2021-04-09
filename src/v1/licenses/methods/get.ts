@@ -1,16 +1,17 @@
 import { Request, Response } from "express"
 
-export default function (productRepo: any, config: any) {
+export default function (licenseRepo: any, config: any) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
 
     // perform
-    const object = await productRepo.findOne({
-      select: ["id", "name", "slug", "categoryId", "image", "price", "details", "description", "isNotForSale", "inStockCount", "gallery", "isPublished", "url"],
+    const object = await licenseRepo.findOne({
+      relations: ['register', 'plan'],
+      select: ["id", "key", "raw"],
       where: {
         appId: es.arguements.appId,
-        slug: es.arguements.slug
+        key: es.arguements.key
       }
     })
 
@@ -22,7 +23,7 @@ export default function (productRepo: any, config: any) {
       }
     } else {
       result = {
-        reason: 'product id not found',
+        reason: 'license id not found',
         success: false
       }
     }

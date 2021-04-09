@@ -11,7 +11,8 @@ import {
     OneToMany,
     Unique,
     JoinColumn,
-    Index
+    Index,
+    OneToOne
 } from "typeorm";
 
 import Member from '../members/Model'
@@ -24,11 +25,16 @@ import Menu from '../menus/Model'
 import Page from '../pages/Model'
 import Cart from '../carts/Model'
 import Order from '../orders/Model'
+import License from '../licenses/Model'
+import Plan from '../plans/Model'
+import Video from '../videos/Model'
+import Guide from '../guides/Model'
 
 import { Length, IsNotEmpty } from "class-validator"
 
 @Entity()
 @Unique(["domain", "state"])
+@Unique(["license"])
 export default class App extends BaseEntity {
     
     @PrimaryGeneratedColumn("uuid")
@@ -61,6 +67,12 @@ export default class App extends BaseEntity {
     @OneToMany(() => Product, product => product.app)
     products: Product[];
 
+    @OneToMany(() => License, license => license.app)
+    licenses: License[];
+
+    @OneToMany(() => Plan, plan => plan.app)
+    plans: Plan[];
+
     @OneToMany(() => Menu, menu => menu.app)
     menus: Menu[];
 
@@ -73,8 +85,17 @@ export default class App extends BaseEntity {
     @OneToMany(() => Order, order => order.app)
     orders: Order[];
 
+    @OneToMany(() => Video, video => video.app)
+    videos: Video[];
+
+    @OneToMany(() => Guide, guide => guide.app)
+    guides: Guide[];
+
     @Column({ type: "json", nullable: true })
     raw: string;
+
+    @Column({ type: "json", nullable: true })
+    brands: string;
 
     @Column()
     domain: string;
@@ -84,6 +105,15 @@ export default class App extends BaseEntity {
 
     @Column({ nullable: true })
     uploads: string;
+
+    @Column({ nullable: true })
+    tawkToPropertyId: string;
+
+    @Column({ nullable: true })
+    tawkToChatId: string;
+
+    @Column({ nullable: true })
+    googleAnalyticsMeasurementId: string;
 
     // intro
     @Column({ nullable: true })
@@ -108,6 +138,17 @@ export default class App extends BaseEntity {
     stripePublishableKeyLive: string;
     @Column({ nullable: true })
     stripeSecretKeyLive: string;
+
+    // istrav
+    @Column({ type: "uuid", nullable: true })
+    licenseId: string;
+    @OneToOne(() => License)
+    @JoinColumn({ name: "licenseId" })
+    license: License;
+
+    // value to get copy/pasted around
+    @Column({ nullable: true })
+    licenseKey: string;
 
     @Column()
     @CreateDateColumn()

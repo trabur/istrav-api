@@ -15,22 +15,23 @@ export default function (appRepo: any, config: any) {
 
     // perform
     const object = await appRepo.findOne({
-      select: ["id", "domain", "state", "ownerId", "endpoint", "raw", "uploads", "image", "line1", "line2", "buttonName", "buttonUrl", "isStripeTestData", "stripePublishableKeyTest", "stripeSecretKeyTest", "stripePublishableKeyLive", "stripeSecretKeyLive"],
+      select: ["id", "domain", "state", "ownerId", "endpoint", "licenseKey", "raw", "brands", "uploads", "image", "line1", "line2", "buttonName", "buttonUrl", "isStripeTestData", "stripePublishableKeyTest", "stripeSecretKeyTest", "stripePublishableKeyLive", "stripeSecretKeyLive", "tawkToPropertyId", "tawkToChatId", "googleAnalyticsMeasurementId"],
       // relations: ['owner'],
       where: {
         domain: es.arguements.domain,
         state: es.arguements.state
       }
     })
-
-    // if memberId from token matches ownerId from object then return secret keys
-    if (es.arguements.token === null || object.ownerId !== decoded.memberId) {
-      object.stripeSecretKeyTest = null
-      object.stripeSecretKeyLive = null
-    }
-
+    
     let result
     if (object) {
+      // if memberId from token matches ownerId from object then return secret keys
+      if (es.arguements.token === null || object.ownerId !== decoded.memberId) {
+        object.stripeSecretKeyTest = null
+        object.stripeSecretKeyLive = null
+        object.licenseKey = null
+      }
+
       result = {
         data: object,
         success: true

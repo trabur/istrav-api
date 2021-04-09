@@ -4,14 +4,14 @@ import { Request, Response } from "express"
 
 import configuration from "../../../config/config";
 
-export default function (memberRepo, config) {
+export default function (userRepo, config) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
 
     // perform
-    const results = await memberRepo.findOne({
-      select: ["id", "email", "password"],
+    const results = await userRepo.findOne({
+      select: ["id", "email", "password", "username"],
       where: {
         appId: es.arguements.appId,
         email: es.arguements.email
@@ -25,6 +25,7 @@ export default function (memberRepo, config) {
         const newToken = jwt.sign({ 
           userId: results.id,
           email: results.email,
+          username: results.username
         }, process.env.SECRET)
         result = {
           data: { token: newToken },

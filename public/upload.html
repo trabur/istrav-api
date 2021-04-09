@@ -1,0 +1,17 @@
+<html>
+  <body>
+    <form 
+      ref='uploadForm' 
+      id='uploadForm' 
+      action='/v1/files/upload' 
+      method='post' 
+      encType="multipart/form-data"
+    >
+        <input type="text" name="appId" placeholder="appId" />
+        <input type="text" name="token" placeholder="token" />
+        <input type="text" name="folder" placeholder="folder" />
+        <input type="file" name="sampleFile" />
+        <input type='submit' value='Upload!' />
+    </form>     
+  </body>
+</html>

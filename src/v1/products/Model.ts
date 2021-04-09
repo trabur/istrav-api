@@ -82,6 +82,9 @@ export default class Product extends BaseEntity {
   @Column({ default: 1 })
   inStockCount: number;
 
+  @Column({ nullable: true })
+  url: string;
+
   @Column({ type: 'json', nullable: true })
   gallery: string;
 

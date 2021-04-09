@@ -1,13 +1,14 @@
 import { Request, Response } from "express"
 
-export default function (productRepo: any, config: any) {
+export default function (guideRepo: any, config: any) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
 
     // perform
-    const object = await productRepo.findOne({
-      select: ["id", "name", "slug", "categoryId", "image", "price", "details", "description", "isNotForSale", "inStockCount", "gallery", "isPublished", "url"],
+    const object = await guideRepo.findOne({
+      relations: ['videos'],
+      select: ["id", "name", "slug", "image"],
       where: {
         appId: es.arguements.appId,
         slug: es.arguements.slug
@@ -22,7 +23,7 @@ export default function (productRepo: any, config: any) {
       }
     } else {
       result = {
-        reason: 'product id not found',
+        reason: 'collection id not found',
         success: false
       }
     }

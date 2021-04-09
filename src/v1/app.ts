@@ -17,6 +17,11 @@ import menus from "./menus/server"
 import pages from "./pages/server"
 import carts from "./carts/server"
 import orders from "./orders/server"
+import licenses from "./licenses/server"
+import plans from "./plans/server"
+import videos from "./videos/server"
+import guides from "./guides/server"
+import files from "./files/server"
 
 // entities
 import User from './users/Model'
@@ -30,6 +35,10 @@ import Menu from './menus/Model'
 import Page from './pages/Model'
 import Cart from './carts/Model'
 import Order from './orders/Model'
+import License from './licenses/Model'
+import Plan from './plans/Model'
+import Video from './videos/Model'
+import Guide from './guides/Model'
 
 // load "process.env" params from a .env file
 const dotenv = require('dotenv')
@@ -64,6 +73,10 @@ function typeormRepo (app, connection) {
     const productRepo = connection.getRepository(Product)
     const cartRepo = connection.getRepository(Cart)
     const orderRepo = connection.getRepository(Order)
+    const licenseRepo = connection.getRepository(License)
+    const planRepo = connection.getRepository(Plan)
+    const videoRepo = connection.getRepository(Video)
+    const guideRepo = connection.getRepository(Guide)
     
     // decode
     app.use(express.json())
@@ -81,7 +94,7 @@ function typeormRepo (app, connection) {
     logging(app, userRepo)
     users(app, userRepo)
     vehicles(app, vehicleRepo)
-    apps(app, appRepo, categoryRepo, collectionRepo, productRepo, menuRepo, pageRepo, userRepo)
+    apps(app, appRepo, categoryRepo, collectionRepo, productRepo, menuRepo, pageRepo, userRepo, licenseRepo, planRepo)
     menus(app, menuRepo, appRepo)
     pages(app, pageRepo, appRepo)
     members(app, memberRepo)
@@ -90,6 +103,11 @@ function typeormRepo (app, connection) {
     products(app, productRepo, appRepo)
     carts(app, cartRepo, appRepo)
     orders(app, orderRepo, appRepo)
+    licenses(app, licenseRepo, appRepo)
+    plans(app, planRepo, appRepo)
+    videos(app, videoRepo, appRepo)
+    guides(app, guideRepo, appRepo)
+    files(app, appRepo)
 
     // mongo connection stays open with express:
     // mongoClient.close()
@@ -112,7 +130,11 @@ export default function (app) {
       Category,
       Collection,
       Cart,
-      Order
+      Order,
+      License,
+      Plan,
+      Video,
+      Guide
     ],
     logging: ['query', 'schema'],
     synchronize: true

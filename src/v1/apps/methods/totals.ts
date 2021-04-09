@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 
-export default function (appRepo: any, categoryRepo: any, collectionRepo: any, productRepo: any, menuRepo: any, pageRepo: any, userRepo: any, config: any) {
+export default function (appRepo: any, categoryRepo: any, collectionRepo: any, productRepo: any, menuRepo: any, pageRepo: any, userRepo: any, licenseRepo: any, planRepo: any, config: any) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
@@ -43,6 +43,16 @@ export default function (appRepo: any, categoryRepo: any, collectionRepo: any, p
         appId: app.id
       }
     })
+    const licensesCount = await licenseRepo.count({
+      where: {
+        appId: app.id
+      }
+    })
+    const plansCount = await planRepo.count({
+      where: {
+        appId: app.id
+      }
+    })
 
     // add to event source
     es.payload = {
@@ -53,7 +63,9 @@ export default function (appRepo: any, categoryRepo: any, collectionRepo: any, p
         productsCount,
         menusCount,
         pagesCount,
-        usersCount
+        usersCount,
+        plansCount,
+        licensesCount
       }
     }
     es.serverAt = Date.now()
