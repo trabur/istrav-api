@@ -16,5 +16,5 @@ RUN npm run build
 # Bundle app source
 COPY . .
 
-EXPOSE 3000
+EXPOSE 1337
 CMD [ "node", "build/server.js" ]
