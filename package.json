@@ -3,7 +3,7 @@
   "version": "0.0.6",
   "scripts": {
     "start": "ts-node ./src/server.ts",
-    "build": "tsc --build tsconfig.json"
+    "build": "tsc --build tsconfig.json --rootDir ./src"
   },
   "engines": {
     "node": "14.x"
