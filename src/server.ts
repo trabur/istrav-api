@@ -3,7 +3,7 @@ import express from "express"
 import v1 from "./v1/app"
 
 const app = express()
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 1337
 
 // cors
 app.use(function(req, res, next) {
