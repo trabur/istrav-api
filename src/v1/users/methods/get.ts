@@ -1,21 +1,34 @@
 import { Request, Response } from "express"
+import * as jwt from "jsonwebtoken"
 
 export default function (userRepo, config) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
 
+    let decoded
+    if (es.arguements.token !== null) {
+      // authentication
+      decoded = jwt.verify(es.arguements.token, process.env.SECRET)
+      console.log('decoded:', decoded)
+    }
+
     // perform
     const object = await userRepo.findOne({
-      select: ["id", "username", "firstName", "lastName", "image"],
+      select: ["id", "email", "username", "firstName", "lastName", "image"],
       where: {
         appId: es.arguements.appId,
-        email: es.arguements.email
+        username: es.arguements.username
       }
     })
 
     let result
     if (object) {
+      // if userId from token matches userId from object then return secret values
+      if (es.arguements.token === null || object.userId !== decoded.userId) {
+        object.email = null
+      }
+
       result = {
         data: object,
         success: true

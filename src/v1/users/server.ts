@@ -11,11 +11,11 @@ import version from '../version.json'
 const component = 'users'
 let config = { component, version }
 
-export default function (app, userRepo) {
+export default function (app, userRepo, appRepo) {
   app.post(`/${version}/${component}/all`, all(userRepo, config))
   app.post(`/${version}/${component}/register`, register(userRepo, config))
   app.post(`/${version}/${component}/login`, login(userRepo, config))
   app.post(`/${version}/${component}/get`, get(userRepo, config))
-  app.post(`/${version}/${component}/update`, update(userRepo, config))
-  app.post(`/${version}/${component}/remove`, remove(userRepo, config))
+  app.post(`/${version}/${component}/update`, update(userRepo, appRepo, config))
+  app.post(`/${version}/${component}/remove`, remove(userRepo, appRepo, config))
 }

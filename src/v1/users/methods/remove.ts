@@ -1,18 +1,45 @@
 import { Request, Response } from "express"
+import * as jwt from "jsonwebtoken"
 
-export default function (userRepo, config) {
+export default function (userRepo, appRepo, config) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
 
-    // perform
-    let result
-    await userRepo.delete({
+    // authentication
+    let decoded = jwt.verify(es.arguements.token, process.env.SECRET)
+    console.log('decoded:', decoded)
+    
+    // check if memberId from token is the owner to provided appId
+    const app = await appRepo.findOne({
+      select: ["id"],
       where: {
-        appId: es.arguements.appId,
-        email: es.arguements.email
+        id: es.arguements.appId,
+        ownerId: decoded.memberId
       }
     })
+    if (!app) {
+      // end
+      es.payload = {
+        success: false,
+        reason: 'memberId from token is not the owner to provided appId or app does not exist'
+      }
+      es.serverAt = Date.now()
+      console.log(`API ${es.arguements.url} ::: ${es}`)
+      res.json(es)
+    }
+
+    // perform
+    const object = await userRepo.findOne({
+      select: ["id"],
+      where: {
+        appId: es.arguements.appId,
+        username: es.arguements.username
+      }
+    })
+    
+    let result
+    await userRepo.delete(object.id)
       .then((data: any) => {
         console.log('deleted: ', data)
         result = {

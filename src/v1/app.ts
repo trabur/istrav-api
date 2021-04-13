@@ -92,7 +92,7 @@ function typeormRepo (app, connection) {
     //     backup(app, amqp, mongodb)
     //   }).catch(console.warn)
     // logging(app, userRepo)
-    users(app, userRepo)
+    users(app, userRepo, appRepo)
     vehicles(app, vehicleRepo)
     apps(app, appRepo, categoryRepo, collectionRepo, productRepo, menuRepo, pageRepo, userRepo, orderRepo, licenseRepo, planRepo)
     menus(app, menuRepo, appRepo)
