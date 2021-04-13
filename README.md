@@ -1,9 +1,9 @@
 OBJECT RELATIONAL MAPPING
 ========
-### deploy to production
+
 ```bash
-# heroku git:remote -a istrav-api
-$ git push heroku master
+# development
+export PORT=1337; npm start
 ```
 
 ```bash
