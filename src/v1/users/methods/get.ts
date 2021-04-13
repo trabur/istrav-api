@@ -7,7 +7,7 @@ export default function (userRepo, config) {
 
     // perform
     const object = await userRepo.findOne({
-      select: ["id", "username", "firstname", "lastname", "image"],
+      select: ["id", "username", "firstName", "lastName", "image"],
       where: {
         appId: es.arguements.appId,
         email: es.arguements.email
