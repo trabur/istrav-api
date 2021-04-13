@@ -1,13 +1,13 @@
 import { Request, Response } from "express"
 
-export default function (memberRepo, config) {
+export default function (userRepo, config) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
 
     // perform
-    const object = await memberRepo.findOne({
-      select: ["id", "username", "firstname", "lastname"],
+    const object = await userRepo.findOne({
+      select: ["id", "username", "firstname", "lastname", "image"],
       where: {
         appId: es.arguements.appId,
         email: es.arguements.email

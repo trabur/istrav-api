@@ -45,6 +45,9 @@ export default class User extends BaseEntity {
 
   @OneToMany(() => Order, order => order.user)
   orders: Order[];
+  
+  @Column({ nullable: true })
+  image: string;
 
   @Column()
   email: string;
