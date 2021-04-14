@@ -41,7 +41,8 @@ export default function (cartRepo: any, appRepo: any, config: any) {
           currency: 'usd',
           product_data: {
             name: product.name,
-            images: [`${cart.app.uploads}/${product.image}`],
+            // image display is broken on stripe's end; hmmm.
+            // images: [`${cart.app.uploads}/${product.image}`], 
           },
           unit_amount: product.price,
         },
