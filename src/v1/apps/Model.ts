@@ -106,12 +106,23 @@ export default class App extends BaseEntity {
     @Column({ nullable: true })
     uploads: string;
 
+    // email
+    @Column({ nullable: true })
+    mailgunPrivateApiKey: string;
+
+    // comments
+    @Column({ nullable: true })
+    utterancRepoId: string;
+    @Column({ nullable: true })
+    disqusId: string;
+
+    // chat
     @Column({ nullable: true })
     tawkToPropertyId: string;
-
     @Column({ nullable: true })
     tawkToChatId: string;
 
+    // analytics
     @Column({ nullable: true })
     googleAnalyticsMeasurementId: string;
 
