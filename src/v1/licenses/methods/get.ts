@@ -7,10 +7,9 @@ export default function (licenseRepo: any, config: any) {
 
     // perform
     const object = await licenseRepo.findOne({
-      relations: ['register', 'plan'],
-      select: ["id", "key", "raw"],
+      relations: ['app', 'register', 'plan'],
+      select: ["id", "key", "raw", "appId", "planId", "registerId"],
       where: {
-        appId: es.arguements.appId,
         key: es.arguements.key
       }
     })

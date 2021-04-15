@@ -23,7 +23,7 @@ export default function (guideRepo: any, config: any) {
       }
     } else {
       result = {
-        reason: 'collection id not found',
+        reason: 'guide id not found',
         success: false
       }
     }

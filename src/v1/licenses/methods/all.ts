@@ -8,7 +8,7 @@ export default function (licenseRepo: any, config: any) {
     // perform
     const objects = await licenseRepo.find({
       relations: ['register', 'plan'],
-      select: ["id", "key", "raw"],
+      select: ["id", "key", "raw", "planId", "registerId"],
       where: {
         appId: es.arguements.appId
       }

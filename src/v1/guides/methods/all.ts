@@ -7,6 +7,7 @@ export default function (guideRepo: any, config: any) {
 
     // perform
     const objects = await guideRepo.find({
+      relations: ['videos'],
       where: {
         appId: es.arguements.appId
       }
