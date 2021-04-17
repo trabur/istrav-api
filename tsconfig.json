@@ -6,7 +6,6 @@
       ],
       "target": "ES6",
       "module": "commonjs",
-      "isolatedModules": true,
       "outDir": "build",
       "resolveJsonModule": true,
       "emitDecoratorMetadata": true,
