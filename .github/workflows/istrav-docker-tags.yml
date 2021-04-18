@@ -3,7 +3,7 @@ name: buildDockerByTags
 on:
   push:
     tags:
-      - "v0.*" # Push events to v0.0, v0.1, and v0.9 tags
+      - "v*" # Push events to v0.0.0 and v0.0.1 tags
 
 jobs:
   docker:
