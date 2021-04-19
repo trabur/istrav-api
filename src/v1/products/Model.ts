@@ -79,6 +79,8 @@ export default class Product extends BaseEntity {
   @Column({ default: false })
   isNotForSale: boolean;
 
+  @Column({ nullable: true })
+  stockKeepingUnit: string;
   @Column({ default: 1 })
   inStockCount: number;
 
