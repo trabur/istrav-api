@@ -12,7 +12,8 @@ import {
   Unique,
   JoinColumn,
   ManyToMany,
-  JoinTable
+  JoinTable,
+  OneToOne
 } from "typeorm"
 import { Length, IsNotEmpty } from "class-validator"
 
@@ -21,6 +22,13 @@ import Category from '../categories/Model'
 import Collection from '../collections/Model'
 import Cart from '../carts/Model'
 import Order from '../orders/Model'
+import Plan from '../plans/Model'
+
+export enum ActionTypes {
+  SUBSCRIBE_TO_PLAN = "SUBSCRIBE_TO_PLAN",
+  SHIP_TO_LOCATION = "SHIP_TO_LOCATION",
+  DO_NOTHING = "DO_NOTHING",
+}
 
 @Entity()
 @Unique(["app", "slug"])
@@ -61,6 +69,26 @@ export default class Product extends BaseEntity {
   @JoinTable()
   orders: Order[];
 
+  // after purchase of product this action type will be called
+  @Column({
+    type:"enum", 
+    enum: ActionTypes, 
+    array: true, 
+    default: [ActionTypes.DO_NOTHING]
+  })
+  actionType: ActionTypes
+
+  // action types: subscribe to plan
+  @Column({ type: "uuid", nullable: true })
+  subscribeToPlanId: string;
+
+  @OneToOne(() => Product)
+  @JoinColumn({ name: "subscribeToPlanId" })
+  subscribeToPlan: Plan;
+  
+  // action types: ship to location
+  // action types: do nothing
+  
   @Column({ nullable: true })
   image: string;
 

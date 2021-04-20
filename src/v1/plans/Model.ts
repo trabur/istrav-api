@@ -10,11 +10,13 @@ import {
   Unique,
   OneToMany,
   ManyToOne,
-  JoinColumn
+  JoinColumn,
+  OneToOne
 } from "typeorm"
 
 import License from '../licenses/Model'
 import App from '../apps/Model'
+import Product from '../products/Model'
 
 @Entity()
 @Unique(["app", "slug"])
@@ -30,6 +32,14 @@ export default class Plan extends BaseEntity {
   @JoinColumn({ name: "appId" })
   app: App;
 
+  // direct user to purchase plan by product in the storefront
+  @Column({ type: "uuid", nullable: true })
+  purchaseId: string;
+
+  @OneToOne(() => Product)
+  @JoinColumn({ name: "purchaseId" })
+  purchase: Product;
+  
   @Column({ nullable: false, default: 'FREE!' })
   name: string;
 
@@ -41,9 +51,6 @@ export default class Plan extends BaseEntity {
 
   @Column({ type: "json", nullable: true })
   details: string;
-
-  @Column({ nullable: true })
-  purchaseUrl: string;
 
   // our products and services
   @OneToMany(() => License, license => license.plan)
@@ -60,16 +67,6 @@ export default class Plan extends BaseEntity {
   grantChannel: boolean
   @Column({ default: true })
   grantPromo: boolean
-
-  // resource access per month
-  @Column({ default: 45 })
-  limitOnlineVisitors: number; // in #: active visitors with a 15 min timeframe
-  @Column({ default: 3 })
-  limitFileStorage: number; // in GB: media uploaded to CDN
-  @Column({ default: 2 })
-  limitEventSources: number; // in GB: event sources logged in MongoDB
-  @Column({ default: 1 })
-  limitDatabaseRecords: number; // in GB: records saved in PostgresQL
 
   // customize
   @Column({ type: "json", nullable: true })
