@@ -7,7 +7,7 @@ export default function (memberRepo, config) {
     let es = req.body.params // event source
 
     // authorization: members may only remove themselves
-    let decoded = jwt.verify(es.arguements.token, process.env.SECRET)
+    let decoded: any = jwt.verify(es.arguements.token, process.env.SECRET)
     console.log('decoded:', decoded)
 
     // perform

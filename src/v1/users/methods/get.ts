@@ -6,7 +6,7 @@ export default function (userRepo, config) {
     // params
     let es = req.body.params // event source
 
-    let decoded
+    let decoded: any
     if (es.arguements.token !== null) {
       // authentication
       decoded = jwt.verify(es.arguements.token, process.env.SECRET)
