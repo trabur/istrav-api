@@ -16,12 +16,11 @@ import {
 import { Length, IsNotEmpty } from "class-validator"
 
 import App from '../apps/Model'
-import Video from '../videos/Model'
-import Playlist from '../playlists/Model'
+import Guide from '../guides/Model'
 
 @Entity()
 @Unique(["app", "slug"])
-export default class Guide extends BaseEntity {
+export default class Playlist extends BaseEntity {
     
   @PrimaryGeneratedColumn("uuid")
   id: string;
@@ -42,11 +41,8 @@ export default class Guide extends BaseEntity {
   @Column({ nullable: true })
   image: string;
 
-  @ManyToMany(() => Video, video => video.guides)
-  videos: Video[];
-
-  @ManyToMany(() => Playlist, playlist => playlist.guides)
-  playlists: Playlist[];
+  @ManyToMany(() => Guide, guide => guide.playlists)
+  guides: Guide[];
 
   @Column()
   @CreateDateColumn()

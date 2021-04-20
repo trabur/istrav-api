@@ -21,6 +21,7 @@ import licenses from "./licenses/server"
 import plans from "./plans/server"
 import videos from "./videos/server"
 import guides from "./guides/server"
+import playlists from "./playlists/server"
 import files from "./files/server"
 
 // entities
@@ -39,6 +40,7 @@ import License from './licenses/Model'
 import Plan from './plans/Model'
 import Video from './videos/Model'
 import Guide from './guides/Model'
+import Playlist from './playlists/Model'
 
 // load "process.env" params from a .env file
 const dotenv = require('dotenv')
@@ -77,6 +79,7 @@ function typeormRepo (app, connection) {
     const planRepo = connection.getRepository(Plan)
     const videoRepo = connection.getRepository(Video)
     const guideRepo = connection.getRepository(Guide)
+    const playlistRepo = connection.getRepository(Playlist)
     
     // decode
     app.use(express.json())
@@ -107,6 +110,7 @@ function typeormRepo (app, connection) {
     plans(app, planRepo, appRepo)
     videos(app, videoRepo, appRepo)
     guides(app, guideRepo, appRepo)
+    playlists(app, playlistRepo, appRepo)
     files(app, appRepo)
 
     // mongo connection stays open with express:
@@ -134,7 +138,8 @@ export default function (app) {
       License,
       Plan,
       Video,
-      Guide
+      Guide,
+      Playlist
     ],
     logging: ['query', 'schema'],
     synchronize: true

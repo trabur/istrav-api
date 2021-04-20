@@ -29,6 +29,7 @@ import License from '../licenses/Model'
 import Plan from '../plans/Model'
 import Video from '../videos/Model'
 import Guide from '../guides/Model'
+import Playlist from '../playlists/Model'
 
 import { Length, IsNotEmpty } from "class-validator"
 
@@ -90,6 +91,9 @@ export default class App extends BaseEntity {
 
     @OneToMany(() => Guide, guide => guide.app)
     guides: Guide[];
+
+    @OneToMany(() => Playlist, playlist => playlist.app)
+    playlists: Playlist[];
 
     @Column({ type: "json", nullable: true })
     raw: string;
