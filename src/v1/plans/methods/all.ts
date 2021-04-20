@@ -7,8 +7,8 @@ export default function (planRepo: any, config: any) {
 
     // perform
     const objects = await planRepo.find({
-      relations: ['licenses'],
-      select: ["id", "name", "slug", "price", "details", "purchaseUrl", "raw", "grantMarketing", "grantShop", "grantForum", "grantChannel", "grantPromo", "limitOnlineVisitors", "limitFileStorage", "limitEventSources", "limitDatabaseRecords"],
+      relations: ['licenses', 'purchase'],
+      select: ["id", "name", "slug", "price", "details", "purchaseId", "raw", "grantMarketing", "grantShop", "grantForum", "grantChannel", "grantPromo", "limitOnlineVisitors", "limitFileStorage", "limitEventSources", "limitDatabaseRecords"],
       where: {
         appId: es.arguements.appId
       }
