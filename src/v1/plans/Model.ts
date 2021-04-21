@@ -67,6 +67,10 @@ export default class Plan extends BaseEntity {
   grantChannel: boolean
   @Column({ default: true })
   grantPromo: boolean
+  @Column({ default: true })
+  grantHosting: boolean
+  @Column({ default: false })
+  grantWhiteLabel: boolean
 
   // customize
   @Column({ type: "json", nullable: true })
