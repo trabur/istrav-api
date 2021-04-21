@@ -71,7 +71,7 @@ export default class Product extends BaseEntity {
 
   // after purchase of product this action type will be called
   @Column({
-    type:"enum", 
+    type: "enum", 
     enum: AfterPurchase, 
     array: true, 
     default: [AfterPurchase.DO_NOTHING]
@@ -82,7 +82,7 @@ export default class Product extends BaseEntity {
   @Column({ type: "uuid", nullable: true })
   subscriptionPlanId: string;
 
-  @OneToOne(() => Product)
+  @OneToOne(() => Plan)
   @JoinColumn({ name: "subscriptionPlanId" })
   subscriptionPlan: Plan;
   
