@@ -25,8 +25,8 @@ import Order from '../orders/Model'
 import Plan from '../plans/Model'
 
 export enum ActionTypes {
-  SUBSCRIBE_TO_PLAN = "SUBSCRIBE_TO_PLAN",
-  SHIP_TO_LOCATION = "SHIP_TO_LOCATION",
+  SUBSCRIPTION_PLAN = "SUBSCRIPTION_PLAN",
+  ORDER_FULFILLMENT = "ORDER_FULFILLMENT",
   DO_NOTHING = "DO_NOTHING",
 }
 
