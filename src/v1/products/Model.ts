@@ -24,7 +24,7 @@ import Cart from '../carts/Model'
 import Order from '../orders/Model'
 import Plan from '../plans/Model'
 
-export enum ActionTypes {
+export enum AfterPurchase {
   SUBSCRIPTION_PLAN = "SUBSCRIPTION_PLAN",
   ORDER_FULFILLMENT = "ORDER_FULFILLMENT",
   DO_NOTHING = "DO_NOTHING",
@@ -72,21 +72,21 @@ export default class Product extends BaseEntity {
   // after purchase of product this action type will be called
   @Column({
     type:"enum", 
-    enum: ActionTypes, 
+    enum: AfterPurchase, 
     array: true, 
-    default: [ActionTypes.DO_NOTHING]
+    default: [AfterPurchase.DO_NOTHING]
   })
-  actionType: ActionTypes
+  afterPurchase: AfterPurchase
 
   // action types: subscribe to plan
   @Column({ type: "uuid", nullable: true })
-  subscribeToPlanId: string;
+  subscriptionPlanId: string;
 
   @OneToOne(() => Product)
-  @JoinColumn({ name: "subscribeToPlanId" })
-  subscribeToPlan: Plan;
+  @JoinColumn({ name: "subscriptionPlanId" })
+  subscriptionPlan: Plan;
   
-  // action types: ship to location
+  // action types: order fulfillment
   // action types: do nothing
   
   @Column({ nullable: true })
