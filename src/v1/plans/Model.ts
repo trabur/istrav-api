@@ -58,6 +58,8 @@ export default class Plan extends BaseEntity {
 
   // features
   @Column({ default: true })
+  grantApplication: boolean
+  @Column({ default: true })
   grantMarketing: boolean
   @Column({ default: true })
   grantShop: boolean
