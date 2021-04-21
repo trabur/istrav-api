@@ -78,7 +78,7 @@ export default class Product extends BaseEntity {
   })
   afterPurchase: AfterPurchase
 
-  // action types: subscribe to plan
+  // afterPurchase: subscribe to plan
   @Column({ type: "uuid", nullable: true })
   subscriptionPlanId: string;
 
@@ -86,8 +86,8 @@ export default class Product extends BaseEntity {
   @JoinColumn({ name: "subscriptionPlanId" })
   subscriptionPlan: Plan;
   
-  // action types: order fulfillment
-  // action types: do nothing
+  // afterPurchase: order fulfillment
+  // afterPurchase: do nothing
   
   @Column({ nullable: true })
   image: string;
