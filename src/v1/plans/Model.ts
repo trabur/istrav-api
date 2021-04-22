@@ -56,9 +56,9 @@ export default class Plan extends BaseEntity {
   @OneToMany(() => License, license => license.plan)
   licenses: License[];
 
-  // features
+  // license key
   @Column({ default: true })
-  grantApplication: boolean
+  grantApplicationAccess: boolean
   @Column({ default: true })
   grantMarketing: boolean
   @Column({ default: true })
@@ -73,6 +73,15 @@ export default class Plan extends BaseEntity {
   grantHosting: boolean
   @Column({ default: false })
   grantWhiteLabel: boolean
+  // other // in app permissions
+  @Column({ default: true })
+  grantCollectionAccess: boolean
+  @Column({ default: true })
+  grantPlaylistAccess: boolean
+  @Column({ default: true })
+  grantBulletinBoardAccess: boolean
+  @Column({ default: true })
+  grantHostingAccess: boolean
 
   // customize
   @Column({ type: "json", nullable: true })

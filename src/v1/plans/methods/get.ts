@@ -8,7 +8,7 @@ export default function (planRep: any, config: any) {
     // perform
     const object = await planRep.findOne({
       relations: ['licenses', 'purchase'],
-      select: ["id", "name", "slug", "price", "details", "purchaseId", "raw", "grantApplication", "grantMarketing", "grantShop", "grantForum", "grantChannel", "grantPromo", "grantHosting", "grantWhiteLabel"],
+      select: ["id", "name", "slug", "price", "details", "purchaseId", "raw", "grantApplicationAccess", "grantCollectionAccess", "grantPlaylistAccess", "grantBulletinBoardAccess", "grantHostingAccess", "grantMarketing", "grantShop", "grantForum", "grantChannel", "grantPromo", "grantHosting", "grantWhiteLabel"],
       where: {
         appId: es.arguements.appId,
         slug: es.arguements.slug
