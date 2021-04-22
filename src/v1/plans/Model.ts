@@ -17,6 +17,8 @@ import {
 import License from '../licenses/Model'
 import App from '../apps/Model'
 import Product from '../products/Model'
+import Collection from '../collections/Model'
+import Playlist from '../playlists/Model'
 
 @Entity()
 @Unique(["app", "slug"])
@@ -56,7 +58,7 @@ export default class Plan extends BaseEntity {
   @OneToMany(() => License, license => license.plan)
   licenses: License[];
 
-  // license key
+  // cloud on demand license key
   @Column({ default: true })
   grantApplicationAccess: boolean
   @Column({ default: true })
@@ -73,13 +75,32 @@ export default class Plan extends BaseEntity {
   grantHosting: boolean
   @Column({ default: false })
   grantWhiteLabel: boolean
-  // other // in app permissions
+
+  // content on demand collection
   @Column({ default: true })
   grantCollectionAccess: boolean
+
+  @Column({ type: "uuid", nullable: true })
+  grantCollectionId: string;
+  @OneToOne(() => Collection)
+  @JoinColumn({ name: "grantCollectionId" })
+  grantCollection: Collection;
+
+  // content on demand playlist
   @Column({ default: true })
   grantPlaylistAccess: boolean
+
+  @Column({ type: "uuid", nullable: true })
+  grantPlaylistId: string;
+  @OneToOne(() => Playlist)
+  @JoinColumn({ name: "grantPlaylistId" })
+  grantPlaylist: Playlist;
+
+  // content on demand forum
   @Column({ default: true })
   grantBulletinBoardAccess: boolean
+
+  // content on demand hosting
   @Column({ default: true })
   grantHostingAccess: boolean
 
