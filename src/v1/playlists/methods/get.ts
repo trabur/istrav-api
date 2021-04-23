@@ -1,13 +1,13 @@
 import { Request, Response } from "express"
 
-export default function (guideRepo: any, config: any) {
+export default function (playlistRepo: any, config: any) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
 
     // perform
-    const object = await guideRepo.findOne({
-      relations: ['videos'],
+    const object = await playlistRepo.findOne({
+      // relations: ['guides'],
       select: ["id", "name", "slug", "image"],
       where: {
         appId: es.arguements.appId,
@@ -23,7 +23,7 @@ export default function (guideRepo: any, config: any) {
       }
     } else {
       result = {
-        reason: 'guide id not found',
+        reason: 'playlist id not found',
         success: false
       }
     }

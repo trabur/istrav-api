@@ -2,7 +2,7 @@ import sha512 from 'crypto-js/sha512'
 import { Request, Response } from "express"
 import * as jwt from "jsonwebtoken"
 
-export default function (guideRepo: any, appRepo: any, config: any) {
+export default function (playlistRepo: any, appRepo: any, config: any) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
@@ -33,8 +33,8 @@ export default function (guideRepo: any, appRepo: any, config: any) {
 
     // perform
     let result
-    const user = await guideRepo.create(es.arguements.change)
-    await guideRepo.save(user)
+    const user = await playlistRepo.create(es.arguements.change)
+    await playlistRepo.save(user)
       .then((data: any) => {
         console.log('saved: ', data)
         result = {

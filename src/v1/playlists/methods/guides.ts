@@ -1,12 +1,12 @@
 import { Request, Response } from "express"
 
-export default function (guideRepo: any, config: any) {
+export default function (playlistRepo: any, config: any) {
   return async function (req: Request, res: Response) {
     // params
     let es = req.body.params // event source
 
     // perform
-    const object = await guideRepo.findOne({
+    const object = await playlistRepo.findOne({
       relations: ['videos'],
       where: {
         appId: es.arguements.appId,
