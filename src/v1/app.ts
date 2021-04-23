@@ -15,6 +15,7 @@ import categories from "./categories/server"
 import collections from "./collections/server"
 import menus from "./menus/server"
 import pages from "./pages/server"
+import faq from "./faq/server"
 import carts from "./carts/server"
 import orders from "./orders/server"
 import licenses from "./licenses/server"
@@ -34,6 +35,7 @@ import Category from './categories/Model'
 import Collection from './collections/Model'
 import Menu from './menus/Model'
 import Page from './pages/Model'
+import FAQ from './faq/Model'
 import Cart from './carts/Model'
 import Order from './orders/Model'
 import License from './licenses/Model'
@@ -69,6 +71,7 @@ function typeormRepo (app, connection) {
     const appRepo = connection.getRepository(App)
     const menuRepo = connection.getRepository(Menu)
     const pageRepo = connection.getRepository(Page)
+    const faqRepo = connection.getRepository(FAQ)
     const vehicleRepo = connection.getRepository(Vehicle)
     const categoryRepo = connection.getRepository(Category)
     const collectionRepo = connection.getRepository(Collection)
@@ -100,6 +103,7 @@ function typeormRepo (app, connection) {
     apps(app, appRepo, categoryRepo, collectionRepo, productRepo, menuRepo, pageRepo, userRepo, orderRepo, licenseRepo, planRepo)
     menus(app, menuRepo, appRepo)
     pages(app, pageRepo, appRepo)
+    faq(app, faqRepo, appRepo)
     members(app, memberRepo)
     categories(app, categoryRepo, appRepo)
     collections(app, collectionRepo, appRepo)
@@ -129,6 +133,7 @@ export default function (app) {
       App,
       Menu,
       Page,
+      FAQ,
       Member,
       Product,
       Category,

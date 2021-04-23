@@ -23,6 +23,7 @@ import Collection from '../collections/Model'
 import Product from '../products/Model'
 import Menu from '../menus/Model'
 import Page from '../pages/Model'
+import FAQ from '../faq/Model'
 import Cart from '../carts/Model'
 import Order from '../orders/Model'
 import License from '../licenses/Model'
@@ -79,6 +80,9 @@ export default class App extends BaseEntity {
 
     @OneToMany(() => Page, page => page.app)
     pages: Page[];
+
+    @OneToMany(() => FAQ, faq => faq.app)
+    faq: FAQ[];
 
     @OneToMany(() => Cart, cart => cart.app)
     carts: Cart[];
