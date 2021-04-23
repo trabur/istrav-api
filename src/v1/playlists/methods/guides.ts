@@ -7,7 +7,7 @@ export default function (playlistRepo: any, config: any) {
 
     // perform
     const object = await playlistRepo.findOne({
-      relations: ['videos'],
+      relations: ['guides'],
       where: {
         appId: es.arguements.appId,
         slug: es.arguements.slug
@@ -17,7 +17,7 @@ export default function (playlistRepo: any, config: any) {
     let result
     if (object) {
       result = {
-        data: object.videos,
+        data: object.guides,
         success: true
       }
     } else {

@@ -11,7 +11,8 @@ import {
   ManyToOne,
   Unique,
   JoinColumn,
-  ManyToMany
+  ManyToMany,
+  JoinTable
 } from "typeorm"
 import { Length, IsNotEmpty } from "class-validator"
 
@@ -46,6 +47,7 @@ export default class Guide extends BaseEntity {
   videos: Video[];
 
   @ManyToMany(() => Playlist, playlist => playlist.guides)
+  @JoinTable()
   playlists: Playlist[];
 
   @Column()
