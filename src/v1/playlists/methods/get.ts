@@ -7,7 +7,7 @@ export default function (playlistRepo: any, config: any) {
 
     // perform
     const object = await playlistRepo.findOne({
-      // relations: ['guides'],
+      relations: ['guides', 'guides.videos'],
       select: ["id", "name", "slug", "image"],
       where: {
         appId: es.arguements.appId,

@@ -7,7 +7,8 @@ export default function (videoRepo: any, config: any) {
 
     // perform
     const object = await videoRepo.findOne({
-      select: ["id", "name", "slug", "image", "video", "description"],
+      relations: ["guides", "contentCreator"],
+      select: ["id", "name", "slug", "viewCount", "image", "video", "description", "contentCreatorId", "createdAt"],
       where: {
         appId: es.arguements.appId,
         slug: es.arguements.slug

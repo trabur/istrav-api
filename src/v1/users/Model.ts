@@ -19,6 +19,7 @@ import { Length, IsNotEmpty } from "class-validator"
 import App from '../apps/Model'
 import Cart from '../carts/Model'
 import Order from '../orders/Model'
+import Video from '../videos/Model'
 
 @Entity()
 @Unique(["app", "email"])
@@ -45,6 +46,9 @@ export default class User extends BaseEntity {
 
   @OneToMany(() => Order, order => order.user)
   orders: Order[];
+
+  @OneToMany(() => Video, video => video.contentCreator)
+  videos: Video[];
   
   @Column({ nullable: true })
   image: string;
