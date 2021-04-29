@@ -12,7 +12,7 @@ export default function (appRepo: any, config: any) {
 
     // perform
     const objects = await appRepo.find({
-      select: ["id", "domain", "state", "ownerId", "endpoint", "raw", "brands", "uploads", "image", "line1", "line2", "buttonName", "buttonUrl", "utterancRepoId", "disqusId", "isStripeTestData", "stripePublishableKeyTest", "stripePublishableKeyLive", "tawkToPropertyId", "tawkToChatId", "googleAnalyticsMeasurementId"],
+      select: ["id", "domain", "state", "ownerId", "endpoint", "raw", "brands", "uploads", "logo", "image", "line1", "line2", "buttonName", "buttonUrl", "utterancRepoId", "disqusId", "isStripeTestData", "stripePublishableKeyTest", "stripePublishableKeyLive", "tawkToPropertyId", "tawkToChatId", "googleAnalyticsMeasurementId"],
       where: {
         ownerId: decoded.memberId
       }

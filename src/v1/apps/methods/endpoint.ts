@@ -41,7 +41,7 @@ export default function (appRepo: any, config: any) {
     // perform
     const object = await appRepo.findOne({
       relations: ['marketing', 'shop', 'channel'],
-      select: ["id", "domain", "state", "ownerId", "endpoint", "marketingId", "shopId", "channelId", "licenseKey", "raw", "brands", "uploads", ...theme,  ...labels, "share", "image", "line1", "line2", "buttonName", "buttonUrl", "mailgunPrivateApiKey", "utterancRepoId", "disqusId", "isStripeTestData", "stripePublishableKeyTest", "stripeSecretKeyTest", "stripePublishableKeyLive", "stripeSecretKeyLive", "tawkToPropertyId", "tawkToChatId", "googleAnalyticsMeasurementId"],
+      select: ["id", "domain", "state", "ownerId", "endpoint", "marketingId", "shopId", "channelId", "licenseKey", "raw", "brands", "uploads", "logo", ...theme,  ...labels, "share", "image", "line1", "line2", "buttonName", "buttonUrl", "mailgunPrivateApiKey", "utterancRepoId", "disqusId", "isStripeTestData", "stripePublishableKeyTest", "stripeSecretKeyTest", "stripePublishableKeyLive", "stripeSecretKeyLive", "tawkToPropertyId", "tawkToChatId", "googleAnalyticsMeasurementId"],
       where: {
         endpoint: es.arguements.endpoint
       }

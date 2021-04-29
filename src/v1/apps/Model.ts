@@ -133,6 +133,10 @@ export default class App extends BaseEntity {
     @Column({ nullable: true })
     uploads: string;
 
+    // custom branding
+    @Column({ nullable: true })
+    logo: string;
+
     // theme
     @Column({ nullable: true })
     coverBackColor: string;
