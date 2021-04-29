@@ -13,10 +13,35 @@ export default function (appRepo: any, config: any) {
       console.log('decoded:', decoded)
     }
 
+    let theme = [
+      "coverBackColor",
+      "coverTextColor",
+      "primaryBtnBackColor",
+      "primaryBtnTextColor",
+      "secondaryBtnBackColor",
+      "secondaryBtnTextColor"
+    ]
+
+    let labels = [
+      "labelName",
+      "labelShort",
+      "labelEmail",
+      "labelAbout",
+      "labelShipping",
+      "labelSloganLine1",
+      "labelSloganLine2",
+      "labelWelcome",
+      "labelLocal",
+      "labelTollFree",
+      "labelAddressLine1",
+      "labelAddressLine2",
+      "labelPrimaryOffering"
+    ]
+
     // perform
     const object = await appRepo.findOne({
-      select: ["id", "domain", "state", "ownerId", "endpoint", "licenseKey", "raw", "brands", "uploads", "image", "line1", "line2", "buttonName", "buttonUrl", "mailgunPrivateApiKey", "utterancRepoId", "disqusId", "isStripeTestData", "stripePublishableKeyTest", "stripeSecretKeyTest", "stripePublishableKeyLive", "stripeSecretKeyLive", "tawkToPropertyId", "tawkToChatId", "googleAnalyticsMeasurementId"],
-      // relations: ['owner'],
+      relations: ['marketing', 'shop', 'channel'],
+      select: ["id", "domain", "state", "ownerId", "endpoint", "marketingId", "shopId", "channelId", "licenseKey", "raw", "brands", "uploads", ...theme, ...labels, "share", "image", "line1", "line2", "buttonName", "buttonUrl", "mailgunPrivateApiKey", "utterancRepoId", "disqusId", "isStripeTestData", "stripePublishableKeyTest", "stripeSecretKeyTest", "stripePublishableKeyLive", "stripeSecretKeyLive", "tawkToPropertyId", "tawkToChatId", "googleAnalyticsMeasurementId"],
       where: {
         domain: es.arguements.domain,
         state: es.arguements.state

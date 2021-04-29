@@ -99,6 +99,25 @@ export default class App extends BaseEntity {
     @OneToMany(() => Playlist, playlist => playlist.app)
     playlists: Playlist[];
 
+    // primary page
+    @Column({ type: "uuid", nullable: true })
+    marketingId: string;
+    @OneToOne(() => Page)
+    @JoinColumn({ name: "marketingId" })
+    marketing: Page;
+    // primary collection
+    @Column({ type: "uuid", nullable: true })
+    shopId: string;
+    @OneToOne(() => Collection)
+    @JoinColumn({ name: "shopId" })
+    shop: Collection;
+    // primary playlist
+    @Column({ type: "uuid", nullable: true })
+    channelId: string;
+    @OneToOne(() => Playlist)
+    @JoinColumn({ name: "channelId" })
+    channel: Playlist;
+
     @Column({ type: "json", nullable: true })
     raw: string;
 
@@ -113,6 +132,52 @@ export default class App extends BaseEntity {
 
     @Column({ nullable: true })
     uploads: string;
+
+    // theme
+    @Column({ nullable: true })
+    coverBackColor: string;
+    @Column({ nullable: true })
+    coverTextColor: string;
+    @Column({ nullable: true })
+    primaryBtnBackColor: string;
+    @Column({ nullable: true })
+    primaryBtnTextColor: string;
+    @Column({ nullable: true })
+    secondaryBtnBackColor: string;
+    @Column({ nullable: true })
+    secondaryBtnTextColor: string;
+
+    // labels
+    @Column({ nullable: true })
+    labelName: string;
+    @Column({ nullable: true })
+    labelShort: string;
+    @Column({ nullable: true })
+    labelEmail: string;
+    @Column({ nullable: true })
+    labelAbout: string;
+    @Column({ nullable: true })
+    labelShipping: string;
+    @Column({ nullable: true })
+    labelSloganLine1: string;
+    @Column({ nullable: true })
+    labelSloganLine2: string;
+    @Column({ nullable: true })
+    labelWelcome: string;
+    @Column({ nullable: true })
+    labelLocal: string;
+    @Column({ nullable: true })
+    labelTollFree: string;
+    @Column({ nullable: true })
+    labelAddressLine1: string;
+    @Column({ nullable: true })
+    labelAddressLine2: string;
+    @Column({ nullable: true })
+    labelPrimaryOffering: string;
+
+    // share
+    @Column({ type: 'json', nullable: true })
+    share: string;
 
     // email
     @Column({ nullable: true })
