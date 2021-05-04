@@ -6,12 +6,12 @@
     "build": "tsc --build tsconfig.json"
   },
   "engines": {
-    "node": "14.x"
+    "node": "15.x"
   },
   "dependencies": {
     "@types/node": "^14.14.20",
     "amqplib": "^0.6.0",
-    "aws-sdk": "^2.879.0",
+    "aws-sdk": "^2.900.0",
     "axios": "^0.21.1",
     "class-validator": "^0.13.1",
     "crypto-js": "^4.0.0",
