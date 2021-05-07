@@ -43,8 +43,19 @@ export default class Page extends BaseEntity {
   @Column()
   slug: string;
 
+  // payload
   @Column({ nullable: true })
   content: string;
+
+  // layout
+  @Column({ nullable: true })
+  wireframe: string; // id to svelte component located in ./components/Wireframes/<slug>
+
+  @OneToMany(() => Block, block => block.page)
+  blocks: Block[];
+
+  @Column({ type: 'json', nullable: true })
+  slots: string;
 
   // record keeping
   @Column()

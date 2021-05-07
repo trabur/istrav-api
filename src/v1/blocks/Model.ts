@@ -53,8 +53,12 @@ export default class Block extends BaseEntity {
   raw: string;
 
   // type: logo, header1, header2, header3, content, subscribe, footer1, footer2, etc...
-  @Column()
+  @Column({ nullable: true })
   type: string;
+
+  // layout
+  @Column({ nullable: true })
+  component: string; // id to svelte component located in ./components/Blocks/<slug>
 
   // relations
   @Column({ type: "uuid", nullable: true })

@@ -7,7 +7,8 @@ export default function (pageRepo: any, config: any) {
 
     // perform
     const object = await pageRepo.findOne({
-      select: ["id", "name", "slug", "content"],
+      relations: ["blocks"],
+      select: ["id", "name", "slug", "content", "wireframe", "slots"],
       where: {
         appId: es.arguements.appId,
         slug: es.arguements.slug
