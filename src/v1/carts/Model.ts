@@ -24,10 +24,11 @@ import Product from '../products/Model'
 @Entity()
 @Unique(["app", "user"])
 export default class Cart extends BaseEntity {
-    
+  // uniquq
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  // multi-tenant SaaS
   @Column({ type: "uuid", nullable: false })
   appId: string;
 
@@ -35,6 +36,7 @@ export default class Cart extends BaseEntity {
   @JoinColumn({ name: "appId" })
   app: App;
 
+  // identification
   @Column({ type: "uuid", nullable: true })
   userId: string;
 
@@ -42,12 +44,15 @@ export default class Cart extends BaseEntity {
   @JoinColumn({ name: "userId" })
   user: User;
 
+  // relations
   @ManyToMany(() => Product, product => product.carts)
   products: Product[];
 
+  // extra
   @Column({ type: "json", nullable: true })
   raw: string;
   
+  // record keeping
   @Column()
   @CreateDateColumn()
   createdAt: Date;

@@ -18,7 +18,7 @@ import App from '../apps/Model'
 @Entity()
 @Unique(["firstName", "lastName"])
 export default class Member extends BaseEntity {
-    
+  // unique
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
@@ -44,6 +44,7 @@ export default class Member extends BaseEntity {
   @OneToMany(() => App, app => app.owner)
   apps: App[];
 
+  // record keeping
   @Column()
   @CreateDateColumn()
   createdAt: Date;

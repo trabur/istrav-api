@@ -19,20 +19,26 @@ import App from '../apps/Model'
 import Product from '../products/Model'
 import Collection from '../collections/Model'
 import Playlist from '../playlists/Model'
+import Block from '../blocks/Model'
 
 @Entity()
 @Unique(["app", "slug"])
 export default class Plan extends BaseEntity {
-    
+  // unique
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  // multi-tenant SaaS
   @Column({ type: "uuid", nullable: false })
   appId: string;
 
   @ManyToOne(() => App, app => app.plans)
   @JoinColumn({ name: "appId" })
   app: App;
+
+  // front-page landing
+  @OneToMany(() => Block, block => block.plan)
+  pageBlocks: Block[];
 
   // direct user to purchase plan by product in the storefront
   @Column({ type: "uuid", nullable: true })
@@ -42,9 +48,11 @@ export default class Plan extends BaseEntity {
   @JoinColumn({ name: "purchaseId" })
   purchase: Product;
   
+  // display
   @Column({ nullable: false, default: 'FREE!' })
   name: string;
 
+  // identification
   @Column({ nullable: false, default: 'free' })
   slug: string;
 
@@ -104,11 +112,11 @@ export default class Plan extends BaseEntity {
   @Column({ default: true })
   grantHostingAccess: boolean
 
-  // customize
+  // extra
   @Column({ type: "json", nullable: true })
   raw: string;
 
-  // details
+  // record keeping
   @Column()
   @CreateDateColumn()
   createdAt: Date;

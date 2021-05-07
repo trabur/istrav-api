@@ -19,10 +19,11 @@ import Plan from '../plans/Model'
 @Entity()
 @Unique(["key"])
 export default class License extends BaseEntity {
-    
+  // unique
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  // multi-tenant SaaS
   @Column({ type: "uuid", nullable: false })
   appId: string;
 
@@ -49,11 +50,11 @@ export default class License extends BaseEntity {
   @JoinColumn({ name: "planId" })
   plan: Plan;
 
-  // customize
+  // extra
   @Column({ type: "json", nullable: true })
   raw: string;
   
-  // details
+  // record keeping
   @Column()
   @CreateDateColumn()
   createdAt: Date;

@@ -23,10 +23,11 @@ import Product from '../products/Model'
 @Entity()
 @Unique(["app", "user", "placedAt"])
 export default class Order extends BaseEntity {
-    
+  // unique
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  // multi-tenant SaaS
   @Column({ type: "uuid", nullable: false })
   appId: string;
 
@@ -44,6 +45,7 @@ export default class Order extends BaseEntity {
   @ManyToMany(() => Product, product => product.orders)
   products: Product[];
 
+  // extra
   @Column({ type: "json", nullable: true })
   raw: string;
   
@@ -51,6 +53,7 @@ export default class Order extends BaseEntity {
   @CreateDateColumn()
   placedAt: Date;
 
+  // record keeping
   @Column()
   @CreateDateColumn()
   createdAt: Date;

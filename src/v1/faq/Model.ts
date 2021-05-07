@@ -1,7 +1,6 @@
 import {
   BaseEntity,
   Entity,
-  PrimaryColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
@@ -10,18 +9,21 @@ import {
   VersionColumn,
   ManyToOne,
   Unique,
-  JoinColumn
+  JoinColumn,
+  OneToMany
 } from "typeorm"
 
 import App from '../apps/Model'
+import Block from '../blocks/Model'
 
 @Entity()
 @Unique(["app", "slug"])
 export default class FAQ extends BaseEntity {
-    
+  // unique
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  // multi-tenant SaaS
   @Column({ type: "uuid", nullable: false })
   appId: string;
 
@@ -29,15 +31,22 @@ export default class FAQ extends BaseEntity {
   @JoinColumn({ name: "appId" })
   app: App;
 
+  // front-page landing
+  @OneToMany(() => Block, block => block.faq)
+  pageBlocks: Block[];
+
+  // display
   @Column()
   name: string; // question
 
+  // identification
   @Column()
   slug: string;
 
   @Column({ nullable: true })
   content: string; // answer
 
+  // record keeping
   @Column()
   @CreateDateColumn()
   createdAt: Date;

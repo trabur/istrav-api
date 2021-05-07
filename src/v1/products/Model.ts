@@ -1,7 +1,6 @@
 import {
   BaseEntity,
   Entity,
-  PrimaryColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
@@ -13,9 +12,9 @@ import {
   JoinColumn,
   ManyToMany,
   JoinTable,
-  OneToOne
+  OneToOne,
+  OneToMany
 } from "typeorm"
-import { Length, IsNotEmpty } from "class-validator"
 
 import App from '../apps/Model'
 import Category from '../categories/Model'
@@ -23,6 +22,7 @@ import Collection from '../collections/Model'
 import Cart from '../carts/Model'
 import Order from '../orders/Model'
 import Plan from '../plans/Model'
+import Block from '../blocks/Model'
 
 export enum AfterPurchase {
   SUBSCRIPTION_PLAN = "SUBSCRIPTION_PLAN",
@@ -33,10 +33,11 @@ export enum AfterPurchase {
 @Entity()
 @Unique(["app", "slug"])
 export default class Product extends BaseEntity {
-    
+  // unique
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  // multi-tenant SaaS
   @Column({ type: "uuid", nullable: false })
   appId: string;
 
@@ -44,9 +45,15 @@ export default class Product extends BaseEntity {
   @JoinColumn({ name: "appId" })
   app: App;
 
+  // front-page landing
+  @OneToMany(() => Block, block => block.product)
+  pageBlocks: Block[];
+
+  // display
   @Column()
   name: string;
 
+  // identification
   @Column()
   slug: string;
 
@@ -118,6 +125,7 @@ export default class Product extends BaseEntity {
   @Column({ type: 'json', nullable: true })
   gallery: string;
 
+  // record keeping
   @Column()
   @CreateDateColumn()
   createdAt: Date;

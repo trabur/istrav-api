@@ -7,13 +7,13 @@ import { createConnection } from "typeorm"
 // import backup from "./backup/server"
 // import logging from "./logging/server"
 import users from "./users/server"
-import vehicles from "./vehicles/server"
 import apps from "./apps/server"
 import members from "./members/server"
 import products from "./products/server"
 import categories from "./categories/server"
 import collections from "./collections/server"
 import menus from "./menus/server"
+import blocks from "./blocks/server"
 import pages from "./pages/server"
 import faq from "./faq/server"
 import carts from "./carts/server"
@@ -27,13 +27,13 @@ import files from "./files/server"
 
 // entities
 import User from './users/Model'
-import Vehicle from './vehicles/Model'
 import App from './apps/Model'
 import Member from './members/Model'
 import Product from './products/Model'
 import Category from './categories/Model'
 import Collection from './collections/Model'
 import Menu from './menus/Model'
+import Block from './blocks/Model'
 import Page from './pages/Model'
 import FAQ from './faq/Model'
 import Cart from './carts/Model'
@@ -70,9 +70,9 @@ function typeormRepo (app, connection) {
     const memberRepo = connection.getRepository(Member)
     const appRepo = connection.getRepository(App)
     const menuRepo = connection.getRepository(Menu)
+    const blockRepo = connection.getRepository(Block)
     const pageRepo = connection.getRepository(Page)
     const faqRepo = connection.getRepository(FAQ)
-    const vehicleRepo = connection.getRepository(Vehicle)
     const categoryRepo = connection.getRepository(Category)
     const collectionRepo = connection.getRepository(Collection)
     const productRepo = connection.getRepository(Product)
@@ -99,9 +99,9 @@ function typeormRepo (app, connection) {
     //   }).catch(console.warn)
     // logging(app, userRepo)
     users(app, userRepo, appRepo)
-    vehicles(app, vehicleRepo)
     apps(app, appRepo, categoryRepo, collectionRepo, productRepo, menuRepo, pageRepo, userRepo, orderRepo, licenseRepo, planRepo)
     menus(app, menuRepo, appRepo)
+    blocks(app, blockRepo, appRepo)
     pages(app, pageRepo, appRepo)
     faq(app, faqRepo, appRepo)
     members(app, memberRepo)
@@ -129,9 +129,9 @@ export default function (app) {
     url: process.env.POSTGRESQL_URI,
     entities: [
       User,
-      Vehicle,
       App,
       Menu,
+      Block,
       Page,
       FAQ,
       Member,

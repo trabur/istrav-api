@@ -17,11 +17,11 @@ import {
 
 import Member from '../members/Model'
 import User from '../users/Model'
-import Vehicle from '../vehicles/Model'
 import Category from '../categories/Model'
 import Collection from '../collections/Model'
 import Product from '../products/Model'
 import Menu from '../menus/Model'
+import Block from '../blocks/Model'
 import Page from '../pages/Model'
 import FAQ from '../faq/Model'
 import Cart from '../carts/Model'
@@ -38,220 +38,230 @@ import { Length, IsNotEmpty } from "class-validator"
 @Unique(["domain", "state"])
 @Unique(["license"])
 export default class App extends BaseEntity {
-    
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
+  // unique
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-    @Column()
-    @Length(4, 20)
-    @Index({ unique: true })
-    endpoint: string;
+  // identification 1
+  @Column()
+  domain: string;
 
-    @Column({ type: "uuid", nullable: false })
-    ownerId: string;
+  @Column()
+  state: string;
 
-    @ManyToOne(() => Member, member => member.apps)
-    @JoinColumn({ name: "ownerId" })
-    owner: Member;
+  // indentification 2
+  @Column()
+  @Length(4, 20)
+  @Index({ unique: true })
+  endpoint: string;
 
-    @OneToMany(() => User, user => user.app)
-    users: User[];
+  // root
+  @Column({ type: "uuid", nullable: false })
+  ownerId: string;
 
-    @OneToMany(() => Vehicle, vehicle => vehicle.app)
-    vehicles: Vehicle[];
+  @ManyToOne(() => Member, member => member.apps)
+  @JoinColumn({ name: "ownerId" })
+  owner: Member;
 
-    @OneToMany(() => Category, category => category.app)
-    categories: Category[];
+  // multi-tenant SaaS
+  @OneToMany(() => User, user => user.app)
+  users: User[];
 
-    @OneToMany(() => Collection, collection => collection.app)
-    collections: Collection[];
+  @OneToMany(() => Category, category => category.app)
+  categories: Category[];
 
-    @OneToMany(() => Product, product => product.app)
-    products: Product[];
+  @OneToMany(() => Collection, collection => collection.app)
+  collections: Collection[];
 
-    @OneToMany(() => License, license => license.app)
-    licenses: License[];
+  @OneToMany(() => Product, product => product.app)
+  products: Product[];
 
-    @OneToMany(() => Plan, plan => plan.app)
-    plans: Plan[];
+  @OneToMany(() => License, license => license.app)
+  licenses: License[];
 
-    @OneToMany(() => Menu, menu => menu.app)
-    menus: Menu[];
+  @OneToMany(() => Plan, plan => plan.app)
+  plans: Plan[];
 
-    @OneToMany(() => Page, page => page.app)
-    pages: Page[];
+  @OneToMany(() => Menu, menu => menu.app)
+  menus: Menu[];
 
-    @OneToMany(() => FAQ, faq => faq.app)
-    faq: FAQ[];
+  @OneToMany(() => Block, block => block.app)
+  blocks: Block[];
 
-    @OneToMany(() => Cart, cart => cart.app)
-    carts: Cart[];
+  @OneToMany(() => Page, page => page.app)
+  pages: Page[];
 
-    @OneToMany(() => Order, order => order.app)
-    orders: Order[];
+  @OneToMany(() => FAQ, faq => faq.app)
+  faq: FAQ[];
 
-    @OneToMany(() => Video, video => video.app)
-    videos: Video[];
+  @OneToMany(() => Cart, cart => cart.app)
+  carts: Cart[];
 
-    @OneToMany(() => Guide, guide => guide.app)
-    guides: Guide[];
+  @OneToMany(() => Order, order => order.app)
+  orders: Order[];
 
-    @OneToMany(() => Playlist, playlist => playlist.app)
-    playlists: Playlist[];
+  @OneToMany(() => Video, video => video.app)
+  videos: Video[];
 
-    // primary page
-    @Column({ type: "uuid", nullable: true })
-    marketingId: string;
-    @OneToOne(() => Page)
-    @JoinColumn({ name: "marketingId" })
-    marketing: Page;
-    // primary collection
-    @Column({ type: "uuid", nullable: true })
-    shopId: string;
-    @OneToOne(() => Collection)
-    @JoinColumn({ name: "shopId" })
-    shop: Collection;
-    // primary playlist
-    @Column({ type: "uuid", nullable: true })
-    channelId: string;
-    @OneToOne(() => Playlist)
-    @JoinColumn({ name: "channelId" })
-    channel: Playlist;
+  @OneToMany(() => Guide, guide => guide.app)
+  guides: Guide[];
 
-    @Column({ type: "json", nullable: true })
-    raw: string;
+  @OneToMany(() => Playlist, playlist => playlist.app)
+  playlists: Playlist[];
 
-    @Column({ type: "json", nullable: true })
-    brands: string;
+  // front-page landing
+  @OneToMany(() => Block, block => block.application)
+  pageBlocks: Block[];
 
-    @Column()
-    domain: string;
+  // primary page
+  @Column({ type: "uuid", nullable: true })
+  marketingId: string;
+  @OneToOne(() => Page)
+  @JoinColumn({ name: "marketingId" })
+  marketing: Page;
+  // primary collection
+  @Column({ type: "uuid", nullable: true })
+  shopId: string;
+  @OneToOne(() => Collection)
+  @JoinColumn({ name: "shopId" })
+  shop: Collection;
+  // primary playlist
+  @Column({ type: "uuid", nullable: true })
+  channelId: string;
+  @OneToOne(() => Playlist)
+  @JoinColumn({ name: "channelId" })
+  channel: Playlist;
 
-    @Column()
-    state: string;
+  // extra
+  @Column({ type: "json", nullable: true })
+  raw: string;
 
-    @Column({ nullable: true })
-    uploads: string;
+  @Column({ type: "json", nullable: true })
+  brands: string;
 
-    // custom branding
-    @Column({ nullable: true })
-    logo: string;
+  // cdn
+  @Column({ nullable: true })
+  uploads: string;
 
-    // theme
-    @Column({ nullable: true })
-    coverBackColor: string;
-    @Column({ nullable: true })
-    coverTextColor: string;
-    @Column({ nullable: true })
-    primaryBtnBackColor: string;
-    @Column({ nullable: true })
-    primaryBtnTextColor: string;
-    @Column({ nullable: true })
-    secondaryBtnBackColor: string;
-    @Column({ nullable: true })
-    secondaryBtnTextColor: string;
+  // white label
+  @Column({ nullable: true })
+  logo: string;
 
-    // labels
-    @Column({ nullable: true })
-    labelName: string;
-    @Column({ nullable: true })
-    labelShort: string;
-    @Column({ nullable: true })
-    labelEmail: string;
-    @Column({ nullable: true })
-    labelAbout: string;
-    @Column({ nullable: true })
-    labelShipping: string;
-    @Column({ nullable: true })
-    labelSloganLine1: string;
-    @Column({ nullable: true })
-    labelSloganLine2: string;
-    @Column({ nullable: true })
-    labelWelcome: string;
-    @Column({ nullable: true })
-    labelLocal: string;
-    @Column({ nullable: true })
-    labelTollFree: string;
-    @Column({ nullable: true })
-    labelAddressLine1: string;
-    @Column({ nullable: true })
-    labelAddressLine2: string;
-    @Column({ nullable: true })
-    labelPrimaryOffering: string;
+  // theme
+  @Column({ nullable: true })
+  coverBackColor: string;
+  @Column({ nullable: true })
+  coverTextColor: string;
+  @Column({ nullable: true })
+  primaryBtnBackColor: string;
+  @Column({ nullable: true })
+  primaryBtnTextColor: string;
+  @Column({ nullable: true })
+  secondaryBtnBackColor: string;
+  @Column({ nullable: true })
+  secondaryBtnTextColor: string;
 
-    // share
-    @Column({ type: 'json', nullable: true })
-    share: string;
+  // labels
+  @Column({ nullable: true })
+  labelName: string;
+  @Column({ nullable: true })
+  labelShort: string;
+  @Column({ nullable: true })
+  labelEmail: string;
+  @Column({ nullable: true })
+  labelAbout: string;
+  @Column({ nullable: true })
+  labelShipping: string;
+  @Column({ nullable: true })
+  labelSloganLine1: string;
+  @Column({ nullable: true })
+  labelSloganLine2: string;
+  @Column({ nullable: true })
+  labelWelcome: string;
+  @Column({ nullable: true })
+  labelLocal: string;
+  @Column({ nullable: true })
+  labelTollFree: string;
+  @Column({ nullable: true })
+  labelAddressLine1: string;
+  @Column({ nullable: true })
+  labelAddressLine2: string;
+  @Column({ nullable: true })
+  labelPrimaryOffering: string;
 
-    // email
-    @Column({ nullable: true })
-    mailgunPrivateApiKey: string;
+  // share
+  @Column({ type: 'json', nullable: true })
+  share: string;
 
-    // comments
-    @Column({ nullable: true })
-    utterancRepoId: string;
-    @Column({ nullable: true })
-    disqusId: string;
+  // email
+  @Column({ nullable: true })
+  mailgunPrivateApiKey: string;
 
-    // chat
-    @Column({ nullable: true })
-    tawkToPropertyId: string;
-    @Column({ nullable: true })
-    tawkToChatId: string;
+  // comments
+  @Column({ nullable: true })
+  utterancRepoId: string;
+  @Column({ nullable: true })
+  disqusId: string;
 
-    // analytics
-    @Column({ nullable: true })
-    googleAnalyticsMeasurementId: string;
+  // chat
+  @Column({ nullable: true })
+  tawkToPropertyId: string;
+  @Column({ nullable: true })
+  tawkToChatId: string;
 
-    // intro
-    @Column({ nullable: true })
-    image: string;
-    @Column({ nullable: true })
-    line1: string;
-    @Column({ nullable: true })
-    line2: string;
-    @Column({ nullable: true })
-    buttonName: string;
-    @Column({ nullable: true })
-    buttonUrl: string;
+  // analytics
+  @Column({ nullable: true })
+  googleAnalyticsMeasurementId: string;
 
-    // strip
-    @Column({ default: false })
-    isStripeTestData: boolean
-    @Column({ nullable: true })
-    stripePublishableKeyTest: string;
-    @Column({ nullable: true })
-    stripeSecretKeyTest: string;
-    @Column({ nullable: true })
-    stripePublishableKeyLive: string;
-    @Column({ nullable: true })
-    stripeSecretKeyLive: string;
+  // intro
+  @Column({ nullable: true })
+  image: string;
+  @Column({ nullable: true })
+  line1: string;
+  @Column({ nullable: true })
+  line2: string;
+  @Column({ nullable: true })
+  buttonName: string;
+  @Column({ nullable: true })
+  buttonUrl: string;
 
-    // istrav
-    @Column({ type: "uuid", nullable: true })
-    licenseId: string;
-    @OneToOne(() => License)
-    @JoinColumn({ name: "licenseId" })
-    license: License;
+  // strip
+  @Column({ default: false })
+  isStripeTestData: boolean
+  @Column({ nullable: true })
+  stripePublishableKeyTest: string;
+  @Column({ nullable: true })
+  stripeSecretKeyTest: string;
+  @Column({ nullable: true })
+  stripePublishableKeyLive: string;
+  @Column({ nullable: true })
+  stripeSecretKeyLive: string;
 
-    // value to get copy/pasted around
-    @Column({ nullable: true })
-    licenseKey: string;
+  // istrav
+  @Column({ type: "uuid", nullable: true })
+  licenseId: string;
+  @OneToOne(() => License)
+  @JoinColumn({ name: "licenseId" })
+  license: License;
 
-    @Column()
-    @CreateDateColumn()
-    createdAt: Date;
+  // value to get copy/pasted around
+  @Column({ nullable: true })
+  licenseKey: string;
 
-    @Column()
-    @UpdateDateColumn()
-    updatedAt: Date;
+  // record keeping
+  @Column()
+  @CreateDateColumn()
+  createdAt: Date;
 
-    @Column()
-    @DeleteDateColumn()
-    deletedAt: Date;
+  @Column()
+  @UpdateDateColumn()
+  updatedAt: Date;
 
-    @Column()
-    @VersionColumn()
-    version: number;
+  @Column()
+  @DeleteDateColumn()
+  deletedAt: Date;
 
+  @Column()
+  @VersionColumn()
+  version: number;
 }

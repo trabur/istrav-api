@@ -1,7 +1,6 @@
 import {
   BaseEntity,
   Entity,
-  PrimaryColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
@@ -10,21 +9,21 @@ import {
   VersionColumn,
   ManyToOne,
   Unique,
-  JoinColumn
+  JoinColumn,
+  OneToMany
 } from "typeorm"
-import { Length, IsNotEmpty } from "class-validator"
 
 import App from '../apps/Model'
-import Category from '../categories/Model'
-import Collection from '../collections/Model'
+import Block from '../blocks/Model'
 
 @Entity()
 @Unique(["app", "slug"])
 export default class Menu extends BaseEntity {
-    
+  // unique
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  // multi-tenant SaaS
   @Column({ type: "uuid", nullable: false })
   appId: string;
 
@@ -32,15 +31,23 @@ export default class Menu extends BaseEntity {
   @JoinColumn({ name: "appId" })
   app: App;
 
+  // front-page landing
+  @OneToMany(() => Block, block => block.menu)
+  pageBlocks: Block[];
+
+  // display
   @Column()
   name: string;
 
+  // identification
   @Column()
   slug: string;
 
+  // extra
   @Column({ type: "json", nullable: true })
   raw: string;
 
+  // record keeping
   @Column()
   @CreateDateColumn()
   createdAt: Date;

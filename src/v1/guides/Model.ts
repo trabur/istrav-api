@@ -1,7 +1,6 @@
 import {
   BaseEntity,
   Entity,
-  PrimaryColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
@@ -12,21 +11,23 @@ import {
   Unique,
   JoinColumn,
   ManyToMany,
-  JoinTable
+  JoinTable,
+  OneToMany
 } from "typeorm"
-import { Length, IsNotEmpty } from "class-validator"
 
 import App from '../apps/Model'
 import Video from '../videos/Model'
 import Playlist from '../playlists/Model'
+import Block from '../blocks/Model'
 
 @Entity()
 @Unique(["app", "slug"])
 export default class Guide extends BaseEntity {
-    
+  // unique
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  // multi-tenant SaaS
   @Column({ type: "uuid", nullable: false })
   appId: string;
 
@@ -34,9 +35,15 @@ export default class Guide extends BaseEntity {
   @JoinColumn({ name: "appId" })
   app: App;
 
+  // front-page landing
+  @OneToMany(() => Block, block => block.guide)
+  pageBlocks: Block[];
+
+  // display
   @Column()
   name: string;
 
+  // identification
   @Column()
   slug: string;
   
@@ -50,6 +57,7 @@ export default class Guide extends BaseEntity {
   @JoinTable()
   playlists: Playlist[];
 
+  // record keeping
   @Column()
   @CreateDateColumn()
   createdAt: Date;

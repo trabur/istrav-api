@@ -1,7 +1,6 @@
 import {
   BaseEntity,
   Entity,
-  PrimaryColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
@@ -20,22 +19,28 @@ import App from '../apps/Model'
 import Cart from '../carts/Model'
 import Order from '../orders/Model'
 import Video from '../videos/Model'
+import Block from '../blocks/Model'
 
 @Entity()
 @Unique(["app", "email"])
 @Unique(["app", "username"])
 @Unique(["app", "firstName", "lastName"])
 export default class User extends BaseEntity {
-    
+  // unique
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  // multi-tenant SaaS
   @Column({ type: "uuid", nullable: false })
   appId: string;
 
   @ManyToOne(() => App, app => app.users)
   @JoinColumn({ name: "appId" })
   app: App;
+
+  // front-page landing
+  @OneToMany(() => Block, block => block.user)
+  pageBlocks: Block[];
 
   @Column({ type: "uuid", nullable: true })
   cartId: string;
@@ -70,6 +75,7 @@ export default class User extends BaseEntity {
   @Column()
   lastName: string;
 
+  // record keeping
   @Column()
   @CreateDateColumn()
   createdAt: Date;
