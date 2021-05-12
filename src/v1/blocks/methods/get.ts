@@ -7,7 +7,7 @@ export default function (blockRepo: any, config: any) {
 
     // perform
     const object = await blockRepo.findOne({
-      relations: ["application", "category", "collection", "product", "menu", "video", "guide", "playlist", "plan", "faq", "user", "page"],
+      relations: ["application", "category", "collection", "product", "menu", "video", "guide", "guide.videos", "playlist", "plan", "faq", "user", "page"],
       select: ["id", "name", "slug", "raw", "type", "component", "applicationId", "categoryId", "collectionId", "productId", "menuId", "videoId", "guideId", "playlistId", "planId", "faqId", "userId", "pageId"],
       where: {
         appId: es.arguements.appId,
