@@ -10,7 +10,9 @@ import {
   ManyToOne,
   Unique,
   JoinColumn,
-  OneToMany
+  OneToMany,
+  ManyToMany,
+  JoinTable
 } from "typeorm"
 
 import App from '../apps/Model'
@@ -51,7 +53,8 @@ export default class Page extends BaseEntity {
   @Column({ nullable: true })
   wireframe: string; // id to svelte component located in ./components/Wireframes/<slug>
 
-  @OneToMany(() => Block, block => block.page)
+  @ManyToMany(() => Block, block => block.pages)
+  @JoinTable()
   blocks: Block[];
 
   @Column({ type: 'json', nullable: true })

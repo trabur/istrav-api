@@ -9,7 +9,8 @@ import {
   VersionColumn,
   ManyToOne,
   Unique,
-  JoinColumn
+  JoinColumn,
+  ManyToMany
 } from "typeorm"
 
 import App from '../apps/Model'
@@ -59,6 +60,9 @@ export default class Block extends BaseEntity {
   // layout
   @Column({ nullable: true })
   component: string; // id to svelte component located in ./components/Blocks/<slug>
+
+  @ManyToMany(() => Page, page => page.blocks)
+  pages: Page[];
 
   // relations
   @Column({ type: "uuid", nullable: true })
