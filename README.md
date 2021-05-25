@@ -3,7 +3,7 @@ OBJECT RELATIONAL MAPPING
 
 ```bash
 # development
-export PORT=1337; npm start
+$ export PORT=1337; npm start
 ```
 
 ```bash
